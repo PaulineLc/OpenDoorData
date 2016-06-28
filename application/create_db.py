@@ -49,4 +49,4 @@ class survey(BaseModel):
     
 db.create_tables([room, wifi_log,module,timetable,survey], safe=True)
 
-print("The Database should now be available")
+print("The Database should now be available.")
