@@ -81,5 +81,3 @@ for i in range((third*2),len(mylist)):
 f2.close()
 f3.close()
 f4.close()
-
-print("fin")
