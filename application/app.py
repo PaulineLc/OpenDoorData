@@ -1,24 +1,28 @@
 from flask import Flask
 from flask import render_template
-from flask_mysqldb import MySQL
-
+import create_db
+import os, sys
 
 app = Flask(__name__)
-mysql = MySQL(app)
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
-app.config['MYSQL_DB'] = 'finaltest'
-#mysql.init_app(app)
+#mysql = MySQL(app)
+#app.config['MYSQL_HOST'] = 'localhost'
+#app.config['MYSQL_USER'] = 'root'
+#app.config['MYSQL_PASSWORD'] = 'summer'
 
-
+@app.route('/test')
+def redner_test():
+	return render_template("test.html")
 @app.route('/')
 def render():
-	cur = mysql.connection.cursor()
-	cur.execute('''SELECT * FROM candidates''')
-	rv = cur.fetchall()
-	cur.close()
-	return str(rv)
+	#run intial code to create database and tables
+	os.system("create_db.py")
+	#create a database cursor
+	#cur = mysql.connection.cursor()
+	#cur.close()
+	return render_template("index.html")
+
+def test():
+	return("yo")
 
 if __name__ == '__main__':
     app.run(debug = True)
