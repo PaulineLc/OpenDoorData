@@ -118,11 +118,11 @@ def main():
     for i in range (1, len(mylist)):
          
         roomid = mylist[i][1]
-        time = int(mylist[i][2])
+        time1 = int(mylist[i][2])
         modulecode = mylist[i][3] if len(mylist[i][3]) > 1 else "open"
         timetable.create(room_id = roomid,
                          mod_code = modulecode,
-                         event_time = time
+                         event_time = time1
                          )
                         
     f.close()
