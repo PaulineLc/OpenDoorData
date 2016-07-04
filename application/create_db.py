@@ -90,8 +90,7 @@ def main():
                 building = "school of computer science",
                 room_cap = 220
                 )
-    
-    
+ 
     
     file = r"cleaned_data\timetable.csv"
     
