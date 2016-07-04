@@ -1,7 +1,7 @@
 import peewee
 import pymysql
 import csv
-import time
+import time as tm
 from dateutil.parser import parse
 
 # The below code is useful for debugging. It shows all sql queries being run. 
@@ -66,7 +66,7 @@ def main():
     
     def epochtime(x): 
         string = parse(x)
-        epoch = int(time.mktime(string.timetuple()))
+        epoch = int(tm.mktime(string.timetuple()))
         return epoch
     
     def parseName(x):
