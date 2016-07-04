@@ -1,1 +1,1 @@
-#auth.py - The authentication system used to protect access to the admin.
+auth.py - The authentication system used to protect access to the admin.

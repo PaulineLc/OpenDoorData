@@ -25,7 +25,7 @@ setup(
   install_requires= requirements,
   include_package_data=True,
   entry_points = {
-  'console_scripts': [
+  'console_scripts': ["",
   ]
   },
 
