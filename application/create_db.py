@@ -92,7 +92,7 @@ def main():
                 )
  
     
-    file = r"cleaned_data\timetable.csv"
+    file = r"cleaned_data/timetable.csv"
     
     with open(file, 'r') as f:
         mycsv= csv.reader(f)
@@ -126,7 +126,7 @@ def main():
                         
     f.close()
      
-    file = r"cleaned_data\full.csv"
+    file = r"cleaned_data/full.csv"
      
     with open(file, 'r') as f:
         mycsv= csv.reader(f)
@@ -142,7 +142,7 @@ def main():
       
     f.close()
      
-    file = r"cleaned_data\survey_data.csv"
+    file = r"cleaned_data/survey_data.csv"
      
     with open(file, 'r') as f:
         mycsv= csv.reader(f)
