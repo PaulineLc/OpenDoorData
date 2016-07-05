@@ -1,5 +1,7 @@
 #models.py - Database models for use with your ORM, business logic, etc.
 import peewee
+import datetime
+from flask_peewee.auth import BaseUser
 
 db = peewee.MySQLDatabase('wifi_db', host="localhost", user='root',passwd='summer')
 
@@ -48,6 +50,13 @@ class survey(BaseModel):
     class Meta:
         primary_key = peewee.CompositeKey('room_id', 'event_time')
         
-x = room.get(room.room_id == 4).room_cap
 
-print(x)
+class User(BaseModel, BaseUser):
+    username = peewee.CharField(primary_key=True)
+    password = peewee.CharField()
+    email = peewee.CharField()
+    join_date = peewee.DateTimeField(default=datetime.datetime.now)
+    active = peewee.BooleanField(default=True)
+    admin = peewee.BooleanField(default=False)
+
+db.close()
