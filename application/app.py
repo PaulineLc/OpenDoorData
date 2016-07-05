@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
-import create_db
+from src import queries
+
 import os, sys
 
 app = Flask(__name__)
@@ -9,20 +10,19 @@ app = Flask(__name__)
 #app.config['MYSQL_USER'] = 'root'
 #app.config['MYSQL_PASSWORD'] = 'summer'
 
-@app.route('/test')
-def redner_test():
-	return render_template("test.html")
+@app.route('/getjson/<rid>/<day>')
+def redner_test(rid, day):
+	jdata = queries.hourly_average(rid, day)
+	return jdata
+
+	
+
+
 @app.route('/')
 def render():
-	#run intial code to create database and tables
-	os.system("create_db.py")
-	#create a database cursor
-	#cur = mysql.connection.cursor()
 	#cur.close()
+	print("hello")
 	return render_template("index.html")
-
-def test():
-	return("yo")
 
 if __name__ == '__main__':
     app.run(debug = True)
