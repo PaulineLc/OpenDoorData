@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from src import queries
 
+
 import os, sys
 
 app = Flask(__name__)
