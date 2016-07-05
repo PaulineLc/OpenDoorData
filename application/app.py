@@ -16,13 +16,9 @@ def redner_test(rid, day):
 	jdata = queries.hourly_average(rid, day)
 	return jdata
 
-	
-
-
 @app.route('/')
 def render():
-	#cur.close()
-	print("hello")
+	#cur.close().
 	return render_template("index.html")
 
 if __name__ == '__main__':
