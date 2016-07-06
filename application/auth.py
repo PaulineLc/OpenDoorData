@@ -5,4 +5,5 @@ from flask_peewee.auth import Auth  # Login/logout views, etc.
 from app import app
 from models import User, db
 
-auth = Auth(app, db, user_model=User)
+
+auth = Auth(app, db, user_model = User)

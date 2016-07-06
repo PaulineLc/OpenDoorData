@@ -10,7 +10,7 @@ from models import *
 
 admin.setup()
 api.setup()
-
+app.secret_key = "what"
 
 if __name__ == '__main__':
     app.run(debug = True)

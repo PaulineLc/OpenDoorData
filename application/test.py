@@ -1,5 +1,6 @@
-import pip
+from models import *
 
+user = User.get(User.username == "donovan")
 
-for i in pip.get_installed_distributions(local_only=True):
-    print(i)
+print(user)
+print(user.password)

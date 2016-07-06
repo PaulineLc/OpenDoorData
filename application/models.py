@@ -25,8 +25,6 @@ class wifi_log(BaseModel):
     auth_devices = peewee.IntegerField()
     building = peewee.CharField(255)
     
-    class Meta:
-        primary_key = peewee.CompositeKey('room_id', 'event_time')
     
 class module(BaseModel):
     mod_code = peewee.CharField(50, primary_key=True)
@@ -52,11 +50,25 @@ class survey(BaseModel):
         
 
 class User(BaseModel, BaseUser):
-    username = peewee.CharField(primary_key=True)
+    username = peewee.CharField(unique=True)
     password = peewee.CharField()
     email = peewee.CharField()
     join_date = peewee.DateTimeField(default=datetime.datetime.now)
     active = peewee.BooleanField(default=True)
     admin = peewee.BooleanField(default=False)
+
+
+db.create_tables([User], safe=True)
+
+if __name__ == "__main__":
+    
+    User.create(username = "don",
+                 password = "summer",
+                 email = "donovanjblaine@gmail.com",
+                 admin = True
+                 )
+    user = User.get(User.username == "don")
+    user.set_password ("summer")
+    user.save()
 
 db.close()
