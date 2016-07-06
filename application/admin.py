@@ -5,7 +5,7 @@ from app import app
 from auth import auth
 from models import User, wifi_log,room,timetable,survey,module
 
-
+#importing admin models
 admin = Admin(app, auth)
 auth.register_admin(admin)
 admin.register(User, ModelAdmin)

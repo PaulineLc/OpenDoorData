@@ -61,7 +61,7 @@ class User(BaseModel, BaseUser):
 db.create_tables([User], safe=True)
 
 if __name__ == "__main__":
-    
+#test adding base user 
     User.create(username = "don",
                  password = "summer",
                  email = "donovanjblaine@gmail.com",

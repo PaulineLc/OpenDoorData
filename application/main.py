@@ -10,6 +10,7 @@ from models import *
 
 admin.setup()
 api.setup()
+#setting secret key for sessions
 app.secret_key = "what"
 
 if __name__ == '__main__':
