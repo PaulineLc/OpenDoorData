@@ -4,8 +4,8 @@ function checkInput(){
 
 	xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        var d = JSON.parse(xmlhttp.responseText);
-        console.log(d[0]);
+        var data = JSON.parse(xmlhttp.responseText);
+        console.log(data);
     }
 };
 xmlhttp.open("GET", url, true);
