@@ -7,7 +7,7 @@ from models import User, wifi_log,room,timetable,survey,module
 
 
 class RoomAdmin(ModelAdmin):
-    columns = ('room_num', 'room_cap', 'building',)
+    columns = ('id_field','room_num', 'room_cap', 'building',)
 
     
 class ModuleAdmin(ModelAdmin):
@@ -15,15 +15,15 @@ class ModuleAdmin(ModelAdmin):
 
     
 class WifiAdmin(ModelAdmin):
-    columns = ('room_id', 'event_time', 'assoc_devices','auth_devices','building')
-    foreign_key_lookups = {'room_id': 'room_num'}
-    filter_fields = ('room_id', 'event_time', 'assoc_devices','auth_devices', 'building')
+    columns = ('room_id', 'event_time', 'assoc_devices','auth_devices',)
+    foreign_key_lookups = {'room_id': 'id_field'}
+    filter_fields = ('room_id', 'event_time', 'assoc_devices','auth_devices',)
 
    
 class TimetableAdmin(ModelAdmin):
-    columns = ('room_id', 'mod_code', 'event_time','reg_stu','building')
+    columns = ('room_id', 'mod_code', 'event_time','reg_stu')
     foreign_key_lookups = {'mod_code': 'module_code'}
-    filter_fields = ('room_id', 'event_time','mod_code',"reg_stu","building")
+    filter_fields = ('room_id', 'event_time','mod_code',"reg_stu")
 
     
 class UserAdmin(ModelAdmin):
@@ -32,9 +32,9 @@ class UserAdmin(ModelAdmin):
 
 
 class SurveyAdmin(ModelAdmin):
-    columns = ('room_id', 'event_time', 'occupancy','building')
-    foreign_key_lookups = {'room_id':'room_num'}
-    filter_fields = ('room_id', 'event_time', 'occupancy', 'building')
+    columns = ('room_id', 'event_time', 'occupancy',)
+    foreign_key_lookups = {'room_id':'id_field'}
+    filter_fields = ('room_id', 'event_time', 'occupancy')
 
 
 

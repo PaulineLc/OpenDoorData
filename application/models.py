@@ -33,9 +33,9 @@ class room(BaseModel):
                    )
             
     def __unicode__(self):
-        return self.room_num
+        return self.id_field
     def __str__(self):
-        return str(self.room_num)
+        return str(self.id_field)
     
 class wifi_log(BaseModel):
     id_field = peewee.PrimaryKeyField()
@@ -64,8 +64,8 @@ class User(BaseModel, BaseUser):
         return str(self.username)
                
 class module(BaseModel):
-    module_code = peewee.CharField(50, primary_key=True)
-    instructor = peewee.ForeignKeyField(User,default='admin', to_field='username', db_column = 'instructor', on_delete='SET DEFAULT')
+    module_code = peewee.CharField(primary_key=True)
+    instructor = peewee.ForeignKeyField(User, to_field='username', db_column = 'instructor', null=True, on_delete='SET NULL')
     
     def __unicode__(self):
         return self.module_code
@@ -77,7 +77,7 @@ class module(BaseModel):
 class timetable(BaseModel):
     id_field = peewee.PrimaryKeyField()
     room_id = peewee.ForeignKeyField(room,to_field='id_field', db_column='room_id', on_delete='CASCADE')
-    mod_code = peewee.ForeignKeyField(module, default='open', to_field='module_code', db_column='mod_code', on_delete='SET DEFAULT')
+    mod_code = peewee.ForeignKeyField(module, to_field='module_code', db_column='mod_code',null=True, on_delete='SET NULL')
     event_time = peewee.IntegerField()
     reg_stu = peewee.IntegerField()
     
@@ -87,8 +87,17 @@ class survey(BaseModel):
     room_id = peewee.ForeignKeyField(room,to_field='id_field', db_column='room_id', on_delete='CASCADE')
     event_time = peewee.IntegerField()
     occupancy = peewee.DecimalField(constraints=[peewee.Check('occupancy <= 1 AND occupancy >=0')])
-    building = peewee.CharField()
+
     
+    class Meta:
+        indexes = ((('room_id','event_time'), True),)
+        
+class wifiStudents(BaseModel):
+    id_field = peewee.PrimaryKeyField()
+    room_id = peewee.ForeignKeyField(room,to_field='id_field', db_column='room_id', on_delete='CASCADE')
+    event_time = peewee.IntegerField()
+    occupancy = peewee.DecimalField(constraints=[peewee.Check('occupancy <= 1 AND occupancy >=0')])
+
     class Meta:
         indexes = ((('room_id','event_time'), True),)
         

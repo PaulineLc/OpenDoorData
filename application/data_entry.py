@@ -6,6 +6,7 @@ import models
 
 #useful for viewing the specific sql queries to debug
 import logging
+from models import room
 logger = logging.getLogger('peewee')
 logger.setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler())
@@ -27,7 +28,13 @@ def main():
         return (building,room)
     
     models.db.connect()
-    models.db.create_tables([models.User,models.room,models.wifi_log,models.module,models.timetable,models.survey], safe=True)
+    models.db.create_tables([models.User,
+                             models.room,
+                             models.wifi_log,
+                             models.module,
+                             models.timetable,
+                             models.survey,
+                             models.wifiStudents], safe=True)
     
     models.room.create(room_num = 2,
                 building = "school of computer science",
@@ -59,7 +66,7 @@ def main():
     modlist = []
     for i in range (1, len(mylist)):
         
-        modulecode = mylist[i][3] if len(mylist[i][3]) > 1 else "open"
+        modulecode = mylist[i][3]
         
         if modulecode in modlist:
             continue
@@ -69,18 +76,18 @@ def main():
                                  )
                        
         modlist.append(modulecode)
-    
     for i in range (1, len(mylist)):
          
         roomid = mylist[i][1]
+        build = mylist[i][5]
+        roomnum = room.get(room.room_num == roomid, room.building == build)
         time1 = int(mylist[i][2])
         reg_stu = mylist[i][4] if mylist[i][4]!= "" else 0
-        modulecode = mylist[i][3] if len(mylist[i][3]) > 1 else "open"
-        models.timetable.create(room_id = roomid,
+        modulecode = mylist[i][3] if len(mylist[i][3])>1 else None
+        models.timetable.create(room_id = roomnum.id_field,
                          mod_code = modulecode,
                          event_time = time1,
-                         reg_stu = int(float(reg_stu)),
-                         building = 'school of computer science'
+                         reg_stu = int(float(reg_stu))
                          )
                         
     f.close()
@@ -92,8 +99,11 @@ def main():
         mylist = list(mycsv)
      
     for i in range(len(mylist)):
-        models.wifi_log.create(room_id = parseName(mylist[i][0])[1],
-                            building = "school of " + parseName(mylist[i][0])[0],
+        roomid = int(parseName(mylist[i][0])[1])
+        build = "school of " + parseName(mylist[i][0])[0]
+        roomnum = room.get(room.room_num == roomid, room.building == build)
+        
+        models.wifi_log.create(room_id = roomnum.id_field,
                             event_time = epochtime(mylist[i][1]), 
                             assoc_devices = mylist[i][2], 
                             auth_devices = mylist[i][3]
@@ -107,9 +117,11 @@ def main():
         mycsv= csv.reader(f)
         mylist = list(mycsv)
      
-    for i in range(1, len(mylist)): 
-        models.survey.create(room_id = mylist[i][1],
-                        building = mylist[i][4],
+    for i in range(1, len(mylist)):
+        roomid = mylist[i][1]
+        build = mylist[i][4]
+        roomnum = room.get(room.room_num == roomid, room.building == build) 
+        models.survey.create(room_id = roomnum.id_field,
                         event_time = mylist[i][2],
                         occupancy = mylist[i][3]
                         )
