@@ -1,6 +1,7 @@
 
 import csv
 import time as tm
+import datetime
 from dateutil.parser import parse
 import models
 
@@ -66,16 +67,18 @@ def main():
     modlist = []
     for i in range (1, len(mylist)):
         
-        modulecode = mylist[i][3]
-        
-        if modulecode in modlist:
-            continue
-        else:
-            models.module.create(module_code = modulecode,
-                                 instructor = 'admin'
-                                 )
-                       
-        modlist.append(modulecode)
+        if len(mylist[i][3])>1:
+            modulecode = mylist[i][3]
+            
+            if modulecode in modlist:
+                continue
+            else:
+                models.module.create(module_code = modulecode,
+                                     instructor = None
+                                     )
+                           
+            modlist.append(modulecode)
+            
     for i in range (1, len(mylist)):
          
         roomid = mylist[i][1]
@@ -87,7 +90,8 @@ def main():
         models.timetable.create(room_id = roomnum.id_field,
                          mod_code = modulecode,
                          event_time = time1,
-                         reg_stu = int(float(reg_stu))
+                         reg_stu = int(float(reg_stu)),
+                         time = datetime.datetime.fromtimestamp(time1)
                          )
                         
     f.close()
@@ -102,11 +106,12 @@ def main():
         roomid = int(parseName(mylist[i][0])[1])
         build = "school of " + parseName(mylist[i][0])[0]
         roomnum = room.get(room.room_num == roomid, room.building == build)
-        
+        etime = float(epochtime(mylist[i][1]))
         models.wifi_log.create(room_id = roomnum.id_field,
-                            event_time = epochtime(mylist[i][1]), 
+                            event_time = etime, 
                             assoc_devices = mylist[i][2], 
-                            auth_devices = mylist[i][3]
+                            auth_devices = mylist[i][3],
+                            time = datetime.datetime.fromtimestamp(etime)
                             )
       
     f.close()
@@ -120,10 +125,12 @@ def main():
     for i in range(1, len(mylist)):
         roomid = mylist[i][1]
         build = mylist[i][4]
-        roomnum = room.get(room.room_num == roomid, room.building == build) 
+        roomnum = room.get(room.room_num == roomid, room.building == build)
+        etime = int(mylist[i][2])
         models.survey.create(room_id = roomnum.id_field,
-                        event_time = mylist[i][2],
-                        occupancy = mylist[i][3]
+                        event_time = etime,
+                        occupancy = mylist[i][3],
+                        time = datetime.datetime.fromtimestamp(etime)
                         )
          
     f.close()

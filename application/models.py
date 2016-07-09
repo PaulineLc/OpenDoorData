@@ -43,7 +43,7 @@ class wifi_log(BaseModel):
     event_time = peewee.IntegerField()
     assoc_devices = peewee.IntegerField()
     auth_devices = peewee.IntegerField()
-
+    time = peewee.DateTimeField()
   
     class Meta:
         indexes = ((('room_id','event_time'), True),)
@@ -59,17 +59,17 @@ class User(BaseModel, BaseUser):
     
     def __unicode__(self):
         return self.username
-     
+       
     def __str__(self):
         return str(self.username)
                
 class module(BaseModel):
     module_code = peewee.CharField(primary_key=True)
-    instructor = peewee.ForeignKeyField(User, to_field='username', db_column = 'instructor', null=True, on_delete='SET NULL')
+    instructor = peewee.ForeignKeyField(User, db_column = 'instructor', null=True, on_delete='SET NULL')
     
     def __unicode__(self):
         return self.module_code
-     
+      
     def __str__(self):
         return str(self.module_code)
 
@@ -80,13 +80,19 @@ class timetable(BaseModel):
     mod_code = peewee.ForeignKeyField(module, to_field='module_code', db_column='mod_code',null=True, on_delete='SET NULL')
     event_time = peewee.IntegerField()
     reg_stu = peewee.IntegerField()
+    time = peewee.DateTimeField()
     
+    def __unicode__(self):
+        return self.id_field   
+    def __str__(self):
+        return str(self.id_field) 
 
 class survey(BaseModel):
     id_field = peewee.PrimaryKeyField()
     room_id = peewee.ForeignKeyField(room,to_field='id_field', db_column='room_id', on_delete='CASCADE')
     event_time = peewee.IntegerField()
     occupancy = peewee.DecimalField(constraints=[peewee.Check('occupancy <= 1 AND occupancy >=0')])
+    time = peewee.DateTimeField()
 
     
     class Meta:
@@ -97,6 +103,7 @@ class wifiStudents(BaseModel):
     room_id = peewee.ForeignKeyField(room,to_field='id_field', db_column='room_id', on_delete='CASCADE')
     event_time = peewee.IntegerField()
     occupancy = peewee.DecimalField(constraints=[peewee.Check('occupancy <= 1 AND occupancy >=0')])
+    time = peewee.DateTimeField()
 
     class Meta:
         indexes = ((('room_id','event_time'), True),)
