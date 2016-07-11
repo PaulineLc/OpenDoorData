@@ -42,9 +42,9 @@ class UserAdmin(ModelAdmin):
 
 
 class SurveyAdmin(ModelAdmin):
-    columns = ('room_id', 'time', 'occupancy',)
+    columns = ('room_id', 'time', 'occupancy','instructor')
     foreign_key_lookups = {'room_id':'id_field'}
-    filter_fields = ('id_field','room_id', 'time', 'occupancy')
+    filter_fields = ('id_field','room_id', 'time', 'occupancy','instructor__username')
     
 class wifiStudentsAdmin(ModelAdmin):
     columns = ('room_id','time','occupancy')
