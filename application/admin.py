@@ -1,4 +1,4 @@
-#admin.py - Where you register models for admin interface
+##admin.py - Where you register models for admin interface
 from flask_peewee.admin import Admin, ModelAdmin
 
 from app import app
