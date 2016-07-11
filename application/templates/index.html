@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-	
-	<title>Tech Quartet</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <title>Tech Quartet</title>
 </head>
 <body>
-	<header>
+    <header>
         <div id="headerContents">
             <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
             <h3 id="headerTitle">UCD Computer Science Occupancy Checker</h3>
         </div>
-	</header>
+    </header>
     
     <div id="formDiv">
         <form>
@@ -24,9 +25,12 @@
         <button onclick="checkInput()">Go!</button>
     </div>
 
-    <div class="results">
-        <h1>hi</h1>
-    	<!--The results from the Javascript query go here-->
+    <div id="roomData">
+        <!--The results from the Javascript query go here-->
+        <img id="roompic" style="display: none;">
+        </div>
+        <div id="hourlyChart" style="width: 700px;display: block;margin-left: auto; margin-right: auto;">
+        </div>
     </div>
 
 <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
