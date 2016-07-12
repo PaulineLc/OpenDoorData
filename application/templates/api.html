@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	
+	<title>Tech Quartet</title>
+</head>
+<body>
+	<header>
+        <div id="headerContents">
+            <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+            <h3 id="headerTitle">UCD Computer Science Occupancy Checker</h3>
+        </div>
+	</header>
+    
+    
+	<p>This is a test api home page. Here we will explain how to use our api.</p>
+	
+<p>API home page
+	
+The following tables are currently supported by the API:
+	1. Room: containing information on each building/room in our system.
+	2. Module: containing information on each module that is in our system.
+	3. Wifi_Log: containing wifi log information from each room in our system taken every 5 minutes. 
+	4. WifiStudents: containing occupancy information on each room at each hour in our system. 
+	5. Timetable: containing timetable data for each class in our system.
+	6. Survey: containing ground reported data on the occupancy of each room at each hour.
+	
+The API can be accessed with the URL /api/table/query.
+	
+You can submit specific queries as follows:
+	
+	1. All queries must begin with a "?" to indicate a query.
+		for example "/api/message/?user=2" will query the message table for the user equal to 2.
+	2. You can select specific records by inputting the number of the record after the table.
+		for example "/api/message/2" will result in the second record of the query table.
+	3. You can join two tables together using a double-underscore "__" notation. 
+		for example "/api/message/?user__username=john" will give the rows of the message table
+	where the username is equal to "john" along with that user's information.
+	4. Comparison operators are also supported using a double-underscore "__" notation. 
+		for example "/api/user/?user__lt=2" will give you a list of users like user 2.
+		Valid Comparison Operators are:
+		‘eq’, ‘lt’, ‘lte’, ‘gt’, ‘gte’, ‘ne’, ‘in’, ‘is’, ‘like’, ‘ilike’
+	5. You can specify how your results are sorted with the keyword "ordering = table column".
+		for example "/api/message/?ordering=user" will sort your results by the user column. To
+		sort in a descending fashion, place a hyphen "-" before the table column name.
+	6. By default, only 20 results are returned per page however you can return less by using the "limit" keyword. for example "/api/message/?limit=2" will only return two results per page.
+	7. You can specifiy a specific page of the results by including the "page" keyword in the url request. for example "/api/message/?limit=2&page=3" will return two results per page starting on the third page.
+</p>
+
+</body>
+</html>

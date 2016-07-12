@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	
+	<title>Tech Quartet</title>
+</head>
+<body>
+	<header>
+        <div id="headerContents">
+            <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+            <h3 id="headerTitle">UCD Computer Science Occupancy Checker</h3>
+        </div>
+	</header>
+    
+    <h1>This is the test survey page.</h1>
+	
+	<p>'{{ newvariable.username }}'</p>
+	<p>'{{ newvariable2.username }}'</p>
+	
+<form action="">
+  <select name="Location">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="fiat">Fiat</option>
+    <option value="audi">Audi</option>
+  </select>
+  <select name="Time">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="fiat">Fiat</option>
+    <option value="audi">Audi</option>
+  </select>
+  <select name="Occupancy">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="fiat">Fiat</option>
+    <option value="audi">Audi</option>
+  </select>
+  <br><br>
+  <input type="submit">
+</form>
+	
+</body>
+</html>
