@@ -103,7 +103,7 @@ class survey(BaseModel):
     event_time = peewee.IntegerField()
     occupancy = peewee.FloatField(constraints=[peewee.Check('occupancy <= 1 AND occupancy >=0')])
     time = peewee.DateTimeField()
-    instructor = peewee.ForeignKeyField(User, db_column = 'instructor', null=True,default = 'admin', on_delete='SET DEFAULT')
+    instructor = peewee.ForeignKeyField(User, db_column = 'instructor', null=True, on_delete='SET NULL')
     
 
     
