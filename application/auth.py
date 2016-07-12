@@ -2,7 +2,7 @@
 
 from flask_peewee.auth import Auth  # Login/logout views, etc.
 
-from app import app
+from myapp import app
 from models import User, db
 
 

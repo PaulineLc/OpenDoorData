@@ -1,12 +1,23 @@
 # config
-
-class Configuration(object):
+    
+class Config(object):
     DATABASE = {
-        'name': 'example.db',
-        'engine': 'peewee.SqliteDatabase',
-        'check_same_thread': False,
+        'name': 'wifi_db',
+        'host': 'localhost',
+        'user': 'root',
+        'password': 'summer'
     }
     DEBUG = True
+    TESTING = False
     SECRET_KEY = 'shhhh'
-    
-#     Then in any of your files you could just import the app object to gain access to that dictionary. I tend to access that app object by doing from flask import current_app as app then just app.config['MY_SETTING']
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+
+class DevelopmentConfig(Config):
+    DEVELOPMENT = True
+
+class TestingConfig(Config):
+    TESTING = True
+

@@ -3,15 +3,25 @@ import peewee
 import datetime
 from flask_peewee.auth import BaseUser
 import pymysql
+from myapp import app
 
 if __name__ == "__main__":
-    conn = pymysql.connect(host='localhost', user='root', password='summer')
+    configdb = app.config['DATABASE']
+    
+    conn = pymysql.connect(host = configdb['host'],
+                          user = configdb['user'],
+                          password =configdb['password']
+                          )
     c = conn.cursor()
     c.execute("CREATE DATABASE IF NOT EXISTS wifi_db")
     conn.close()
 
-
-db = peewee.MySQLDatabase('wifi_db', host="localhost", user='root',passwd='summer')
+configdb = app.config['DATABASE']
+db = peewee.MySQLDatabase(configdb['name'],
+                          host = configdb['host'],
+                          user = configdb['user'],
+                          password =configdb['password']
+                          )
 
 db.connect()
   
