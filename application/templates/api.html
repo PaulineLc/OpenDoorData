@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='api.css') }}">
 	
-	<title>Tech Quartet</title>
+	<title>OpenOccupancyData</title>
 </head>
 <body>
 	<header>
@@ -14,39 +14,214 @@
 	</header>
     
     
-	<p>This is a test api home page. Here we will explain how to use our api.</p>
+	<h3>OpenOccupancyData official API documentation</h3>
+	<p style='text-align:center'>Access current and past OpenOccupancyData in an easy to call JSON format</p>
+	<p style='text-align:center'>Full details for accessing the data are listed in the sections below.</p>
 	
-<p>API home page
-	
-The following tables are currently supported by the API:
-	1. Room: containing information on each building/room in our system.
-	2. Module: containing information on each module that is in our system.
-	3. Wifi_Log: containing wifi log information from each room in our system taken every 5 minutes. 
-	4. WifiStudents: containing occupancy information on each room at each hour in our system. 
-	5. Timetable: containing timetable data for each class in our system.
-	6. Survey: containing ground reported data on the occupancy of each room at each hour.
-	
-The API can be accessed with the URL /api/table/query.
-	
-You can submit specific queries as follows:
-	
-	1. All queries must begin with a "?" to indicate a query.
-		for example "/api/message/?user=2" will query the message table for the user equal to 2.
-	2. You can select specific records by inputting the number of the record after the table.
-		for example "/api/message/2" will result in the second record of the query table.
-	3. You can join two tables together using a double-underscore "__" notation. 
-		for example "/api/message/?user__username=john" will give the rows of the message table
-	where the username is equal to "john" along with that user's information.
-	4. Comparison operators are also supported using a double-underscore "__" notation. 
-		for example "/api/user/?user__lt=2" will give you a list of users like user 2.
-		Valid Comparison Operators are:
-		‘eq’, ‘lt’, ‘lte’, ‘gt’, ‘gte’, ‘ne’, ‘in’, ‘is’, ‘like’, ‘ilike’
-	5. You can specify how your results are sorted with the keyword "ordering = table column".
-		for example "/api/message/?ordering=user" will sort your results by the user column. To
-		sort in a descending fashion, place a hyphen "-" before the table column name.
-	6. By default, only 20 results are returned per page however you can return less by using the "limit" keyword. for example "/api/message/?limit=2" will only return two results per page.
-	7. You can specifiy a specific page of the results by including the "page" keyword in the url request. for example "/api/message/?limit=2&page=3" will return two results per page starting on the third page.
-</p>
+	<div class = 'info_container'>
+	<h3>Current tables/table attributes available for access</h3>
+	<div class = 'table_container'>	
+	<table>
+		<tr>
+			<th>Table</th>
+			<th>Attribute Description</th>
+		</tr>
+		<tr>
+			<td>Room</td>
+			<td>Information on each building/room</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul>
+					<li>id_field: Record id for each room.</li>
+					<li>room_num: Official room number.</li>
+					<li>room_cap: Room Occupancy capacity.</li>
+					<li>building: Offical building name.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>Module</td>
+			<td>Information on class modules</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul>
+					<li>module_code: Class module code.</li>
+					<li>instructor: Instructor name.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>Wifi_log</td>
+			<td>Wifi log information for each room recorded every five minutes</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul>
+					<li>id_field: Record id for each log.</li>
+					<li>room_id: Room record id.</li>
+					<li>event_time: Time in epoch format.</li>
+					<li>assoc_devices: Number of associated devices to wifi access point.</li>
+					<li>auth_devices: Number of authenticated devices to wifi access point.</li>
+					<li>time: Event_time in readable DATETIME format.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>Timetable</td>
+			<td>Timetable information for each room</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul>
+					<li>id_field: Record id for each log.</li>
+					<li>room_id: Room record id.</li>
+					<li>mod_code: Class module code.</li>
+					<li>event_time: Time in epoch format.</li>
+					<li>time: Event_time in readable DATETIME format.</li>
+					<li>reg_stu: Number of registered students for module at that time.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>Survey</td>
+			<td>Manually recorded occupancy data for each room each hour</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul>
+					<li>id_field: Record id for each log.</li>
+					<li>room_id: Room record id.</li>
+					<li>event_time: Time in epoch format.</li>
+					<li>time: Event_time in readable DATETIME format.</li>
+					<li>instructor: Instructor name for module at that time.</li>
+					<li>occupancy: Room occupancy level between 0 - 1.0 rounded to nearest 25%.</li>
+				</ul>		
+			</td>
+		</tr>
+		<tr>
+			<td>Wifistudents</td>
+			<td>Occupancy data for each room each hour based on wifi log data</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul>
+					<li>id_field: Record id for each log.</li>
+					<li>room_id: Room record id.</li>
+					<li>event_time: Time in epoch format.</li>
+					<li>time: Event_time in readable DATETIME format.</li>
+					<li>occupancy: Room occupancy level between 0 - 1.0 rounded to nearest 25%.</li>
+				</ul>
+			</td>
+		</tr>
+		</table>
+	</div>
+	</div>
+	<div class = 'info_container'>
+	<h3>Accessing and querying the API</h3>
+	<div class = 'table_container'>	
+	<table>
+		<tr>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>Access</td>
+			<td>The API can be accessed with the URL: "/api/table/query"</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Example: "/api/room" will return the full room table</td>
+		</tr>
+		<tr>
+			<td>Queries</td>
+			<td>All queries must begin with a question mark "?" to indicate a query</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul>
+					<li>Example: "/api/module/?module_code=COMP10110" will query the module table for the entry with module code COMP10110</li>
+					<li>To query an item with a name that contains spaces, use the plus "+" operator instead of spaces</li>
+					<li>Example: "/api/room/?building=school+of+computer+science</li>
+				</ul>		
+			</td>
+		</tr>
+		<tr>
+			<td>Selecting</td>
+			<td>You can select specific records by inputting the number of the record after the table</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Example: "/api/room/2" will result in the second record of the query table</td>
+		</tr>
+		<tr>
+			<td>Joins</td>
+			<td>You can join two tables together using a double-underscore "__" notation</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Example: "/api/timetable/?room_id__room_num=3" will return the results in the timetable table that contain a room id connected to the room with number 3</td>
+		</tr>
+		<tr>
+			<td>Comparison</td>
+			<td>Comparison operators are supported using a double-underscore "__" notation</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul>
+					<li>Example: "/api/room/?room__lt=2" will give you a list of rooms like room 2</li>
+					<li>Valid Comparison Operators include: ‘eq’, ‘lt’, ‘lte’, ‘gt’, ‘gte’, ‘ne’, ‘in’, ‘is’, ‘like’, ‘ilike’</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>Sorting</td>
+			<td>You can specify how your results are sorted with the keyword "ordering = table column"</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul>
+					<li>Example: "/api/room/?ordering=room_num" will sort your results by the room_num column</li>
+					<li>To sort in a descending fashion, place a hyphen "-" before the table column name</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>Limiting</td>
+			<td>By default, only 20 results are returned per page however you can return less by using the "limit" keyword</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Example: "/api/room/?limit=2" will only return two results per page</td>
+		</tr>
+		<tr>
+			<td>Pagination</td>
+			<td>You can specifiy a specific page of the results by including the "page" keyword in the url request</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Example: "/api/room/?limit=2&page=3" will return two results per page starting on the third page</td>
+		</tr>
+	</table>
+	</div>
+	</div>
+	<div class = 'info_container'>
+	<h3>Example JSON request to "/api/room/?limit=3"</h3>
+	<div class = 'table_container'>
+		<img id="API example" src="{{ url_for('static', filename='images/api_example.png') }}">
+	</div>
+	</div>
+
 
 </body>
 </html>

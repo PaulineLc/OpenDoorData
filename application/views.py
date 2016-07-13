@@ -12,12 +12,12 @@ def render():
     #cur.close().
     return render_template("index.html")
 
-@app.route('/api')
+@app.route('/api/')
 def renderapi():
     #cur.close().
     return render_template("api.html")
 
-@app.route('/survey')
+@app.route('/survey/')
 @auth.login_required
 def rendersurvey():
     x = auth.get_logged_in_user()
