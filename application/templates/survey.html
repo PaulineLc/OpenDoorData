@@ -5,7 +5,7 @@
 	<!--""C:\Users\Donovan\Desktop\SummerProject\project\summerproject\application\static\survey.css"
 
 -->
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<title>Tech Quartet</title>
 </head>
 <body>
@@ -15,17 +15,14 @@
             <h3 id="headerTitle">UCD Computer Science Occupancy Checker</h3>
         </div>
 	</header>
+	
     <h2 style='text-align:center'>Occupancy Survey Submission</h2>
 	<p style='text-align:center'>Please select the three options below to submit occupancy information for your classroom</p>
 
 <div class="survey_form">	
 <form action="">
 	<label for="location">Room Location</label>
-  <select name="Location">
-    <option value=""></option>
-    <option value="(school of computer science,2)">school of computer science - 2</option>
-    <option value="(school of computer science,3)">school of computer science - 3</option>
-    <option value="(school of computer science,4)">school of computer science - 4</option>
+  <select name="Location" id="rooms">
   </select>
 	<label for="time">Time</label>
   <select name="time">
@@ -52,9 +49,15 @@
   <input type="submit">
 </form>
 </div>
-	
-<p>'{{ newvariable.username }}'</p>
-	<p>'{{ newvariable2.username }}'</p>
+	<script>
+		var rooms = document.getElementById("rooms");
+		options = "<option value=''></option>"
+		{% for room in rooms %}
+		options +="<option value=["+'{{ room.building }}'+","+'{{ room.room_num }}'+"]>"+'{{ room.building }}'+" - "+'{{ room.room_num }}'+"</option>";
+		{% endfor %}
+		console.log(options)
+		rooms.innerHTML = options;
+	</script>
 	
 </body>
 </html>

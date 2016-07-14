@@ -44,7 +44,7 @@ class room(BaseModel):
 
     def __str__(self):
         return str(self.id_field)
-    
+        
 class wifi_log(BaseModel):
     id_field = peewee.PrimaryKeyField()
     room_id = peewee.IntegerField()
