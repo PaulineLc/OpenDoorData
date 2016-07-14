@@ -8,6 +8,10 @@ html, body{
 	width: 100%;
 }
 
+#wrapper{
+	width: 100%;
+	height: 100%;
+}
 header{
 	background-color: black;
 	position: absolute;
@@ -15,13 +19,17 @@ header{
 	left: 0px;
 	height: 50px;
 	width: 100%;
+	z-index: 10;
 }
 
+
 #navbar{
-	position: absolute;
+	position: fixed;
+    top: 0px;
+    left: 0px;
 	background-color: #061539;
 	height: 100%;
-	width: 300px;
+	width: 220px;
 }
 
 #navContent{
@@ -49,18 +57,19 @@ header{
 	
 }
 
-#contentSection{
-	margin-left: 300px;
-	height: 100%;
+#main_page{
+	margin-left: 220px;
 	padding-top: 50px;
-	background-color: lightcoral;;
+    background-color: #f2f2f2;
+    padding-bottom: 5px;
 	}
 
-#wrapper{
-	width: 100%;
+
+.content_div{
+    margin: 10px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 2px;
 }
 
-#test{
-	height: 10px;
-	background-color: green;
-}
+
