@@ -1,0 +1,54 @@
+html, body{
+    margin: 0;
+    padding: 0;
+	margin-bottom: 3%;
+}
+header{
+    background-color: #222222;
+    height: 100px;
+}
+
+#headerContents{
+    margin: auto;
+    width: 980px;
+    
+}
+
+#headerLogo{
+    height: 80px;
+    padding: 10px;
+    display: inline;
+    vertical-align: middle;
+}
+
+#headerTitle{
+    display: inline;
+    color: white;
+    font-family: Arial;
+}
+.survey_form{
+	background-color: lightgrey;
+	padding: 2%;
+	width:70%;
+	margin:auto;
+	border-radius: 5px;
+}
+label,select,input{
+	width: 100%;
+	margin:auto;
+	display: inline-block;
+	border-radius: 5px;
+	padding: 1%;
+	font-size: 16px; 
+	font-size: 1.6vw;
+}
+option, label{
+	font-size: 16px; 
+	font-size: 1.6vw;
+}
+input{
+	background-color: indianred;
+}
+input:hover {
+    background-color: skyblue;
+}
