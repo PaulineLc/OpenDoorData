@@ -4,7 +4,7 @@ from flask import render_template
 
 from myapp import app
 from auth import auth
-# from models import User
+from models import room
 
 
 @app.route('/')
@@ -20,8 +20,8 @@ def renderapi():
 @app.route('/survey/')
 @auth.login_required
 def rendersurvey():
-    x = auth.get_logged_in_user()
-    y = auth.get_logged_in_user()
+    user = auth.get_logged_in_user()
+    rooms= room.select()
     #cur.close().
-    return render_template("survey.html", newvariable = x, newvariable2 = y)
-
+    return render_template("survey.html", 
+                           rooms=rooms)
