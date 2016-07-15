@@ -65,11 +65,27 @@ header{
 	}
 
 
-.content_div{
-    margin: 10px;
+/*Content Stuff?*/
+.left_column{
     background-color: white;
-    border-radius: 5px;
-    padding: 2px;
+    border-radius: 3px;
+    width: 25%;
+    margin: 10px;
+    padding: 10px;
 }
 
+.building_image{
+    width: 100%;
+}
 
+.opening_times_table{
+    width: 100%;
+}
+
+.opening_times_table td:last-child{
+    text-align: right;
+}
+
+.table_title{
+    text-align: left;
+}
