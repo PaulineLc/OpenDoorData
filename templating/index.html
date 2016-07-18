@@ -29,9 +29,12 @@
 		<!--MAIN CONTENT PAGE GOES HERE-->
         <div id="main_page">
             
+            <div>
+                <h1>School of Computer Science</h1>
             
+            </div>
             <div class="left_column">
-                <img class="building_image" src="IMG_0989_large.jpg">
+                <img class="building_image" src="scs.jpg">
                 <table class="opening_times_table">
                     <th colspan="2" class="table_title">Opening Times:</th>
                     <tr>
@@ -73,6 +76,28 @@
             
             
             </div>
+            
+            <div class="right_column">
+                <h3>Building Information</h3>
+                <table>
+                    <tr>
+                        <td>No. of Rooms: </td>
+                        <td>3</td>
+                    </tr>
+                    <tr><td>Maximum Occupancy: </td>
+                    <td>400</td>
+                    </tr>
+                    <tr>
+                        <td>Current Occupancy: </td>
+                        <td>315</td>
+                    </tr>
+                
+                
+                </table>
+            <div id="binary_pie">
+                
+                </div>
+            </div>
         </div>
 
 
@@ -95,7 +120,7 @@
       function drawChart() {
 
         // Create the data table.
-        data = new google.visualization.DataTable();
+        var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows([
@@ -105,21 +130,51 @@
           ['Zucchini', 1],
           ['Pepperoni', 2]
         ]);
+          
+          var options = {'title':'How Much Pizza I Ate Last Night'}
+          
+          var chart = new google.visualization.PieChart(document.getElementById('hourlyChart'));
+        chart.draw(data, options);
+          
+          window.onload = resize();
+          window.onresize = resize;
+          
+          
+        var data2 = new google.visualization.DataTable();
+        data2.addColumn('string', 'Occupancy');
+        data2.addColumn('number', 'Number');
+        data2.addRows([
+          ['Full', 315],
+          ['Not Full', 75]
+        ]);
 
         // Set chart options
-        options = {'title':'How Much Pizza I Ate Last Night'}
+        var options2 = {'title':'Occupancy'}
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('hourlyChart'));
-        chart.draw(data, options);
-      }
-        
-        function resize(){
+
+          
+          var chart2 = new google.visualization.PieChart(document.getElementById('binary_pie'));
+        chart2.draw(data2, options2);
+          
+          function resize(){
             var chart = new google.visualization.PieChart(document.getElementById('hourlyChart'));
         chart.draw(data, options);
+              var chart2 = new google.visualization.PieChart(document.getElementById('binary_pie'));
+        chart2.draw(data2, options2);
         }
+      }
+      
+          
         
-        window.onresize = resize;
+          
+          
+          
+
+        
+        
+        
+        
 	</script>
 
 </body>
