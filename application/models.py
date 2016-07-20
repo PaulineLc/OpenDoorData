@@ -1,9 +1,11 @@
 ##models.py - Database models for use with your ORM, business logic, etc.
+
 import peewee
 import datetime
 from flask_peewee.auth import BaseUser
 import pymysql
 from myapp import app
+from email.policy import default
 
 if __name__ == "__main__":
     configdb = app.config['DATABASE']
@@ -128,22 +130,13 @@ class survey(BaseModel):
         constraints = [peewee.SQL('FOREIGN KEY(room_id, building)'
                                   'REFERENCES room(room_num, building)'
                                   'ON DELETE CASCADE ON UPDATE CASCADE')]
-
         
-class wifiStudents(BaseModel):
+class regressionModel(BaseModel):
     id_field = peewee.PrimaryKeyField()
-    room_id = peewee.IntegerField()
-    event_time = peewee.IntegerField()
-    occupancy = peewee.DecimalField(constraints=[peewee.Check('occupancy <= 1 AND occupancy >=0')])
-    building = peewee.CharField()
-    time = peewee.DateTimeField()
-
-    class Meta:
-        indexes = ((('room_id','event_time','building'), True),)
-        constraints = [peewee.SQL('FOREIGN KEY(room_id, building)'
-                           'REFERENCES room(room_num, building) ON DELETE CASCADE ON UPDATE CASCADE')]
-        
-
+    offset = peewee.DecimalField(default= 0.0)
+    weight = peewee.DecimalField(default = 0.0)
+    end_date = peewee.DateTimeField(default = "9999-12-31 23:59:59")
+    
 db.close()
 
 

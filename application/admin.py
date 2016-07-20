@@ -3,7 +3,7 @@ from flask_peewee.admin import Admin, ModelAdmin
 
 from myapp import app
 from auth import auth
-from models import User, wifi_log,room,timetable,survey,module, wifiStudents
+from models import User, wifi_log,room,timetable,survey,module, regressionModel
 
 #fyi to make the admin db useable you need to change unicode in the admin flask peewee package to str
 class RoomAdmin(ModelAdmin):
@@ -46,10 +46,8 @@ class SurveyAdmin(ModelAdmin):
     foreign_key_lookups = {'room_id':'room_num','building':'building'}
     filter_fields = ('id_field','room_id', 'time', 'occupancy','reporter__username','building')
     
-class wifiStudentsAdmin(ModelAdmin):
-    columns = ('room_id','time','occupancy', 'building')
-    foreign_key_lookups = {'room_id':'room_num','building':'building'}
-    filter_fields = ('room_id', 'time', 'occupancy','building')
+class regressionAdmin(ModelAdmin):
+    columns = ('offset', 'weight', 'end_date')
 
 
 
@@ -62,5 +60,5 @@ admin.register(module, ModuleAdmin)
 admin.register(wifi_log, WifiAdmin)
 admin.register(timetable, TimetableAdmin)
 admin.register(survey, SurveyAdmin)
-admin.register(wifiStudents, wifiStudentsAdmin)
+admin.register(regressionModel, regressionAdmin)
 
