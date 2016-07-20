@@ -68,10 +68,7 @@ header{
 /*Content Stuff?*/
 .left_column{
     background-color: white;
-    border-radius: 3px;
     width: 25%;
-    margin: 5px;
-    padding: 5px;
     display: inline-block;
     vertical-align: top;
 }
@@ -98,8 +95,14 @@ header{
 }
 
 .middle_column{
-    width: 50%;
+    width: 45%;
     display: inline-block;
-    margin: 5px;
-    border-radius: 3px;
+    vertical-align: top;
+}
+
+.right_column{
+    width: 29%;
+    display: inline-block;
+    height: 100px;
+    background-color: white;
 }
