@@ -1,38 +1,168 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='building.css') }}">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
     
     <title>Tech Quartet</title>
 </head>
 <body>
-    <header>
-        <div id="headerContents">
-            <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-            <h3 id="headerTitle">UCD Computer Science Occupancy Checker</h3>
-        </div>
-    </header>
-    
-    <div id="formDiv">
-        <form>
-          <select style="margin:10px;" name="Room">
-            <option value="B002">B002</option>
-            <option value="B004">B004</option>
-            <option value="B003">B003</option>
-          </select>
-        </form>
-        <button onclick="checkInput()">Go!</button>
-    </div>
+    <div id="wrapper">
+        <header></header>
 
-    <div id="roomData">
-        <!--The results from the Javascript query go here-->
-        <img id="roompic" style="display: none;">
-        </div>
-        <div id="hourlyChart" style="width: 700px;display: block;margin-left: auto; margin-right: auto;">
-        </div>
-    </div>
+        <!--NAVBAR STUFF GOES HERE-->
+        <div id="navbar">
+            <div id="navContent">
+                <ul id="navList">
+                    <li>Home</li>
+                    <li>
+                        <a>Building</a>
+                        <li class="subList"><a style="position: relative; left: 5px;">- School of Computer Science</a>
+                            <li class="subList"><a  style="position: relative; left: 20px;">- B002</a>
+                            </li>
+                            <li>About</li>
+                        </ul>
+                    </div>
+                </div>
 
-<script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+                <!--MAIN CONTENT PAGE GOES HERE-->
+                <div id="main_page">
+                    <div class="db_display">
+
+                     <div class="title" id="building_heading">
+                        <h1>School of Computer Science</h1>
+
+                    </div>
+                    <div class="left_column">
+                        <img class="building_image" src="{{ url_for('static', filename='images/scs.jpg') }}">
+                        <table class="opening_times_table">
+                            <th colspan="2" class="table_title">Opening Times:</th>
+                            <tr>
+                                <td>Monday</td>
+                                <td>09:00 - 19:00</td>
+                            </tr>
+                            <tr>
+                                <td>Tuesday</td>
+                                <td>09:00 - 19:00</td>
+                            </tr>
+                            <tr>
+                                <td>Wednesday</td>
+                                <td>09:00 - 19:00</td>
+                            </tr>
+                            <tr>
+                                <td>Thursday</td>
+                                <td>09:00 - 19:00</td>
+                            </tr>
+                            <tr>
+                                <td>Friday</td>
+                                <td>09:00 - 19:00</td>
+                            </tr>
+                            <tr>
+                                <td>Saturday</td>
+                                <td>Closed</td>
+                            </tr>
+                            <tr>
+                                <td>Sunday</td>
+                                <td>Cloased</td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <div class="middle_column">
+                     <!--    <div class="chartDiv" id="hourlyChart">
+
+                        </div> -->
+                        <canvas id="myChart"></canvas>
+
+
+
+                    </div>
+
+                    <div class="right_column">
+                        <h3>Building Information</h3>
+                        <table>
+                            <tr>
+                                <td>No. of Rooms: </td>
+                                <td>3</td>
+                            </tr>
+                            <tr><td>Maximum Occupancy: </td>
+                                <td>400</td>
+                            </tr>
+                            <tr>
+                                <td>Current Occupancy: </td>
+                                <td>315</td>
+                            </tr>
+
+
+                        </table>
+                        <div id="binary_pie">
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                
+            </div>
+
+
+
+
+        </div>
+        
+        <script type="text/javascript" src="{{ url_for('static', filename='chart_rendering.js') }}"></script>
+
+
+   
+        <script>
+      // Load the Visualization API and the corechart package.
+      
+
+  //     // Set a callback to run when the Google Visualization API is loaded
+
+
+  //       window.onload = resize();
+  //       window.onresize = resize;
+
+
+  //       var data2 = new google.visualization.DataTable();
+  //       data2.addColumn('string', 'Occupancy');
+  //       data2.addColumn('number', 'Number');
+  //       data2.addRows([
+  //         ['Full', 315],
+  //         ['Not Full', 75]
+  //         ]);
+
+  //       // Set chart options
+  //       var options2 = {'title':'Occupancy'}
+
+  //       // Instantiate and draw our chart, passing in some options.
+
+
+  //       var chart2 = new google.visualization.PieChart(document.getElementById('binary_pie'));
+  //       chart2.draw(data2, options2);
+
+  //       function resize(){
+  //         var chart2 = new google.visualization.PieChart(document.getElementById('binary_pie'));
+  //         chart2.draw(data2, options2);
+  //     }
+  // }
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
 </body>
+</html>
 </html>
