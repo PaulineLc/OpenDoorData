@@ -21,7 +21,7 @@ def main():
         inst1 = x.find(">")+2
         inst2 = x.find(">", inst1)
         
-        building = x[inst1:inst2-1]
+        building = x[inst1:inst2-1].lower()
         room = x[inst2+6:]
         
         return (building,room)
