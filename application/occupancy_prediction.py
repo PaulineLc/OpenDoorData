@@ -55,16 +55,32 @@ def main():
         wifi_logs.set_value(i, 'occupancty_category_3', prediction[1])
         wifi_logs.set_value(i, 'binary_occupancy', prediction[2])
     
+    json_file = wifi_logs[['building', 
+                           'room_id', 
+                           'event_day', 
+                           'event_hour', 
+                           'event_month', 
+                           'event_year', 
+                           'occupancy_category_5', 
+                           'occupancty_category_3',
+                           'binary_occupancy']].to_json()
     
+    print(json_file)
     
-
 def set_occupancy_category(occupants, capacity):
     '''function that converts linear predictions to a defined category.
     
     Parameters
     ----------
-    df: the number of occupants (real or predicted)
-    room: the room capacity
+    occupants: the number of occupants (real or predicted)
+    capacity: the room capacity
+    
+    Returns
+    ---------
+    tuple with 3 values: 
+        at position 0, the occupancy with 5 cateories
+        at position 1, the occupancy with 3 categories
+        at position 2, the binary occupancy
     
     '''
     
