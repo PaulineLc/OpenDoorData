@@ -7,7 +7,7 @@ from auth import auth # import the Auth object used by our project
 from flask_peewee.rest import RestAPI,UserAuthentication, RestrictOwnerResource, AdminAuthentication
 
 class SurveyResource(RestrictOwnerResource):
-    owner_field = 'instructor'
+    owner_field = 'reporter'
 
 #Ideally we want to make sure that anyone posting to the survey is entering the right room and time therefore
 #we need to restrict access to  just these users which is what the below code does however
@@ -34,7 +34,7 @@ api = RestAPI(app, default_auth=user_auth)
 # register our models so they are exposed via /api/<model>/
 
 api.register(room, auth=admin_auth, allowed_methods=['GET'])
-api.register(survey, SurveyResource)
+api.register(survey,auth=admin_auth)#, SurveyResource)
 api.register(wifi_log, auth=admin_auth,allowed_methods=['GET'])
 api.register(timetable, auth=admin_auth, allowed_methods=['GET'])
 api.register(module, auth=admin_auth, allowed_methods=['GET'])

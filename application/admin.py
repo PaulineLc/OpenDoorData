@@ -60,5 +60,5 @@ admin.register(module, ModuleAdmin)
 admin.register(wifi_log, WifiAdmin)
 admin.register(timetable, TimetableAdmin)
 admin.register(survey, SurveyAdmin)
-admin.register(regressionModel, regressionAdmin)
+#admin.register(regressionModel, regressionAdmin)
 

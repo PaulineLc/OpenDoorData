@@ -32,7 +32,7 @@ def main():
                               models.wifi_log,
                               models.timetable,
                               models.survey,
-			      models.regressionModel,
+			                  models.regressionModel,
                               ], safe=True)
     
     models.room.create(room_num = 2,

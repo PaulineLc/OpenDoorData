@@ -24,4 +24,4 @@ def rendersurvey():
     rooms= room.select()
     #cur.close().
     return render_template("survey.html", 
-                           rooms=rooms)
+                           rooms=rooms,user=user)
