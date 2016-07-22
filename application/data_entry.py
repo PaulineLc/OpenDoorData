@@ -29,10 +29,10 @@ def main():
     models.db.create_tables([models.room,
                               models.User,
                               models.module,
-                              models.wifiStudents,
                               models.wifi_log,
                               models.timetable,
                               models.survey,
+			      models.regressionModel,
                               ], safe=True)
     
     models.room.create(room_num = 2,
