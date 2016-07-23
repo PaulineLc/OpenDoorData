@@ -34,7 +34,7 @@ api = RestAPI(app, default_auth=user_auth)
 # register our models so they are exposed via /api/<model>/
 
 api.register(room, auth=admin_auth, allowed_methods=['GET'])
-api.register(survey,auth=admin_auth)#, SurveyResource)
+api.register(survey)
 api.register(wifi_log, auth=admin_auth,allowed_methods=['GET'])
 api.register(timetable, auth=admin_auth, allowed_methods=['GET'])
 api.register(module, auth=admin_auth, allowed_methods=['GET'])

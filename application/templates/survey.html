@@ -19,7 +19,7 @@
     <h2 style='text-align:center'>Occupancy Survey Submission</h2>
 	<p style='text-align:center'>Please select the three options below to submit occupancy information for your classroom</p>
 
-<div class="survey_form">	
+<div class="survey_form">
 <form action="">
 	<label for="location">Room Location</label>
   <select name="location" id="rooms">
@@ -69,7 +69,7 @@
 			var room_id= loc.substr(loc.indexOf(',')+1); 
 			var d = new Date();
 			var date = d.getFullYear() + "-" + (d.getMonth()+1)+"-"+ d.getDate() + " " + time;
-			var epoch = Date.parse(date);
+			var epoch = (Date.parse(date)/1000);
 			var user = '{{ user.username }}';
 			console.log(user);
 			console.log(epoch);
@@ -84,23 +84,20 @@
 			var submission = '{"room_id":' + room_id+', "event_time":'+epoch+
 				',"occupancy":'+ occupancy+',"time":"'+date+'","reporter":"'+user+
 				'","building":"'+building+'"}';
-			var json_sub = JSON.parse(submission);
-			console.log(json_sub);
-			$.ajax({
-				type: "POST",
-				url: "http://127.0.0.1:5000/api/survey/",
-				dataType: "JSON",
-				success: function (msg) {
-				   if (msg) {
-					   alert("success");
-					   location.reload(true);
-				   } else {
-					   alert("error");
-				   }
-				},
+		
+			console.log(submission);
+			
+				$ . ajax ({ 
+				url : '/api/survey/' ,
+				contentType: 'text/json',
+				data : submission,  
+				success :  function( data )  { 
+				console.log( data ); 
+				}, 
+				type :  'POST',
+				processData : false
+				});				
 				
-				data: json_sub
-				});
 		});
 		});
 		
