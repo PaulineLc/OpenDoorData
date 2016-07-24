@@ -25,11 +25,4 @@ def rendersurvey():
     #cur.close().
     return render_template("survey.html", 
                            rooms=rooms,user=user,password = user.password)
-    
 
-@app.route('/submission', methods=['POST'])
-def addRegion():
-    print("I got it!")
-    print(request.form['location'])
-    
-    return render_template("survey.html")

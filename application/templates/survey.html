@@ -2,9 +2,7 @@
 <html>
 <head>
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='survey.css') }}">
-	<!--""C:\Users\Donovan\Desktop\SummerProject\project\summerproject\application\static\survey.css"
 
--->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<title>Tech Quartet</title>
 </head>
@@ -71,35 +69,27 @@
 			var date = d.getFullYear() + "-" + (d.getMonth()+1)+"-"+ d.getDate() + " " + time;
 			var epoch = (Date.parse(date)/1000);
 			var user = '{{ user.username }}';
-			console.log(user);
-			console.log(epoch);
-			console.log(building);
-			console.log(room_id);
-			console.log(date);
-			console.log(time);
-			console.log(loc);
-			
-			
+
 			var submission = '{"room_id":' + room_id+', "event_time":'+epoch+
 				',"occupancy":'+ occupancy+',"time":"'+date+'","reporter":"'+user+
 				'","building":"'+building+'"}';
-		
-			console.log(submission);
-			
-				$ . ajax ({ 
+
+			$.ajax ({ 
 				url : '/api/survey/' ,
 				contentType: 'text/json',
-				data : submission,  
-				success :  function( data )  { 
-				console.log( data ); 
-				}, 
-				type :  'POST',
-				processData : false
-				});				
-				
+				data : submission,
+				type: 'POST',
+				processData: false,
+				success : function(){ 
+				alert("Thank you for your submission");
+				$('form')[0].reset();
+				},
+				error: function () {
+        		alert("Error: An entry already exists for this time and location. Please try again.")
+				}
+			});	
 		});
-		});
-		
+		});	
 	</script>
 	
 </body>
