@@ -65,37 +65,29 @@ header{
 	}
 
 .db_display{
-    padding: 0.5%;
+	margin: 0.5%;
 }
 /*Content Stuff?*/
 .left_column{
     background-color: white;
-    width: 25%;
+    width: 70%;
     display: inline-block;
     vertical-align: top;
-    margin: 0.5%;
 }
 
-.middle_column{
-    width: 45%;
-    display: inline-block;
-    vertical-align: top;
-    margin: 0.5%;
-}
-
-#myChart{
+.chartArea{
 	height: 300px;
 	width: 100%;
 }
 
 .right_column{
-    width: 25%;
+    width: 29%;
+    margin-left: 0.5%;
     display: inline-block;
     height: 300px;
     background-color: white;
-    margin: 0.5%;
-    padding: 0.5%;
 }
+
 
 .building_image{
     width: 100%;
@@ -126,5 +118,22 @@ header{
     border-radius: 3px;
     padding: 5px;
     margin-bottom: 0.5%;
+    font-family: Arial;
 }
 
+#pChart{
+	width: 100%;
+}
+
+.piechartArea{
+	height: 300px;
+	width: 100%;
+}
+
+#hourly_chart{
+	border: solid 1px red;
+	background-color: white;
+    display: block;
+    width: 100%;
+    margin: auto;
+}
