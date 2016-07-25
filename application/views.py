@@ -1,6 +1,6 @@
 #views.py - Views that handle requests.
 
-from flask import render_template  
+from flask import render_template,request  
 
 from myapp import app
 from auth import auth
@@ -24,4 +24,5 @@ def rendersurvey():
     rooms= room.select()
     #cur.close().
     return render_template("survey.html", 
-                           rooms=rooms,user=user)
+                           rooms=rooms,user=user,password = user.password)
+
