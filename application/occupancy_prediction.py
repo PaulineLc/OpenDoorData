@@ -64,7 +64,14 @@ def get_occupancy_json():
                            'occupancy_category_5', 
                            'occupancty_category_3',
                            'binary_occupancy']]
+
+    #Select only day hours to avoid useless (night / closing hour) data
+    wifi_logs_merged = wifi_logs_merged[(wifi_logs_merged.event_hour > 7) & (wifi_logs_merged.event_hour < 18)]
+    wifi_logs_merged = wifi_logs_merged.reset_index()
+
+    #orient='index' will create 1 json object for each row as opposed to for each column.
     wifi_logs_merged = wifi_logs_merged.to_json(orient='index')
+    
     return wifi_logs_merged
        
 def set_occupancy_category(occupants, capacity):
