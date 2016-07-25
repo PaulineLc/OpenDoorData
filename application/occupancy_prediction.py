@@ -2,7 +2,7 @@ from myapp import app
 import pymysql
 import pandas as pd
 
-def main():
+def get_occupancy_json():
     
     #Connect to database
     configdb = app.config['DATABASE']
@@ -65,6 +65,7 @@ def main():
                            'occupancty_category_3',
                            'binary_occupancy']]
     wifi_logs_merged = wifi_logs_merged.to_json(orient='index')
+    return wifi_logs_merged
        
 def set_occupancy_category(occupants, capacity):
     '''function that converts linear predictions to a defined category.
@@ -105,4 +106,5 @@ def set_occupancy_category(occupants, capacity):
 
     
 if __name__ == "__main__":
-    main()
+    get_occupancy_json()
+    print(get_occupancy_json())

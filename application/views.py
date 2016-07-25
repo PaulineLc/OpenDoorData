@@ -7,6 +7,8 @@ from myapp import app
 from auth import auth
 from models import room
 
+from occupancy_prediction import get_occupancy_json
+
 
 @app.route('/')
 def render():
