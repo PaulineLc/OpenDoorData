@@ -65,7 +65,6 @@ def main():
                            'occupancty_category_3',
                            'binary_occupancy']]
     wifi_logs_merged = wifi_logs_merged.to_json(orient='index')
-    print(wifi_logs_merged)
        
 def set_occupancy_category(occupants, capacity):
     '''function that converts linear predictions to a defined category.
