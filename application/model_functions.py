@@ -96,15 +96,6 @@ def estimate_occ(df,room, occupancy_rate):
         else:
             raise ValueError('Incorrect room number:', df[room][i])
 
-def clean_dataframe(df):
-    '''cleans the dataframe as per agreed standards
-    Time is converted from epoch to timestamp
-    room id are converted to integer
-    parameters
-    ----------
-    df: a dataframe displaying cleaned wifi data
-    '''
-    pass
 
 def dataframe_epochtime_to_datetime(df, epoch_time):
     '''Converts the epoch time data in the dataframe into human readable format (datetime)

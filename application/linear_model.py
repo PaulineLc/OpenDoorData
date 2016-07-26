@@ -4,17 +4,6 @@ Created on Sat Jul 23 11:36:54 2016
 
 @author: Elayne Ruane
 
-This script contains a linear regression model that predicts the number of
-people in a room based on the number of devices connected to wifi access points
-in that room.
-
-The accuracy of the model can be tested by occupancy data collected via survey.
-
-Wifi logs contain readings at five minute intervals. We use the median number
-of devices connected per hour.
-
-The model was originally prepared in iPython notebooks.
-
 """
 
 # ---------- IMPORT NECESSARY LIBRARIES
@@ -30,6 +19,20 @@ from model_functions import dataframe_epochtime_to_datetime
 
 
 def get_linear_coef():
+    '''This function contains a linear regression model that predicts the number of
+    people in a room based on the number of devices connected to wifi access points
+    in that room.
+
+    The accuracy of the model can be tested by occupancy data collected via survey.
+
+    Wifi logs contain readings at five minute intervals. We use the median number
+    of devices connected per hour.
+
+    The model was originally prepared in iPython notebooks.
+
+    Returns
+    ----------
+    coef (float): the linear coefficient'''
 
     # ---------- READ DATA FROM CSV FILES INTO DATAFRAME
 
@@ -97,4 +100,5 @@ def get_linear_coef():
 
 
 if __name__ == "__main__":
-    get_linear_coef()
+    coef = get_linear_coef()
+    print("Linear coefficient:", coef)
