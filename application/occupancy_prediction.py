@@ -86,7 +86,7 @@ def set_occupancy_category(occupants, capacity):
     
     Returns
     ---------
-    tuple with 3 values: 
+    list with 3 values:
         at position 0, the occupancy with 5 cateories
         at position 1, the occupancy with 3 categories
         at position 2, the binary occupancy
