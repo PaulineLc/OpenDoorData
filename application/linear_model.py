@@ -29,9 +29,11 @@ from model_functions import estimate_occ
 
 
 def get_linear_coef():
+
     # ---------- READ DATA FROM CSV FILES INTO DATAFRAME
 
-    ## OS AGNOSTIC VERSION
+    # Read file
+    # OS agnostic -- should work on Mac / Windows / Linux
     folder = 'cleaned_data'
     file_full_data = 'full.csv'
     file_survey_data = 'survey_data.csv'
@@ -43,12 +45,17 @@ def get_linear_coef():
     occupancy_df = pd.read_csv(paths)
 
 
-    ## TEST IF FILES READ IN CORRECTLY
-
-
-    print('wifi log data successfully loaded into dataframe: ',isempty_df(wifi_df))
-    print('occupancy data successfully loaded into dataframe: ',isempty_df(occupancy_df))
-
+    # Test if files were read correctly
+    # If the program was not able to read the files, the dataframes are empty
+    # The below statement would return an exception and terminate the execution of the code
+    if isempty_df(wifi_df) or isempty_df(occupancy_df):
+        print("Error: data was not loaded on the dataframe")
+        print("Calculation of the coefficient impossible: missing data")
+        if isempty_df(wifi_df):
+            print("empty dataframe: wifi_df")
+        if isempty_df(occupancy_df):
+            print("empty dataframe: occupancy_df")
+        return
 
     # ---------- CLEAN DATA FOR MODEL
 
@@ -57,7 +64,7 @@ def get_linear_coef():
 
     # convert 'event_time' values from timestamp to epoch so can convert to DATETIME
     convert_to_epoch(wifi_df, 'event_time')
-
+    # Clean room number (convert to integer)
     room_number(wifi_df, 'room')
 
     # convert 'event_time' values from EPOCH to DATETIME in both dataframes

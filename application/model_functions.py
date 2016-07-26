@@ -28,9 +28,9 @@ def isempty_df(df):
     cols = df.shape[1]
     
     if rows > 0 and cols > 0:
-        return True
+        return False
     else:
-         return False
+         return True
 
 
 def convert_to_epoch(df, column):
@@ -95,3 +95,24 @@ def estimate_occ(df,room, occupancy_rate):
         
         else:
             raise ValueError('Incorrect room number:', df[room][i])
+
+def clean_dataframe(df):
+    '''cleans the dataframe as per agreed standards
+    Time is converted from epoch to timestamp
+    room id are converted to integer
+    parameters
+    ----------
+    df: a dataframe
+
+    '''
+    pass
+
+def merge_dataframe_by_median_wifi_logs(df):
+    '''function that calculate the median number of wifi devices connected
+
+    parameters
+    ----------
+    df: a dataframe
+
+    '''
+    pass
