@@ -66,6 +66,8 @@ def get_occupancy_json():
                            'binary_occupancy']]
 
     #Select only day hours to avoid useless (night / closing hour) data
+    #In the future every building's row should be cross checked to ensure that the hours removed are its own opening/closing hours
+    #Since we have only 1 building we took its own opening/closing hours
     wifi_logs_merged = wifi_logs_merged[(wifi_logs_merged.event_hour > 7) & (wifi_logs_merged.event_hour < 18)]
     wifi_logs_merged = wifi_logs_merged.reset_index()
 
