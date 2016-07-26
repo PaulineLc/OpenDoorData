@@ -102,17 +102,31 @@ def clean_dataframe(df):
     room id are converted to integer
     parameters
     ----------
-    df: a dataframe
-
+    df: a dataframe displaying cleaned wifi data
     '''
     pass
 
-def merge_dataframe_by_median_wifi_logs(df):
-    '''function that calculate the median number of wifi devices connected
+def normalize_dataframe_time(df, epoch_time):
+    '''Converts the epoch time data in the dataframe into human readable format
+    Year, Month, Day, Hour and Minute are each put in a new column in order to allow for data merging
 
     parameters
     ----------
     df: a dataframe
+    epoch_time: the name of the column containing the time in epoch format.
 
+    Returns
+    ----------
+    Returns the dataframe with normalized time information
     '''
-    pass
+
+
+    df[epoch_time] = pd.to_datetime(df.event_time, unit='s')
+    df.set_index(epoch_time, inplace=True)
+
+    df['event_year'] = df.index.year
+    df['event_month'] = df.index.month
+    df['event_day'] = df.index.day
+    df['event_hour'] = df.index.hour
+
+    return df

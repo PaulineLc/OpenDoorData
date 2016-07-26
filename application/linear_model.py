@@ -26,6 +26,7 @@ from model_functions import isempty_df
 from model_functions import convert_to_epoch
 from model_functions import room_number
 from model_functions import estimate_occ
+from model_functions import normalize_dataframe_time
 
 
 def get_linear_coef():
@@ -55,7 +56,7 @@ def get_linear_coef():
             print("empty dataframe: wifi_df")
         if isempty_df(occupancy_df):
             print("empty dataframe: occupancy_df")
-        return
+        return KeyError
 
     # ---------- CLEAN DATA FOR MODEL
 
@@ -107,11 +108,11 @@ def get_linear_coef():
     # ---------- CREATE AND TRAIN THE MODEL
 
     # can also use associated but higher correlation with authenticated
-    lm = sm.ols(formula='est_occupants ~ auth', data=df_train).fit()
+    lm = sm.ols(formula='est_occupants ~ auth', data=df).fit()
 
     intercept = lm.params.Intercept
     coef = lm.params.auth
-
+    print(coef)
     # ---------- PUT MODEL COEFFICIENTS IN DATABASE
 
     # import models
