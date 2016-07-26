@@ -85,9 +85,6 @@ def get_linear_coef():
     # estimate the number of occupancts from the survey data to assess model accuracy
     estimate_occ(df, 'room', 'occupancy')
 
-    # create a test data set and a train data set from 'df'
-    df_train = df[:int(0.7 * df.shape[0])]
-    df_test = df[int(0.7 * df.shape[0]):]
 
     # ---------- CREATE AND TRAIN THE MODEL
 
