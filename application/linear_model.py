@@ -91,17 +91,9 @@ def get_linear_coef():
     # can also use associated but higher correlation with authenticated
     lm = sm.ols(formula='est_occupants ~ auth', data=df).fit()
 
-    intercept = lm.params.Intercept
     coef = lm.params.auth
-    print(coef)
-    # ---------- PUT MODEL COEFFICIENTS IN DATABASE
 
-    # import models
-    #
-    # insert model parameters into database
-    # models.regressionModel.create(offset = intercept,
-    #                               weight = coef
-    #                               )
+    return coef
 
 
 if __name__ == "__main__":
