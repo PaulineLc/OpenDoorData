@@ -137,3 +137,35 @@ header{
     width: 100%;
     margin: auto;
 }
+
+#googleMap{
+	height: 500px;
+}
+
+#building_list{
+	height: 120px;
+	background-color: white;
+}
+
+.building_list_image{
+	display: inline-block;
+	height: 110px;
+	padding: 5px;
+	vertical-align: middle;
+}
+
+.building_list_image img{
+	height: 100%;
+}
+
+.building_name{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.option_selector{
+	background-color: white;
+	border-radius: 3px;
+	height: 70px;
+	margin-bottom: 5px;
+}
