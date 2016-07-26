@@ -3,8 +3,8 @@ import pymysql
 import pandas as pd
 from model_functions import dataframe_epochtime_to_datetime
 
-def get_occupancy_json():
-    
+def get_occupancy_json(rid, date, month, year):
+    print("gothere")
     #Connect to database
     configdb = app.config['DATABASE']
     
@@ -13,9 +13,19 @@ def get_occupancy_json():
                           user = configdb['user'],
                           password =configdb['password']
                           )
-    
-    wifi_logs = pd.read_sql('select * from wifi_log;', con=conn)
+    #JACK: The request that sends back all the data for all rooms
+    #is taking a bit of time on the client side so I'm going to edit 
+    #this SQL query to only include specific information for the time being
 
+    #wifi_logs = pd.read_sql('select * from wifi_log;', con=conn)
+
+    wifi_logs = pd.read_sql('''
+        SELECT * FROM wifi_db.wifi_log 
+        WHERE room_id = %s 
+            AND FROM_UNIXTIME(event_time, "%%e") = %s 
+            AND FROM_UNIXTIME(event_time, "%%m") = %s
+            AND FROM_UNIXTIME(event_time, "%%Y") = %s''', con=conn, params=[rid, date, month, year])
+    print(wifi_logs)
     room_data = pd.read_sql('select * from room;', con=conn)
     predict_coef = 0.884521 #at a later stage,this will be imported from the db
     

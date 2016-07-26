@@ -34,10 +34,10 @@ def renderRoomPage():
     return render_template("index.html")
 
 
-@app.route('/prediction/')
-def returnPrediction(test):
-    json = get_occupancy_json()
-    print("trying to return json")
+@app.route('/predicted/<rid>/<date>/<month>/<year>')
+def returnPrediction(rid, date, month, year):
+    print("gotto route")
+    json = get_occupancy_json(rid, date, month, year)
     return json
 
 @app.route('/dailyavg/<rid>')

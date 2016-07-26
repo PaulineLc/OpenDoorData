@@ -1,11 +1,38 @@
 //When the page loads we want to automatically query the DB and plot
 //plot the information on the chart
 
+var room_selection;
+function displayDate(){
+	var date = new Date(document.getElementById("datething").value);
+	console.log(date.getDay())
+	getPredictedInfo(date.getDate(), date.getMonth() + 1, date.getFullYear())
+}
+
+function getPredictedInfo(date, month, year){
+	var xmlhttp3 = new XMLHttpRequest();
+	console.log(year);
+	var url = "/predicted/" + room_selection + "/" + date + "/" + month + "/" + year;
+	console.log(url)
+
+	xmlhttp3.onreadystatechange = function() {
+	    if (xmlhttp3.readyState == 4 && xmlhttp3.status == 200) {
+	        var predictedValues = JSON.parse(xmlhttp3.responseText);
+	        //Once we've got the data from our database in JSON format we then
+	        //proceed to draw the chart
+
+	        // TODO: If a chart has already been drawn 
+	        // then it needs to be refreshed rather than drawn again
+	        console.log(predictedValues)
+	    }
+	};
+	xmlhttp3.open("GET", url, true);
+	xmlhttp3.send();
+}
 //Using XMLHttpRequest() to query flask application
 function getRoomInfo(){
 	//get the room selected by the user
 	var selector = document.getElementById("room_selector");
-	var room_selection = selector.options[selector.selectedIndex].value;
+	room_selection = selector.options[selector.selectedIndex].value;
 	//console.log(room_selection);
 	//Then do a AJAX request for data about this room
 	sendJSONRequest(room_selection)
@@ -31,20 +58,20 @@ function sendJSONRequest(room){
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
 }
-var xmlhttp2 = new XMLHttpRequest();
-var url2 = "/prediction/";
+// var xmlhttp2 = new XMLHttpRequest();
+// var url2 = "/prediction/";
 
-xmlhttp2.onreadystatechange = function() {
-    if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
-        var prediction = JSON.parse(xmlhttp2.responseText);
-        console.log("gothere");
-        //Once we've got the data from our database in JSON format we then
-        //proceed to draw the chart
-        console.log(prediction);
+// xmlhttp2.onreadystatechange = function() {
+//     if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+//         var prediction = JSON.parse(xmlhttp2.responseText);
+//         console.log("gothere");
+//         //Once we've got the data from our database in JSON format we then
+//         //proceed to draw the chart
+//         console.log(prediction);
         
-    }
-};
-xmlhttp2.open("GET", url2, true);
-xmlhttp2.send();
+//     }
+// };
+// xmlhttp2.open("GET", url2, true);
+// xmlhttp2.send();
 
 
