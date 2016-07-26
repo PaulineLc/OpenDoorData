@@ -4,7 +4,6 @@
 var room_selection;
 function displayDate(){
 	var date = new Date(document.getElementById("datething").value);
-	
 	getPredictedInfo(date.getDate(), date.getMonth() + 1, date.getFullYear())
 }
 
@@ -19,6 +18,7 @@ function getPredictedInfo(date, month, year){
 	        var predictedValues = JSON.parse(xmlhttp.responseText);
 	        //Once we've got the data from our database in JSON format we then
 	        //proceed to draw the chart
+	        console.log(predictedValues);
 	        drawPredictedValueCharts(predictedValues);
 	    }
 	};
@@ -33,6 +33,7 @@ function getRoomInfo(){
 	//console.log(room_selection);
 	//Then do a AJAX request for data about this room
 	sendJSONRequest(room_selection)
+	destroyCharts();
 }
 
 function sendJSONRequest(room){

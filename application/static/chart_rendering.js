@@ -1,6 +1,6 @@
 
 //Lists of strings used for yAxis labels
-var timeList = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
+var timeList = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
 var dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 var predictedHourlyChart = null;
 
@@ -95,13 +95,25 @@ function doSomething(stuff){
 });
 }
 
+function destroyCharts(){
+    if(window.predictedHourlyChart !== null){
+        window.predictedHourlyChart.destroy();
+        
+    }
+
+}
+
 function drawPredictedValueCharts(predictedValues){
     var ctx = document.getElementById("predictedHourly");
     
     var dataLength = Object.keys(predictedValues).length;
     var occupancy_data = [];
+    var predicted_data = [];
+    var associated_devices = [];
     for (i = 0; i < dataLength; i++){
-        occupancy_data.push(predictedValues[i].occupancy_category_5);
+        occupancy_data.push(predictedValues[i].occupancy);
+        predicted_data.push(predictedValues[i].occupancy_category_5);
+        associated_devices.push(predictedValues[i].assoc_devices);
     }
     if(window.predictedHourlyChart !== null){
         window.predictedHourlyChart.destroy();
@@ -114,23 +126,42 @@ function drawPredictedValueCharts(predictedValues){
             labels: timeList,
             datasets: [{
                 fill: true,
-                label: '# of Devices',
+                label: 'Actual Occupancy',
                 data: occupancy_data,
                 backgroundColor:
-                'rgba(255, 99, 132, 0.2)'
-                ,
+                'rgba(255, 99, 132, 0.2)',
                 borderColor:'rgba(255,99,132,1)',
                 borderWidth: 1
-            }]
-        },
+            },
+            {
+                fill: true,
+                label: 'Predicted Devices',
+                data: predicted_data,
+                backgroundColor:
+                'rgba(100, 230, 184, 0.2)',
+                borderColor:"rgba(100, 230, 184, 0.2)",
+                borderWidth: 1}]
+            },
+        
+        //     {
+        //         fill: true,
+        //         label: 'Associated Devices',
+        //         data: associated_devices,
+        //         backgroundColor:
+        //         "rgb(153, 255, 13, 0.2)",
+        //         borderColor:"#00ff99",
+        //         borderWidth: 1}]
+        // },
         options: {
+            
             scales: {
                 yAxes: [{
                     scaleLabel:{
                         //used for y axis title
                     },
                     ticks: {
-                        beginAtZero:true
+                        min: 0,
+                        max: 1
                     }
                 }]
             },
@@ -149,7 +180,7 @@ function drawPredictedValueCharts(predictedValues){
                 text: "Daily Average Associated Devices"
             },
             legend: {
-                display: false
+                display: true
             }
 
         }
