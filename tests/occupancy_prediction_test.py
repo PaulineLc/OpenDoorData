@@ -3,7 +3,7 @@ import unittest
 from application.occupancy_prediction import set_occupancy_category
 
 class Testing(unittest.TestCase):
-    def test_occupancy_category(self):
+    def test_set_occupancy_category(self):
         assert (set_occupancy_category(0, 5) == (0, "empty", False))
         assert (set_occupancy_category(1, 5) == (0.25, "moderate", True))
         assert (set_occupancy_category(2, 5) == (0.5, "moderate", True))
