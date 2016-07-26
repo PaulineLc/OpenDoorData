@@ -33,6 +33,26 @@
 				<!--MAIN CONTENT PAGE GOES HERE-->
 				<div id="main_page">
 					<div class="db_display">
+						<div class="option_selector">
+							<form>
+								Select the Building:
+								<select id="building_selector">
+									<option value="scs">School of Computer Science</option>
+								</select>
+							</form>
+							<form>
+								Select the room:
+								<!-- TODO: use Jinja to get these option from the databse -->
+								<select id="room_selector">
+									<option value="2">B002</option>
+									<option value="3">B003</option>
+									<option value="4">B004</option>
+								</select>
+							</form>
+							<button onclick="getRoomInfo()">Get Info!</button>
+
+
+						</div>
 
 						<div class="title" id="building_heading">
 							<h1>School of Computer Science - B002</h1>
@@ -51,22 +71,10 @@
 							</div>
 						</div>
 						<div id="hourly_chart">
-					
 						</div>
-
-
 					</div>
-
-
 				</div>
-
-
-
-
 			</div>
-
-
-
 		</body>
 		</html>
 		</html>
