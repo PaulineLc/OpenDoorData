@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='building.css') }}">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="http://maps.googleapis.com/maps/api/js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+	
+	<script type="text/javascript" src="{{ url_for('static', filename='chart_rendering.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='map.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='data_query.js') }}"></script>
+
+
+	<title>Tech Quartet</title>
+</head>
+<body>
+	<div id="wrapper">
+		<header></header>
+
+		<!--NAVBAR STUFF GOES HERE-->
+		<div id="navbar">
+			<div id="navContent">
+				<ul id="navList">
+					<li>Home</li>
+					<li>
+						<a>Building</a>
+						<a href="/room">Rooms</a>
+							<li>About</li>
+						</ul>
+					</div>
+				</div>
+
+				<!--MAIN CONTENT PAGE GOES HERE-->
+				<div id="main_page">
+
+					<div class="db_display">
+						<h1>Campus Buildings</h1>
+						<div id="googleMap"></div>
+
+						<div id="building_list">
+							<div class="building_list_entry">
+								<div class="building_list_image"><img src="{{ url_for('static', filename='images/scs.jpg') }}"></div>
+								<a href="/room/2" class="building_name">School of Computer Science</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</body>
+		</html>
+		</html>

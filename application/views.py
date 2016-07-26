@@ -13,7 +13,7 @@ from occupancy_prediction import get_occupancy_json
 @app.route('/')
 def render():
     #cur.close().
-    return render_template("index.html")
+    return render_template("building.html")
 
 @app.route('/api/')
 def renderapi():
@@ -29,6 +29,16 @@ def rendersurvey():
     return render_template("survey.html", 
                            rooms=rooms)
 
+@app.route('/room/')
+def renderRoomPage():
+    return render_template("index.html")
+
+
+@app.route('/prediction/')
+def returnPrediction(test):
+    json = get_occupancy_json()
+    print("trying to return json")
+    return json
 
 @app.route('/dailyavg/<rid>')
 def returnDailyStats(rid):
