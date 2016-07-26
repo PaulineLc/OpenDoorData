@@ -106,8 +106,8 @@ def clean_dataframe(df):
     '''
     pass
 
-def normalize_dataframe_time(df, epoch_time):
-    '''Converts the epoch time data in the dataframe into human readable format
+def dataframe_epochtime_to_datetime(df, epoch_time):
+    '''Converts the epoch time data in the dataframe into human readable format (datetime)
     Year, Month, Day, Hour and Minute are each put in a new column in order to allow for data merging
 
     parameters

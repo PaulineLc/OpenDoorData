@@ -26,7 +26,7 @@ from model_functions import isempty_df
 from model_functions import convert_to_epoch
 from model_functions import room_number
 from model_functions import estimate_occ
-from model_functions import normalize_dataframe_time
+from model_functions import dataframe_epochtime_to_datetime
 
 
 def get_linear_coef():
@@ -69,21 +69,8 @@ def get_linear_coef():
     room_number(wifi_df, 'room')
 
     # convert 'event_time' values from EPOCH to DATETIME in both dataframes
-    wifi_df['event_time'] = pd.to_datetime(wifi_df.event_time, unit='s')
-    occupancy_df['event_time'] = pd.to_datetime(occupancy_df.event_time, unit='s')
-
-    # use 'event_time' as dataframe index in both dataframes
-    wifi_df.set_index('event_time', inplace=True)
-    occupancy_df.set_index('event_time', inplace=True)
-
-    # create two new columns, event_hour and event_day for use in calculation of the median hourly value
-    wifi_df['event_hour'] = wifi_df.index.hour
-    wifi_df['event_day'] = wifi_df.index.day
-
-    occupancy_df['event_hour'] = occupancy_df.index.hour
-    occupancy_df['event_day'] = occupancy_df.index.day
-
-
+    wifi_df = dataframe_epochtime_to_datetime(wifi_df, "event_time")
+    occupancy_df = dataframe_epochtime_to_datetime(occupancy_df, "event_time")
 
     # get median hourly values for each day for each room and put in 'median_df' dataframe
     median_df = wifi_df.groupby(['room', 'event_day', 'event_hour'], as_index=False).median()
@@ -91,7 +78,6 @@ def get_linear_coef():
     # merge median data and occupancy data into single dataframe, 'df'
     median_df['room'] = median_df['room'].astype(int)
     df = pd.merge(median_df, occupancy_df, on=['room', 'event_day', 'event_hour'], how='inner')
-
 
 
     # ---------- DATA ANALYSIS
@@ -102,8 +88,6 @@ def get_linear_coef():
     # create a test data set and a train data set from 'df'
     df_train = df[:int(0.7 * df.shape[0])]
     df_test = df[int(0.7 * df.shape[0]):]
-
-
 
     # ---------- CREATE AND TRAIN THE MODEL
 

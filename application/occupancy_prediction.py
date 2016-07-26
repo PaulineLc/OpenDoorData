@@ -1,6 +1,7 @@
 from myapp import app
 import pymysql
 import pandas as pd
+from model_functions import dataframe_epochtime_to_datetime
 
 def get_occupancy_json():
     
@@ -18,16 +19,8 @@ def get_occupancy_json():
     room_data = pd.read_sql('select * from room;', con=conn)
     predict_coef = 0.884521 #at a later stage,this will be imported from the db
     
-    #Create datetime object column, and set it as index
-    #This is required to merge the data based on date and time
-    wifi_logs['event_time'] = pd.to_datetime(wifi_logs.event_time, unit='s')
-    wifi_logs.set_index('event_time', inplace=True)
-    
-    # create new columns, event_hour, event_day, event_month and event_year. This is to merge on it.
-    wifi_logs['event_year'] = wifi_logs.index.year
-    wifi_logs['event_month'] = wifi_logs.index.month
-    wifi_logs['event_day'] = wifi_logs.index.day
-    wifi_logs['event_hour'] = wifi_logs.index.hour
+    #Convert epoch to datetime in dataframe
+    wifi_logs = dataframe_epochtime_to_datetime(wifi_logs, "event_time")
 
     wifi_logs = wifi_logs.groupby(['building','room_id', 'event_day', 'event_hour', 'event_month', 'event_year'], 
                                   as_index=False).median()
