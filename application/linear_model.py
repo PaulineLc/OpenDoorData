@@ -22,6 +22,11 @@ The model was originally prepared in iPython notebooks.
 import os
 import pandas as pd
 import statsmodels.formula.api as sm
+from model_functions import isempty_df
+from model_functions import convert_to_epoch
+from model_functions import room_number
+from model_functions import estimate_occ
+
 
 def get_linear_coef():
     # ---------- READ DATA FROM CSV FILES INTO DATAFRAME
@@ -40,7 +45,6 @@ def get_linear_coef():
 
     ## TEST IF FILES READ IN CORRECTLY
 
-    from model_functions import isempty_df
 
     print('wifi log data successfully loaded into dataframe: ',isempty_df(wifi_df))
     print('occupancy data successfully loaded into dataframe: ',isempty_df(occupancy_df))
@@ -51,11 +55,9 @@ def get_linear_coef():
     del occupancy_df['Unnamed: 0'] # delete unwanted column
 
 
-    from model_functions import convert_to_epoch
     # convert 'event_time' values from timestamp to epoch so can convert to DATETIME
     convert_to_epoch(wifi_df, 'event_time')
 
-    from model_functions import room_number
     room_number(wifi_df, 'room')
 
     # convert 'event_time' values from EPOCH to DATETIME in both dataframes
@@ -86,7 +88,6 @@ def get_linear_coef():
 
     # ---------- DATA ANALYSIS
 
-    from model_functions import estimate_occ
     # estimate the number of occupancts from the survey data to assess model accuracy
     estimate_occ(df, 'room', 'occupancy')
 
