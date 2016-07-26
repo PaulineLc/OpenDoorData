@@ -4,29 +4,26 @@
 var room_selection;
 function displayDate(){
 	var date = new Date(document.getElementById("datething").value);
-	console.log(date.getDay())
+	
 	getPredictedInfo(date.getDate(), date.getMonth() + 1, date.getFullYear())
 }
 
 function getPredictedInfo(date, month, year){
-	var xmlhttp3 = new XMLHttpRequest();
-	console.log(year);
+	var xmlhttp = new XMLHttpRequest();
+	
 	var url = "/predicted/" + room_selection + "/" + date + "/" + month + "/" + year;
 	console.log(url)
 
-	xmlhttp3.onreadystatechange = function() {
-	    if (xmlhttp3.readyState == 4 && xmlhttp3.status == 200) {
-	        var predictedValues = JSON.parse(xmlhttp3.responseText);
+	xmlhttp.onreadystatechange = function() {
+	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	        var predictedValues = JSON.parse(xmlhttp.responseText);
 	        //Once we've got the data from our database in JSON format we then
 	        //proceed to draw the chart
-
-	        // TODO: If a chart has already been drawn 
-	        // then it needs to be refreshed rather than drawn again
-	        console.log(predictedValues)
+	        drawPredictedValueCharts(predictedValues);
 	    }
 	};
-	xmlhttp3.open("GET", url, true);
-	xmlhttp3.send();
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
 }
 //Using XMLHttpRequest() to query flask application
 function getRoomInfo(){
@@ -41,7 +38,7 @@ function getRoomInfo(){
 function sendJSONRequest(room){
 	var xmlhttp = new XMLHttpRequest();
 	var url = "/dailyavg/" + room;
-	console.log(url)
+	
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
