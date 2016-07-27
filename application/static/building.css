@@ -169,3 +169,8 @@ header{
 	height: 70px;
 	margin-bottom: 5px;
 }
+
+#predictedChart{
+	height: 300px;
+}
+

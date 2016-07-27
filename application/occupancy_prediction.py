@@ -4,8 +4,8 @@ import pandas as pd
 from model_functions import dataframe_epochtime_to_datetime
 from linear_model import get_linear_coef
 
-def get_occupancy_json():
-    
+def get_occupancy_json(rid, date, month, year):
+    print("gothere")
     #Connect to database
     configdb = app.config['DATABASE']
     
@@ -14,9 +14,22 @@ def get_occupancy_json():
                           user = configdb['user'],
                           password =configdb['password']
                           )
-    
-    wifi_logs = pd.read_sql('select * from wifi_log;', con=conn)
+    #JACK: The request that sends back all the data for all rooms
+    #is taking a bit of time on the client side so I'm going to edit 
+    #this SQL query to only include specific information for the time being
 
+    #wifi_logs = pd.read_sql('select * from wifi_log;', con=conn)
+
+    wifi_logs = pd.read_sql('''
+        SELECT logd.room_id, logd.event_time, auth_devices, assoc_devices, logd.building, occupancy FROM wifi_db.wifi_log AS logd, wifi_db.survey AS survey 
+        WHERE logd.room_id = %s 
+            AND FROM_UNIXTIME(logd.event_time, "%%e") = %s 
+            AND FROM_UNIXTIME(logd.event_time, "%%m") = %s
+            AND FROM_UNIXTIME(logd.event_time, "%%Y") = %s
+            AND FROM_UNIXTIME(logd.event_time, "%%e") = FROM_UNIXTIME(survey.event_time, "%%e")
+            AND FROM_UNIXTIME(logd.event_time, "%%m") = FROM_UNIXTIME(survey.event_time, "%%m")
+            AND FROM_UNIXTIME(logd.event_time, "%%H") = FROM_UNIXTIME(survey.event_time, "%%H");''', con=conn, params=[rid, date, month, year])
+    print(wifi_logs)
     room_data = pd.read_sql('select * from room;', con=conn)
     predict_coef = get_linear_coef() #at a later stage,this will be imported from the db
     
@@ -51,10 +64,12 @@ def get_occupancy_json():
     
     wifi_logs_merged = wifi_logs[['building', 
                            'room_id', 
+                           'assoc_devices',
                            'event_day', 
                            'event_hour', 
                            'event_month', 
                            'event_year', 
+                           'occupancy',
                            'occupancy_category_5', 
                            'occupancty_category_3',
                            'binary_occupancy']]
@@ -62,7 +77,7 @@ def get_occupancy_json():
     #Select only day hours to avoid useless (night / closing hour) data
     #In the future every building's row should be cross checked to ensure that the hours removed are its own opening/closing hours
     #Since we have only 1 building we took its own opening/closing hours
-    wifi_logs_merged = wifi_logs_merged[(wifi_logs_merged.event_hour > 7) & (wifi_logs_merged.event_hour < 18)]
+    wifi_logs_merged = wifi_logs_merged[(wifi_logs_merged.event_hour > 8) & (wifi_logs_merged.event_hour < 18)]
     wifi_logs_merged = wifi_logs_merged.reset_index()
 
     #orient='index' will create 1 json object for each row as opposed to for each column.
