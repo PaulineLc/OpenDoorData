@@ -8,10 +8,6 @@ This file contains functions for use in model.py
 """
 
 
-import os
-# import csv package for reading from and writing to csv files
-import csv
-# import pandas package to read and merge csv files
 import pandas as pd
 # import time and parse for cleaning data
 import time
@@ -48,7 +44,8 @@ def convert_to_epoch(df, column):
     for i in range(df.shape[0]):
         # variable 'x' is assigned the value from the column and row 'i'
         x = df[column][i]
-        # variable 'y' is assigned the result of variable 'x' passed through the parse method 
+        # variable 'y' is assigned the result of variable 'x' passed through the parse method
+        print(x)
         y = parse(x)
         # variable 'epoch' is assigned 'y' value converted to epoch time
         epoch = int(time.mktime(y.timetuple()))
@@ -95,6 +92,8 @@ def estimate_occ(df,room, occupancy_rate):
         
         else:
             raise ValueError('Incorrect room number:', df[room][i])
+            return
+    return df
 
 
 def dataframe_epochtime_to_datetime(df, epoch_time):
