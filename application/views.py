@@ -15,6 +15,14 @@ def render():
     #cur.close().
     return render_template("building.html")
 
+@app.route('/dashboard/home')
+def renderDashboardHome():
+        return render_template("dbhome.html")
+
+@app.route('/dashboard/building')
+def renderBuildingPage():
+    return render_template("building.html")
+
 @app.route('/api/')
 def renderapi():
     #cur.close().
@@ -29,15 +37,15 @@ def rendersurvey():
     return render_template("survey.html", 
                            rooms=rooms)
 
-@app.route('/room/')
+@app.route('/dashboard/room/')
 def renderRoomPage():
     return render_template("index.html")
 
 
-@app.route('/prediction/')
-def returnPrediction(test):
-    json = get_occupancy_json()
-    print("trying to return json")
+@app.route('/predicted/<rid>/<date>/<month>/<year>')
+def returnPrediction(rid, date, month, year):
+    print("gotto route")
+    json = get_occupancy_json(rid, date, month, year)
     return json
 
 @app.route('/dailyavg/<rid>')

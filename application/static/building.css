@@ -169,3 +169,18 @@ header{
 	height: 70px;
 	margin-bottom: 5px;
 }
+
+#predictedChart{
+	height: 300px;
+}
+
+#navList a{
+	text-decoration: none;
+	color: white;
+	display: block;
+}
+
+#navList li:hover{
+	box-shadow: 5px 0 0 purple inset;
+}
+

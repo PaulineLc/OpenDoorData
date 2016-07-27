@@ -8,16 +8,12 @@ This file contains functions for use in model.py
 """
 
 
-import os
-# import csv package for reading from and writing to csv files
-import csv
-# import pandas package to read and merge csv files
 import pandas as pd
 # import time and parse for cleaning data
 import time
 from dateutil.parser import parse
 
-
+import re
 
 def isempty_df(df):
     '''function that returns True if data was successfully loaded into a dataframe
@@ -28,9 +24,9 @@ def isempty_df(df):
     cols = df.shape[1]
     
     if rows > 0 and cols > 0:
-        return True
+        return False
     else:
-         return False
+         return True
 
 
 def convert_to_epoch(df, column):
@@ -48,7 +44,7 @@ def convert_to_epoch(df, column):
     for i in range(df.shape[0]):
         # variable 'x' is assigned the value from the column and row 'i'
         x = df[column][i]
-        # variable 'y' is assigned the result of variable 'x' passed through the parse method 
+        # variable 'y' is assigned the result of variable 'x' passed through the parse method
         y = parse(x)
         # variable 'epoch' is assigned 'y' value converted to epoch time
         epoch = int(time.mktime(y.timetuple()))
@@ -64,12 +60,13 @@ def room_number(df, room_column):
     # for loop that iterates through each row in the df
     for i in range(df.shape[0]):
         # selects last character of the string in the room_column which is the room ID
-        df.set_value(i, room_column, df[room_column][i][-1:])
+        df.set_value(i, room_column, re.findall(df[room_column][i])[0])
     return df
 
 
 def estimate_occ(df,room, occupancy_rate):
     '''function that caluclates the estimated number of room occupants
+    This function is designed to only work for B002, B003, and B004
     
     parameters
     ----------
@@ -95,3 +92,31 @@ def estimate_occ(df,room, occupancy_rate):
         
         else:
             raise ValueError('Incorrect room number:', df[room][i])
+            return
+    return df
+
+
+def dataframe_epochtime_to_datetime(df, epoch_time):
+    '''Converts the epoch time data in the dataframe into human readable format (datetime)
+    Year, Month, Day, Hour and Minute are each put in a new column in order to allow for data merging
+
+    parameters
+    ----------
+    df: a dataframe
+    epoch_time: the name of the column containing the time in epoch format.
+
+    Returns
+    ----------
+    Returns the dataframe with normalized time information
+    '''
+
+
+    df[epoch_time] = pd.to_datetime(df.event_time, unit='s')
+    df.set_index(epoch_time, inplace=True)
+
+    df['event_year'] = df.index.year
+    df['event_month'] = df.index.month
+    df['event_day'] = df.index.day
+    df['event_hour'] = df.index.hour
+
+    return df
