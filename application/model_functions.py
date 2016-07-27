@@ -44,7 +44,8 @@ def convert_to_epoch(df, column):
     for i in range(df.shape[0]):
         # variable 'x' is assigned the value from the column and row 'i'
         x = df[column][i]
-        # variable 'y' is assigned the result of variable 'x' passed through the parse method 
+        # variable 'y' is assigned the result of variable 'x' passed through the parse method
+        print(x)
         y = parse(x)
         # variable 'epoch' is assigned 'y' value converted to epoch time
         epoch = int(time.mktime(y.timetuple()))
