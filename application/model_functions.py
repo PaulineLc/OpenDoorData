@@ -26,7 +26,7 @@ def isempty_df(df):
     if rows > 0 and cols > 0:
         return False
     else:
-         return True
+        return True
 
 
 def convert_to_epoch(df, column):
