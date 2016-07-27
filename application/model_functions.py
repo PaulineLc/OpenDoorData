@@ -8,16 +8,12 @@ This file contains functions for use in model.py
 """
 
 
-import os
-# import csv package for reading from and writing to csv files
-import csv
-# import pandas package to read and merge csv files
 import pandas as pd
 # import time and parse for cleaning data
 import time
 from dateutil.parser import parse
 
-
+import re
 
 def isempty_df(df):
     '''function that returns True if data was successfully loaded into a dataframe
@@ -48,7 +44,7 @@ def convert_to_epoch(df, column):
     for i in range(df.shape[0]):
         # variable 'x' is assigned the value from the column and row 'i'
         x = df[column][i]
-        # variable 'y' is assigned the result of variable 'x' passed through the parse method 
+        # variable 'y' is assigned the result of variable 'x' passed through the parse method
         y = parse(x)
         # variable 'epoch' is assigned 'y' value converted to epoch time
         epoch = int(time.mktime(y.timetuple()))
@@ -64,12 +60,13 @@ def room_number(df, room_column):
     # for loop that iterates through each row in the df
     for i in range(df.shape[0]):
         # selects last character of the string in the room_column which is the room ID
-        df.set_value(i, room_column, df[room_column][i][-1:])
+        df.set_value(i, room_column, re.findall(df[room_column][i])[0])
     return df
 
 
 def estimate_occ(df,room, occupancy_rate):
     '''function that caluclates the estimated number of room occupants
+    This function is designed to only work for B002, B003, and B004
     
     parameters
     ----------
@@ -95,6 +92,8 @@ def estimate_occ(df,room, occupancy_rate):
         
         else:
             raise ValueError('Incorrect room number:', df[room][i])
+            return
+    return df
 
 
 def dataframe_epochtime_to_datetime(df, epoch_time):
