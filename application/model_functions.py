@@ -66,6 +66,7 @@ def room_number(df, room_column):
 
 def estimate_occ(df,room, occupancy_rate):
     '''function that caluclates the estimated number of room occupants
+    This function is designed to only work for B002, B003, and B004
     
     parameters
     ----------

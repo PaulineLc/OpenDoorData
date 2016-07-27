@@ -15,7 +15,7 @@ class Testing(unittest.TestCase):
         self.assertFalse(isempty_df(df2))
 
     def test_convert_to_epoch(self):
-
+        #TODO: REVIEW FUNCTION
         df1 = pd.DataFrame([["Wednesday, 27-Jul-16 11:37:51 UTC"]],columns=['time'])
         df1 = convert_to_epoch(df1, "time")
         df2 = pd.DataFrame([[1469619471]],columns=['time'])
@@ -30,7 +30,11 @@ class Testing(unittest.TestCase):
         self.assertEqual(df3['room'][0], 208)
 
     def estimate_occ(self):
-        pass
+        df1 = pd.DataFrame([[2, 0],[3, 0.5],[4, 1]], columns=['room', 'occupancy_rate'])
+        df2 = estimate_occ(df1)
+        self.assertTrue(df2['est_occupants'][0], 0)
+        self.assertTrue(df2['est_occupants'][1], 45)
+        self.assertTrue(df2['est_occupants'][2], 220)
 
     def dataframe_epochtime_to_datetime(self):
         pass
