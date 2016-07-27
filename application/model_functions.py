@@ -13,7 +13,7 @@ import pandas as pd
 import time
 from dateutil.parser import parse
 
-
+import re
 
 def isempty_df(df):
     '''function that returns True if data was successfully loaded into a dataframe
@@ -45,7 +45,6 @@ def convert_to_epoch(df, column):
         # variable 'x' is assigned the value from the column and row 'i'
         x = df[column][i]
         # variable 'y' is assigned the result of variable 'x' passed through the parse method
-        print(x)
         y = parse(x)
         # variable 'epoch' is assigned 'y' value converted to epoch time
         epoch = int(time.mktime(y.timetuple()))
@@ -61,7 +60,7 @@ def room_number(df, room_column):
     # for loop that iterates through each row in the df
     for i in range(df.shape[0]):
         # selects last character of the string in the room_column which is the room ID
-        df.set_value(i, room_column, df[room_column][i][-1:])
+        df.set_value(i, room_column, re.findall(df[room_column][i])[0])
     return df
 
 

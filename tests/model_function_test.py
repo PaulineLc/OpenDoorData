@@ -22,7 +22,12 @@ class Testing(unittest.TestCase):
         self.assertEqual(df1['time'][0], df2['time'][0])
 
     def room_number(self):
-        pass
+        df1 = pd.DataFrame([['B002']],columns=['room'])
+        df2 = pd.DataFrame([['B106']],columns=['room'])
+        df3 = pd.DataFrame([['SC208W']],columns=['room'])
+        self.assertEqual(df1['room'][0], 2)
+        self.assertEqual(df2['room'][0], 106)
+        self.assertEqual(df3['room'][0], 208)
 
     def estimate_occ(self):
         pass
