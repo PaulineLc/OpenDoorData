@@ -1,11 +1,14 @@
 import unittest
+import pandas as pd
 
 from application.model_functions import *
 
 class Testing(unittest.TestCase):
 
     def test_isempty(self):
-        pass
+        df = pd.DataFrame()
+        self.assertTrue(isempty_df(df))
+
 
     def test_convert_to_epoch(self):
         pass
