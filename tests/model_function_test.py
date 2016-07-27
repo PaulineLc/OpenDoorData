@@ -12,7 +12,7 @@ class Testing(unittest.TestCase):
         self.assertFalse(isempty_df(df2))
 
     def test_convert_to_epoch(self):
-        pass
+        self.assertEqual()
 
     def room_number(self):
         pass
