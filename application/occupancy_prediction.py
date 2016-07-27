@@ -2,6 +2,7 @@ from myapp import app
 import pymysql
 import pandas as pd
 from model_functions import dataframe_epochtime_to_datetime
+from linear_model import get_linear_coef
 
 def get_occupancy_json():
     
@@ -17,7 +18,7 @@ def get_occupancy_json():
     wifi_logs = pd.read_sql('select * from wifi_log;', con=conn)
 
     room_data = pd.read_sql('select * from room;', con=conn)
-    predict_coef = 0.884521 #at a later stage,this will be imported from the db
+    predict_coef = get_linear_coef() #at a later stage,this will be imported from the db
     
     #Convert epoch to datetime in dataframe
     wifi_logs = dataframe_epochtime_to_datetime(wifi_logs, "event_time")

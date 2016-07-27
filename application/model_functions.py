@@ -8,10 +8,6 @@ This file contains functions for use in model.py
 """
 
 
-import os
-# import csv package for reading from and writing to csv files
-import csv
-# import pandas package to read and merge csv files
 import pandas as pd
 # import time and parse for cleaning data
 import time
@@ -95,6 +91,8 @@ def estimate_occ(df,room, occupancy_rate):
         
         else:
             raise ValueError('Incorrect room number:', df[room][i])
+            return
+    return df
 
 
 def dataframe_epochtime_to_datetime(df, epoch_time):
