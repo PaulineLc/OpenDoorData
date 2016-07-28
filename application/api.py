@@ -9,6 +9,21 @@ from flask_peewee.rest import RestAPI,UserAuthentication, RestrictOwnerResource,
 class SurveyResource(RestrictOwnerResource):
     owner_field = 'reporter'
     
+#Ideally we want to make sure that anyone posting to the survey is entering the right room and time therefore
+#we need to restrict access to  just these users which is what the below code does however
+#we can't implement it until we have a ful timetable.    
+#     def check_post(self, obj=None):
+#         test_code = timetable.get(room_id = obj.room_id, time= obj.time).mod_code
+#         current_user = auth.get_logged_in_user().username
+#         module_instructor = test_code.username
+#         return module_instructor == current_user
+#     
+#     def check_put(self, obj):
+#         test_code = timetable.get(room_id = obj.room_id, time= obj.time).mod_code
+#         current_user = auth.get_logged_in_user().username
+#         module_instructor = test_code.username
+#         return module_instructor == current_user
+    
 # create an instance of UserAuthentication
 user_auth = UserAuthentication(auth)
 # instantiate admin-only auth
