@@ -40,7 +40,7 @@ def rendersurvey():
 
 @app.route('/dashboard/room/')
 def renderRoomPage():
-    return render_template("index.html")
+    return render_template("room.html")
 
 
 @app.route('/predicted/<rid>/<date>/<month>/<year>')
