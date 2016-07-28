@@ -40,7 +40,7 @@ function createDailyAverageChart(dailyAvg){
             title: {
                 fontSize: 15,
                 fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                display: true,
+                display: false,
                 text: "Daily Average Associated Devices"
             },
             legend: {
@@ -76,7 +76,7 @@ function doSomething(stuff){
         title: {
             fontSize: 15,
             fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-            display: true,
+            display: false,
             text: "Frequency of Use"
         },
         rotation: 45,
@@ -160,8 +160,7 @@ function drawPredictedValueCharts(predictedValues){
                         //used for y axis title
                     },
                     ticks: {
-                        min: 0,
-                        max: 1
+                        min: 0
                     }
                 }]
             },
@@ -176,8 +175,8 @@ function drawPredictedValueCharts(predictedValues){
             title: {
                 fontSize: 15,
                 fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                display: true,
-                text: "Daily Average Associated Devices"
+                display: false,
+                text: "5-Category Occupancy Stastics"
             },
             legend: {
                 display: true

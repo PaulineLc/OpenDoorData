@@ -28,8 +28,9 @@ function getPredictedInfo(date, month, year){
 //Using XMLHttpRequest() to query flask application
 function getRoomInfo(){
 	//get the room selected by the user
-	var selector = document.getElementById("room_selector");
+	var selector = document.getElementById("room_select");
 	room_selection = selector.options[selector.selectedIndex].value;
+	console.log(room_selection);
 	//console.log(room_selection);
 	//Then do a AJAX request for data about this room
 	sendJSONRequest(room_selection)
