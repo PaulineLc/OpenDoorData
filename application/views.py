@@ -47,11 +47,11 @@ def returnPrediction(rid, date, month, year):
     print("gotto route")
     json = get_occupancy_json(rid, date, month, year)
     return json
-
+ 
 @app.route('/dailyavg/<rid>')
 def returnDailyStats(rid):
-	daily_averages = queries.daily_average(rid)
-	frequency_of_use = queries.frequency_of_use(rid)
-	jdata = json_creator.createRoomJson(daily_averages, frequency_of_use)
-	print(jdata)
-	return jdata
+    daily_averages = queries.daily_average(rid)
+    frequency_of_use = queries.frequency_of_use(rid)
+    jdata = json_creator.createRoomJson(daily_averages, frequency_of_use)
+    print(jdata)
+    return jdata
