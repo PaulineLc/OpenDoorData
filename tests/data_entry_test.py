@@ -5,7 +5,6 @@ Created on Wed Jul 27 11:18:01 2016
 @author: Elayne Ruane
 """
 
-# rename file to data_entry_test
 
 import unittest
 
@@ -22,23 +21,13 @@ class Testing(unittest.TestCase):
         self.assertEqual(expected_result, actual_result)
     
     def test_parseName(self):
-        
-        
-        
-        
-        
-        
+        x = 'Belfield > Computer Science > B-002'
+        expected_result_0 = 'computer science'
+        expected_result_1 = '2' 
+        actual_result = parseName(x)
+        self.assertEqual(expected_result_0, actual_result[0])
+        self.assertEqual(expected_result_1, actual_result[1])
 
-
-    
-#    def parseName(x):
-#        inst1 = x.find(">")+2
-#        inst2 = x.find(">", inst1)
-#        
-#        building = x[inst1:inst2-1].lower()
-#        room = x[inst2+6:]
-#        
-#        return (building,room)
 
 
 if __name__ == '__main__':
