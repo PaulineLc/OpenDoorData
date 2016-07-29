@@ -24,6 +24,7 @@ def get_occupancy_json(rid, date, month, year):
         SELECT logd.room_id, logd.event_time, auth_devices, assoc_devices, logd.building, occupancy, room_cap AS capacity FROM wifi_db.room AS rooms, wifi_db.wifi_log AS logd, wifi_db.survey AS survey 
         WHERE logd.room_id = %s 
             AND logd.room_id = rooms.room_num
+            AND logd.room_id = survey.room_id
             AND FROM_UNIXTIME(logd.event_time, "%%e") = %s 
             AND FROM_UNIXTIME(logd.event_time, "%%m") = %s
             AND FROM_UNIXTIME(logd.event_time, "%%Y") = %s
