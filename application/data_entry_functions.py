@@ -158,7 +158,7 @@ def roomCap(database, table, room_num, capacity, building, num, cap, build):
                           )
 
 
-def createAdmin(database, table, username, password, email, first_name, last_name, user, passw, mail, sur):
+def createAdmin(database, table, username, password, email, first_name, last_name, user, passw, name, mail, sur):
     '''function that creates an admin by inserting user data into the user table of a database
     
     parameters
@@ -183,3 +183,18 @@ def createAdmin(database, table, username, password, email, first_name, last_nam
                           last_name = sur,
                           admin = True
                           )
+
+def setPassword(database, table, field, utype, password):
+    '''function that sets a user's password in a database table
+    
+    parameters
+    ----------
+    database: the name of a file containing the class representations of the database tables
+    table: name of the room table in the database
+    field: name of the field containing password data in the table
+    utype: the type of user 
+    password: the password to set
+    '''
+    user = database.table.get(database.table.field == utype)
+    user.set_passworrd(password)
+    user.save()
