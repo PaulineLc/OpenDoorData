@@ -56,7 +56,7 @@ def parseName(x):
 def fileToList(file):
     ''' function that reads in a csv file and returns a list of each row of the file
     
-    called by insertModCode and insertTimetableData functions
+    called by insertModCode, insertTimetableData and insertWifiData functions
     
     parameters
     ----------
@@ -158,6 +158,35 @@ def insertTimetableData(file, database, table, room_id, building, mod_code, even
                               event_time = time1,
                               reg_stu = int(float(reg_stu)),
                               time = datetime.datetime.fromtimestamp(time1)
+                              )
+                              
+
+def insertWifiData(file, database, table, room_id, event_time, assoc_devices, auth_devices):
+    '''function that inserts data from a csv file into a table in a database
+    
+    parameters
+    ----------
+    file: the name of a csv file or variable assigned the name of a csv file
+    database: a file containing database models
+    table: the name of the class which represents the table that stores
+    room_id: name of the data field in the table containing room_id data
+    event_time: name of the data field in the table containing event time data
+    assoc_devices: name of the data field in the table containing associated device log data
+    auth_devices: name of the data field in the table containing authenticated device log data
+    '''
+    # create mylist variable containing file data by calling fileToList function
+    mylist = fileToList(file)
+    # iterate trhough mylist
+    for i in range(len(mylist)):
+        room = int(parseName(mylist[i][0])[1])
+        build = "school of " + parseName(mylist[i][0])[0]
+        etime = float(epochtime(mylist[i][1]))
+        database.table.create(room_id = room,
+                              building = build,
+                              event_time = etime, 
+                              assoc_devices = mylist[i][2], 
+                              auth_devices = mylist[i][3],
+                              time = datetime.datetime.fromtimestamp(etime)
                               )
 
 
