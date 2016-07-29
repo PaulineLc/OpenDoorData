@@ -135,4 +135,4 @@ def createTables(db_models, table_list):
     table_list: a list containing the names of the tables in the db
     '''
     for i in table_list:
-        db_models.create_tables([models.i], safe=True)
+        db_models.db.create_tables([models.i], safe=True)
