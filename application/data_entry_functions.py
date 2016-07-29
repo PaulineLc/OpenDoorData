@@ -124,3 +124,15 @@ def checkModCode(file, db_models, mod_table, field1, field2, user_table, usernam
                 insertModCode(db_models, mod_table, field1, field2, user_table, username)
                 # add modulecode to list 
                 modlist.append(modulecode) 
+
+
+def createTables(db_models, table_list):
+    ''' function that creates tables in a database
+    
+    parameters
+    ----------
+    db_models: the name of a file containing the class representations of the database tables
+    table_list: a list containing the names of the tables in the db
+    '''
+    for i in table_list:
+        db_models.create_tables([models.i], safe=True)
