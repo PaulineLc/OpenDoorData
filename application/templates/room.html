@@ -7,6 +7,7 @@
 
 	<script type="text/javascript" src="{{ url_for('static', filename='chart_rendering.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='data_query.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='data_calculations.js') }}"></script>
 	<title>Tech Quartet</title>
 </head>
 <body>
@@ -87,8 +88,18 @@
 					</div>
 
 					<div class="full_column_chart">
-						<canvas id="predictedHourly"></canvas>
+						<canvas id="predictedHourly-5-cat"></canvas>
 					</div>
+
+				<div class="full_column">
+					<div class="chart_title">
+						<h4>3-Category Occupancy Stastics</h4>
+					</div>
+
+					<div class="full_column_chart">
+						<canvas id="predictedHourly-3-cat"></canvas>
+					</div>
+				</div>
 				</div>
 			</div>
 		</div>
