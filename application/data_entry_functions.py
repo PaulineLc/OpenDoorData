@@ -56,6 +56,8 @@ def parseName(x):
 def fileToList(file):
     ''' function that reads in a csv file and returns a list of each row of the file
     
+    called by insertModCode and insertTimetableData functions
+    
     parameters
     ----------
     file: the name of a csv file or variable assigned the name of a csv file
@@ -67,12 +69,13 @@ def fileToList(file):
         mycsv = csv.reader(f)
         # create a list of lists
         mylist = list(mycsv)
+    f.close()
     return mylist
 
-def insertModCode(database, mod_table, field1, field2, user_table, username, modcode):
+def createModCode(database, mod_table, field1, field2, user_table, username, modcode):
     ''' function that reads in database parameters 
     
-    called by checkModCode function
+    called by insertModCode function
     
     parameters
     ----------
@@ -90,25 +93,25 @@ def insertModCode(database, mod_table, field1, field2, user_table, username, mod
                                )
     
 
-def checkModCode(file, database, mod_table, field1, field2, user_table, username):
+def insertModCode(file, database, table, field1, field2, user_table, username):
     ''' function that reads in a file, checks for any unique module codes, and inserts them into a DB
     
-    calls fileToList function and insertModCode function
+    calls fileToList function and createtModCode function
     
     parameters
     ----------
     file: the name of a csv file or variable assigned the name of a csv file
     database: a file containing database models
-    mod_table: the name of the class which represents the table that stores module codes
-    field1: the name of the data field in 'mod_table' that stores the module code
-    field2: the name of the data field in 'mod_table' that stores the module instructor
+    table: the name of the class which represents the table that stores module codes
+    field1: the name of the data field in 'table' that stores the module code
+    field2: the name of the data field in 'table' that stores the module instructor
     user_table: the name of the class which represents the table that stores user data
     username: the name of the datafield in 'user_table' that stores the username
     
     '''
     # create an empty list
     modlist = []
-    # create mylist variable containing data by calling fileToList function
+    # create mylist variable containing file data by calling fileToList function
     mylist = fileToList(file)
     # iterate trhough mylist, start from 1 to skip data field names
     for i in range (1, len(mylist)):
@@ -121,9 +124,42 @@ def checkModCode(file, database, mod_table, field1, field2, user_table, username
                 continue
             else:
                 # call function to insert modcode into db
-                insertModCode(database, mod_table, field1, field2, user_table, username)
+                insertModCode(database, table, field1, field2, user_table, username)
                 # add modulecode to list 
                 modlist.append(modulecode) 
+
+    
+def insertTimetableData(file, database, table, room_id, building, mod_code, event_time, reg_stu):
+    '''function that inserts data from a csv file into a table in a database
+    
+    parameters
+    ----------
+    file: the name of a csv file or variable assigned the name of a csv file
+    database: a file containing database models
+    table: the name of the class which represents the table that stores
+    room_id: name of the data field in the table containing room_id data
+    building: name of the data field in the table containing building data
+    mod_code: name of the data field in the table containing module code data
+    event_time: name of the data field in the table containing event time data
+    reg_stu: name of the data field in the table containing registered student data
+    '''
+    # create mylist variable containing file data by calling fileToList function
+    mylist = fileToList(file)
+    # iterate trhough mylist, start from 1 to skip data field names
+    for i in range(1, len(mylist)):         
+        room = mylist[i][1]
+        build = mylist[i][5]
+        time1 = int(mylist[i][2])
+        reg_stu = mylist[i][4] if mylist[i][4]!= "" else 0
+        code = mylist[i][3] if len(mylist[i][3])>1 else None
+        database.table.create(room_id = room,
+                              building = build,
+                              mod_code = code,
+                              event_time = time1,
+                              reg_stu = int(float(reg_stu)),
+                              time = datetime.datetime.fromtimestamp(time1)
+                              )
+
 
 
 def createTables(database, table_list):
