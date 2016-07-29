@@ -62,8 +62,7 @@ def room_number(df, room_column):
     # for loop that iterates through each row in the df
     for i in range(df.shape[0]):
         # selects last character of the string in the room_column which is the room ID
-        #df.set_value(i, room_column, re.findall(r'\d+', df[room_column][i])[0])
-        df.set_value(i, room_column, re.findall(df[room_column][i])[0])
+        df.set_value(i, room_column, re.findall('\\b\\d+\\b', df[room_column][i])[0])
     return df
 
 
