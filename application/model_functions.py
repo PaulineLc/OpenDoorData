@@ -44,10 +44,10 @@ def convert_to_epoch(df, column):
     for i in range(df.shape[0]):
         # variable 'x' is assigned the value from the column and row 'i'
         x = df[column][i]
-        # slice string to extract 'GMT' and replace with 'UTC' so function is os agnostic
-        x = x[:20] + "UTC" + x[23:]
+        # replace GMT with UTC so function is os agnostic
+        string = x.lower().replace('gmt', 'UTC')
         # variable 'y' is assigned the result of variable 'x' passed through the parse method
-        y = parse(x)
+        string = parse(x)
         # variable 'epoch' is assigned 'y' value converted to epoch time
         epoch = int(time.mktime(y.timetuple()))
         # set column value to value of variable 'epoch'
