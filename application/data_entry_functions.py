@@ -191,7 +191,7 @@ def insertWifiData(file, database, table, room_id, event_time, assoc_devices, au
                               time = datetime.datetime.fromtimestamp(etime)
                               )
 
-def insertSurveyData(file, database, table, room_id, building, event_time, occupancy, reporter, time):
+def insertSurveyData(file, database, table, room_id, building, event_time, occupancy, reporter, time, user):
     '''function that inserts data from a csv file into a table in a database
     
     parameters
@@ -205,6 +205,7 @@ def insertSurveyData(file, database, table, room_id, building, event_time, occup
     occupancy: name of the data field in the table containing occupancy data
     reporter: name of the data field in the table containing user data
     time: name of the data field in the table containing time data
+    user: name of user table in database
     '''
     # create mylist variable containing file data by calling fileToList function
     mylist = fileToList(file)
@@ -231,7 +232,7 @@ def createTables(database, table_list):
     table_list: a list containing the names of the tables in the db
     '''
     for i in table_list:
-        database.db.create_tables([database.i], safe=True)
+        database.db.create_tables([database.i])
 
 
 
