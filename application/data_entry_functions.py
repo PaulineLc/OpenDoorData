@@ -56,7 +56,7 @@ def parseName(x):
 def fileToList(file):
     ''' function that reads in a csv file and returns a list of each row of the file
     
-    called by insertModCode, insertTimetableData and insertWifiData functions
+    called by insertModCode, insertTimetableData, insertWifiData and insertSurveyData functions
     
     parameters
     ----------
@@ -129,7 +129,7 @@ def insertModCode(file, database, table, field1, field2, user_table, username):
                 modlist.append(modulecode) 
 
     
-def insertTimetableData(file, database, table, room_id, building, mod_code, event_time, reg_stu):
+def insertTimetableData(file, database, table, room_id, building, mod_code, event_time, reg_stu, time):
     '''function that inserts data from a csv file into a table in a database
     
     parameters
@@ -142,6 +142,7 @@ def insertTimetableData(file, database, table, room_id, building, mod_code, even
     mod_code: name of the data field in the table containing module code data
     event_time: name of the data field in the table containing event time data
     reg_stu: name of the data field in the table containing registered student data
+    time: name of the data field in the table containing time data
     '''
     # create mylist variable containing file data by calling fileToList function
     mylist = fileToList(file)
@@ -161,7 +162,7 @@ def insertTimetableData(file, database, table, room_id, building, mod_code, even
                               )
                               
 
-def insertWifiData(file, database, table, room_id, event_time, assoc_devices, auth_devices):
+def insertWifiData(file, database, table, room_id, event_time, assoc_devices, auth_devices, time):
     '''function that inserts data from a csv file into a table in a database
     
     parameters
@@ -173,6 +174,7 @@ def insertWifiData(file, database, table, room_id, event_time, assoc_devices, au
     event_time: name of the data field in the table containing event time data
     assoc_devices: name of the data field in the table containing associated device log data
     auth_devices: name of the data field in the table containing authenticated device log data
+    time: name of the data field in the table containing time data
     '''
     # create mylist variable containing file data by calling fileToList function
     mylist = fileToList(file)
@@ -189,6 +191,35 @@ def insertWifiData(file, database, table, room_id, event_time, assoc_devices, au
                               time = datetime.datetime.fromtimestamp(etime)
                               )
 
+def insertSurveyData(file, database, table, room_id, building, event_time, occupancy, reporter, time):
+    '''function that inserts data from a csv file into a table in a database
+    
+    parameters
+    ----------
+    file: the name of a csv file or variable assigned the name of a csv file
+    database: a file containing database models
+    table: the name of the class which represents the table that stores
+    room_id: name of the data field in the table containing room_id data
+    building: name of the data field in the table containing building data
+    event_time: name of the data field in the table containing event time data
+    occupancy: name of the data field in the table containing occupancy data
+    reporter: name of the data field in the table containing user data
+    time: name of the data field in the table containing time data
+    '''
+    # create mylist variable containing file data by calling fileToList function
+    mylist = fileToList(file)
+    # iterate trhough mylist, start at 1 to skip data field names
+    for i in range(1, len(mylist)):
+        room = mylist[i][1]
+        build = mylist[i][4]
+        etime = int(mylist[i][2])
+        database.table.create(room_id = room,
+                              building = build,
+                              event_time = etime,
+                              occupancy = mylist[i][3],
+                              reporter = user.username,
+                              time = datetime.datetime.fromtimestamp(etime)
+                              )
 
 
 def createTables(database, table_list):
