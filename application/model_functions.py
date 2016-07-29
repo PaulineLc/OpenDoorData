@@ -47,9 +47,9 @@ def convert_to_epoch(df, column):
         # replace GMT with UTC so function is os agnostic
         string = x.lower().replace('gmt', 'UTC')
         # variable 'y' is assigned the result of variable 'x' passed through the parse method
-        string = parse(x)
+        string = parse(string)
         # variable 'epoch' is assigned 'y' value converted to epoch time
-        epoch = int(time.mktime(y.timetuple()))
+        epoch = int(time.mktime(string.timetuple()))
         # set column value to value of variable 'epoch'
         df.set_value(i, column, epoch)
     return df
