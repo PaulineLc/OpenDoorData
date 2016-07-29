@@ -23,8 +23,8 @@ def epochtime(x):
     ------
     an integer that represents the epoch time of the input
     '''
-    # slice string to extract 'GMT' and replace with 'UTC', this is os agnostic
-    x = x[:20] + "UTC" + x[23:]
+    # replace GMT with UTC
+    string = x.lower().replace('gmt', 'UTC')
     # convert string to datetime
     string = parse(x)
     # convert to epoch time
