@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='dashboard.css') }}">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+
+	<script type="text/javascript" src="{{ url_for('static', filename='chart_rendering.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='data_query.js') }}"></script>
+	<title>Tech Quartet</title>
+</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<img src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+			<h4>UCD Occupancy Checker</h4>
+		</header>
+
+		<!--NAVBAR STUFF GOES HERE-->
+		<div id="navbar">
+			<div id="navContent">
+				<ul id="navList">
+					<li><a href="/dashboard/home">Home</a></li>
+					<li><a href="/dashboard/building">Buildings</a></li>
+					<li><a href="/dashboard/room">Rooms</a></li>
+					<li><a href="/dashboard/modules">Modules</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<!--MAIN CONTENT PAGE GOES HERE-->
+		<div id="main_page">
+			<div class="dashboard_display">
+				<div class="option_selector">
+					<form id="building_selector">
+						Select the Building:
+						<select>
+							<option value="scs">School of Computer Science</option>
+						</select>
+					</form>
+					<form id="room_selector">
+						Select the room:
+						<!-- TODO: use Jinja to get these option from the databse -->
+						<select id="room_select">
+							<option value="2">B002</option>
+							<option value="3">B003</option>
+							<option value="4">B004</option>
+						</select>
+					</form>
+					<button id="submit_button" onclick="getRoomInfo()">Get Info!</button>
+				</div>
+
+				<div class="page_title">
+					<h1>School of Computer Science - B002</h1>
+				</div>
+
+				<div class="left_column">
+					<div class="chartArea" id="daily_average">
+						<div class="chart_title">
+							<h4>Daily Average Associated Devices</h4>
+						</div>
+						<canvas id="myChart"></canvas>
+					</div>
+				</div>
+
+				<div class="right_column">
+					<div class="chartArea" id="frequency_of_use">
+						<div class="chart_title">
+							<h4>Frequency of Use</h4>
+						</div>
+						<canvas id="pChart"></canvas>
+					</div>
+				</div>
+
+				<div class="option_selector" id="date_selector">
+					<form class="date_picker">
+					Please select a date: 
+						<input onchange="displayDate()" id="datething" min="2015-11-02" max="2015-11-13"
+						type="date">
+					</form>
+
+
+				</div>
+				<div class="full_column">
+					<div class="chart_title">
+						<h4>5-Category Occupancy Stastics</h4>
+					</div>
+
+					<div class="full_column_chart">
+						<canvas id="predictedHourly"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+</html>

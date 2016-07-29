@@ -15,7 +15,10 @@
 </head>
 <body>
 	<div id="wrapper">
-		<header></header>
+		<header>
+			<img src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+			<h4>UCD Occupancy Checker</h4>
+		</header>
 
 		<!--NAVBAR STUFF GOES HERE-->
 				<!--NAVBAR STUFF GOES HERE-->
@@ -33,11 +36,13 @@
 				<!--MAIN CONTENT PAGE GOES HERE-->
 				<div id="main_page">
 
-					<div class="db_display">
+					<div class="home_display">
+					<div class="textContent">
 					<h1>Welcome</h1>
 					<p>Hi and welcome to your dashboard. From here you can look at occupancy information for individual room across the college campus. The information includes historical occupancy data, frequency of use and average occupancy data.<br>
 					<br>
 					If you are a lecturer at UCD, you can view occupancy information about your specific modules to keep track of student attendance. We would really appreciate if you would your own occupancy data for the classes you teach. This helps us to improve our occupancy detection algorithm and make this a better service.</p>
+					</div>
 					</div>
 				</div>
 			</div>

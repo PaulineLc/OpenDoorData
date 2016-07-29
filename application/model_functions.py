@@ -26,7 +26,7 @@ def isempty_df(df):
     if rows > 0 and cols > 0:
         return False
     else:
-         return True
+        return True
 
 
 def convert_to_epoch(df, column):
@@ -38,12 +38,14 @@ def convert_to_epoch(df, column):
     ----------
     df: a dataframe containing 'column'
     column: a string that denotes the name of the column containing values in timestamp format
-    '''
+    '''  
     
     #for loop that iterates through each row in the dataframe
     for i in range(df.shape[0]):
         # variable 'x' is assigned the value from the column and row 'i'
         x = df[column][i]
+        # slice string to extract 'GMT' and replace with 'UTC' so function is os agnostic
+        x = x[:20] + "UTC" + x[23:]
         # variable 'y' is assigned the result of variable 'x' passed through the parse method
         y = parse(x)
         # variable 'epoch' is assigned 'y' value converted to epoch time
@@ -60,6 +62,7 @@ def room_number(df, room_column):
     # for loop that iterates through each row in the df
     for i in range(df.shape[0]):
         # selects last character of the string in the room_column which is the room ID
+        #df.set_value(i, room_column, re.findall(r'\d+', df[room_column][i])[0])
         df.set_value(i, room_column, re.findall(df[room_column][i])[0])
     return df
 
