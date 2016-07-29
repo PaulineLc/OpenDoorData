@@ -136,3 +136,23 @@ def createTables(database, table_list):
     '''
     for i in table_list:
         database.db.create_tables([database.i], safe=True)
+
+
+
+def roomCap(database, table, room_num, capacity, building, num, cap, build):
+    '''function that sets room number, room capacity and bilding in a room table in a database
+    parameters
+    ----------
+    database: the name of a file containing the class representations of the database tables
+    table: name of the room table in the database
+    room_num: name of the data field in the table containing the room number data
+    capacity: name of the data field in the table containing the room capacity data
+    building: name of the data field in the table containing the building data
+    num: the number of the room to be inserted into the database
+    cap: the room capacity to be inserted into the database
+    build: the building to be inserted into the database
+    '''
+    database.table.create(room_num = num,
+                          building = build,
+                          room_cap = cap
+                          )
