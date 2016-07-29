@@ -21,8 +21,9 @@ def get_occupancy_json(rid, date, month, year):
     #wifi_logs = pd.read_sql('select * from wifi_log;', con=conn)
 
     wifi_logs = pd.read_sql('''
-        SELECT logd.room_id, logd.event_time, auth_devices, assoc_devices, logd.building, occupancy FROM wifi_db.wifi_log AS logd, wifi_db.survey AS survey 
+        SELECT logd.room_id, logd.event_time, auth_devices, assoc_devices, logd.building, occupancy, room_cap AS capacity FROM wifi_db.room AS rooms, wifi_db.wifi_log AS logd, wifi_db.survey AS survey 
         WHERE logd.room_id = %s 
+            AND logd.room_id = rooms.room_num
             AND FROM_UNIXTIME(logd.event_time, "%%e") = %s 
             AND FROM_UNIXTIME(logd.event_time, "%%m") = %s
             AND FROM_UNIXTIME(logd.event_time, "%%Y") = %s
@@ -47,7 +48,7 @@ def get_occupancy_json(rid, date, month, year):
     
     #add categories
     wifi_logs['occupancy_category_5'] = None
-    wifi_logs['occupancty_category_3'] = None
+    wifi_logs['occupancy_category_3'] = None
     wifi_logs['binary_occupancy'] = None
 
     for i in range(wifi_logs.shape[0]):
@@ -59,11 +60,12 @@ def get_occupancy_json(rid, date, month, year):
         prediction = set_occupancy_category(wifi_logs['occupancy_pred'][i], capacity)
         
         wifi_logs.set_value(i, 'occupancy_category_5', prediction[0])
-        wifi_logs.set_value(i, 'occupancty_category_3', prediction[1])
+        wifi_logs.set_value(i, 'occupancy_category_3', prediction[1])
         wifi_logs.set_value(i, 'binary_occupancy', prediction[2])
     
     wifi_logs_merged = wifi_logs[['building', 
                            'room_id', 
+                           'capacity',
                            'assoc_devices',
                            'event_day', 
                            'event_hour', 
@@ -71,7 +73,7 @@ def get_occupancy_json(rid, date, month, year):
                            'event_year', 
                            'occupancy',
                            'occupancy_category_5', 
-                           'occupancty_category_3',
+                           'occupancy_category_3',
                            'binary_occupancy']]
 
     #Select only day hours to avoid useless (night / closing hour) data
@@ -116,7 +118,7 @@ def set_occupancy_category(occupants, capacity):
     else:
         cat5 =  1.0
     
-    cat3 = "empty" if cat5 < 0.25 else "moderate" if cat5 < 0.75 else "full" if cat5>= 0.75 else "ERROR"
+    cat3 = 0 if cat5 < 0.25 else 0.5 if cat5 < 0.75 else 1 if cat5>= 0.75 else "ERROR"
     
     cat2 = False if cat3 == "empty" else True
     
