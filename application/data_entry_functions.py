@@ -69,14 +69,14 @@ def fileToList(file):
         mylist = list(mycsv)
     return mylist
 
-def insertModCode(db_models, mod_table, field1, field2, user_table, username, modcode):
+def insertModCode(database, mod_table, field1, field2, user_table, username, modcode):
     ''' function that reads in database parameters 
     
     called by checkModCode function
     
     parameters
     ----------
-    db_models: a file containing database models
+    database: a file containing database models
     mod_table: the name of the class which represents the table that stores module codes
     field1: the name of the data field in 'mod_table' that stores the module code
     field2: the name of the data field in 'mod_table' that stores the module instructor
@@ -85,12 +85,12 @@ def insertModCode(db_models, mod_table, field1, field2, user_table, username, mo
     modcode: a variable that contains a module code
     '''
     #insert data into db
-    db_models.mod_table.create(field1 = modcode,
+    database.mod_table.create(field1 = modcode,
                                field2 = user_table.username
                                )
     
 
-def checkModCode(file, db_models, mod_table, field1, field2, user_table, username):
+def checkModCode(file, database, mod_table, field1, field2, user_table, username):
     ''' function that reads in a file, checks for any unique module codes, and inserts them into a DB
     
     calls fileToList function and insertModCode function
@@ -98,7 +98,7 @@ def checkModCode(file, db_models, mod_table, field1, field2, user_table, usernam
     parameters
     ----------
     file: the name of a csv file or variable assigned the name of a csv file
-    db_models: a file containing database models
+    database: a file containing database models
     mod_table: the name of the class which represents the table that stores module codes
     field1: the name of the data field in 'mod_table' that stores the module code
     field2: the name of the data field in 'mod_table' that stores the module instructor
@@ -121,18 +121,18 @@ def checkModCode(file, db_models, mod_table, field1, field2, user_table, usernam
                 continue
             else:
                 # call function to insert modcode into db
-                insertModCode(db_models, mod_table, field1, field2, user_table, username)
+                insertModCode(database, mod_table, field1, field2, user_table, username)
                 # add modulecode to list 
                 modlist.append(modulecode) 
 
 
-def createTables(db_models, table_list):
+def createTables(database, table_list):
     ''' function that creates tables in a database
     
     parameters
     ----------
-    db_models: the name of a file containing the class representations of the database tables
+    database: the name of a file containing the class representations of the database tables
     table_list: a list containing the names of the tables in the db
     '''
     for i in table_list:
-        db_models.db.create_tables([models.i], safe=True)
+        database.db.create_tables([database.i], safe=True)
