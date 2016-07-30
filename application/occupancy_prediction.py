@@ -4,8 +4,10 @@ import pandas as pd
 from model_functions import dataframe_epochtime_to_datetime
 from linear_model import get_linear_coef
 
-def get_occupancy_json(rid, date, month, year):
-    print("gothere")
+def getHistoricalData(rid, date, month, year):
+    '''Takes in a specific room_id, date, month and year as parameters and returns
+    the historical predicted occupancy data for each hour of that particular day'''
+    
     #Connect to database
     configdb = app.config['DATABASE']
     
@@ -14,11 +16,6 @@ def get_occupancy_json(rid, date, month, year):
                           user = configdb['user'],
                           password =configdb['password']
                           )
-    #JACK: The request that sends back all the data for all rooms
-    #is taking a bit of time on the client side so I'm going to edit 
-    #this SQL query to only include specific information for the time being
-
-    #wifi_logs = pd.read_sql('select * from wifi_log;', con=conn)
 
     wifi_logs = pd.read_sql('''
         SELECT logd.room_id, logd.event_time, auth_devices, assoc_devices, logd.building, occupancy, room_cap AS capacity FROM wifi_db.room AS rooms, wifi_db.wifi_log AS logd, wifi_db.survey AS survey 
@@ -31,10 +28,12 @@ def get_occupancy_json(rid, date, month, year):
             AND FROM_UNIXTIME(logd.event_time, "%%e") = FROM_UNIXTIME(survey.event_time, "%%e")
             AND FROM_UNIXTIME(logd.event_time, "%%m") = FROM_UNIXTIME(survey.event_time, "%%m")
             AND FROM_UNIXTIME(logd.event_time, "%%H") = FROM_UNIXTIME(survey.event_time, "%%H");''', con=conn, params=[rid, date, month, year])
-    print(wifi_logs)
-    room_data = pd.read_sql('select * from room;', con=conn)
-    predict_coef = get_linear_coef() #at a later stage,this will be imported from the db
     
+    return getOccupancyJson(wifi_logs, conn)
+
+def getOccupancyJson(wifi_logs, conn):
+    predict_coef = get_linear_coef() #at a later stage,this will be imported from the db
+    room_data = pd.read_sql('select * from room;', con=conn)
     #Convert epoch to datetime in dataframe
     wifi_logs = dataframe_epochtime_to_datetime(wifi_logs, "event_time")
 
@@ -121,7 +120,7 @@ def set_occupancy_category(occupants, capacity):
     
     cat3 = 0 if cat5 < 0.25 else 0.5 if cat5 < 0.75 else 1 if cat5>= 0.75 else "ERROR"
     
-    cat2 = False if cat3 == "empty" else True
+    cat2 = 0 if cat3 == "empty" else 1
     
     return cat5, cat3, cat2 #This will return a tuple
 
