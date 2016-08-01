@@ -7,7 +7,7 @@ from linear_model import get_linear_coef
 def getHistoricalData(rid, date, month, year):
     '''Takes in a specific room_id, date, month and year as parameters and returns
     the historical predicted occupancy data for each hour of that particular day'''
-    
+
     #Connect to database
     configdb = app.config['DATABASE']
     
@@ -18,7 +18,8 @@ def getHistoricalData(rid, date, month, year):
                           )
 
     wifi_logs = pd.read_sql('''
-        SELECT logd.room_id, logd.event_time, auth_devices, assoc_devices, logd.building, occupancy, room_cap AS capacity FROM wifi_db.room AS rooms, wifi_db.wifi_log AS logd, wifi_db.survey AS survey 
+        SELECT logd.room_id, logd.event_time, auth_devices, assoc_devices, logd.building, occupancy, room_cap AS capacity 
+        FROM wifi_db.room AS rooms, wifi_db.wifi_log AS logd, wifi_db.survey AS survey 
         WHERE logd.room_id = %s 
             AND logd.room_id = rooms.room_num
             AND logd.room_id = survey.room_id
@@ -28,10 +29,66 @@ def getHistoricalData(rid, date, month, year):
             AND FROM_UNIXTIME(logd.event_time, "%%e") = FROM_UNIXTIME(survey.event_time, "%%e")
             AND FROM_UNIXTIME(logd.event_time, "%%m") = FROM_UNIXTIME(survey.event_time, "%%m")
             AND FROM_UNIXTIME(logd.event_time, "%%H") = FROM_UNIXTIME(survey.event_time, "%%H");''', con=conn, params=[rid, date, month, year])
-    
-    return getOccupancyJson(wifi_logs, conn)
 
-def getOccupancyJson(wifi_logs, conn):
+    wifi_logs = getHourlyPrediction(wifi_logs, conn)
+    
+    wifi_logs_merged = wifi_logs[['building', 
+                           'room_id',         
+                           'occupancy',
+                           'capacity',            
+                           'assoc_devices',
+                           'event_day', 
+                           'event_hour', 
+                           'event_month', 
+                           'event_year', 
+                           'occupancy_category_5', 
+                           'occupancy_category_3',
+                           'binary_occupancy']]
+
+    return returnPredictionJson(wifi_logs)
+
+
+def getGeneralData(rid):
+    #Connect to database
+    configdb = app.config['DATABASE']
+    
+    conn = pymysql.connect(db = 'wifi_db',
+                           host = configdb['host'],
+                          user = configdb['user'],
+                          password =configdb['password']
+                          )
+
+    wifi_logs = pd.read_sql('''
+        SELECT room_id, event_time, avg(assoc_devices) AS assoc_devices, avg(auth_devices) as auth_devices, time, building
+        FROM(
+            SELECT room_id, event_time, avg(assoc_devices) AS assoc_devices, avg(auth_devices) as auth_devices, time, building
+                FROM wifi_db.wifi_log 
+                WHERE room_id = %s 
+                    AND FROM_UNIXTIME(event_time, "%%w") > 0 
+                    AND FROM_UNIXTIME(event_time, "%%w") < 6 
+                    AND FROM_UNIXTIME(event_time, "%%H") > 08 
+                    AND FROM_UNIXTIME(event_time, "%%H") < 19
+                GROUP BY FROM_UNIXTIME(event_time, "%%w"), FROM_UNIXTIME(event_time, "%%e"), FROM_UNIXTIME(event_time, "%%H")) AS AVE
+            GROUP BY FROM_UNIXTIME(event_time, "%%H");''', con=conn, params=[rid])
+
+    wifi_logs = getHourlyPrediction(wifi_logs, conn)
+    
+    wifi_logs_merged = wifi_logs[['building', 
+                           'room_id',                  
+                           'assoc_devices',
+                           'event_day', 
+                           'event_hour', 
+                           'event_month', 
+                           'event_year', 
+                           'occupancy_category_5', 
+                           'occupancy_category_3',
+                           'binary_occupancy']]
+
+    return returnPredictionJson(wifi_logs_merged)
+
+
+
+def getHourlyPrediction(wifi_logs, conn):
     predict_coef = get_linear_coef() #at a later stage,this will be imported from the db
     room_data = pd.read_sql('select * from room;', con=conn)
     #Convert epoch to datetime in dataframe
@@ -56,26 +113,16 @@ def getOccupancyJson(wifi_logs, conn):
         building = wifi_logs['building'][i]
 
         capacity = room_data['room_cap'].loc[(room_data['room_num'] == room) & (room_data['building'] == building)].values[0]
-        
+        print(wifi_logs['occupancy_pred'][i])
         prediction = set_occupancy_category(wifi_logs['occupancy_pred'][i], capacity)
         
         wifi_logs.set_value(i, 'occupancy_category_5', prediction[0])
         wifi_logs.set_value(i, 'occupancy_category_3', prediction[1])
         wifi_logs.set_value(i, 'binary_occupancy', prediction[2])
-    
-    wifi_logs_merged = wifi_logs[['building', 
-                           'room_id', 
-                           'capacity',
-                           'assoc_devices',
-                           'event_day', 
-                           'event_hour', 
-                           'event_month', 
-                           'event_year', 
-                           'occupancy',
-                           'occupancy_category_5', 
-                           'occupancy_category_3',
-                           'binary_occupancy']]
 
+    return wifi_logs
+    
+def returnPredictionJson(wifi_logs_merged):
     #Select only day hours to avoid useless (night / closing hour) data
     #In the future every building's row should be cross checked to ensure that the hours removed are its own opening/closing hours
     #Since we have only 1 building we took its own opening/closing hours
@@ -83,10 +130,11 @@ def getOccupancyJson(wifi_logs, conn):
     wifi_logs_merged = wifi_logs_merged.reset_index()
 
     #orient='index' will create 1 json object for each row as opposed to for each column.
-    wifi_logs_merged = wifi_logs_merged.to_json(orient='index')
-    
+    wifi_logs_merged = wifi_logs_merged.to_dict(orient='records')
+    #print(wifi_logs_merged)
     return wifi_logs_merged
        
+
 def set_occupancy_category(occupants, capacity):
     '''function that converts linear predictions to a defined category.
     
