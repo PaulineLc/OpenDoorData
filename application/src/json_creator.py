@@ -7,22 +7,17 @@ def return_json(data):
 
 	return j
 
-def createRoomJson(daily_average, frequency_of_use):
-        
-        
-    
-    output_list = []
-    
+def createGeneralDataJson(hourly_average, frequency_of_use):
+	#print(frequency_of_use)
 
-    d = collections.OrderedDict()
-    d['Daily'] = daily_average
-    d['Frequency'] = frequency_of_use
+	output_list = []
 
-        
-        
-        
 
-    output_list.append(d) 
-    
-    j = json.dumps(output_list)
-    return j
+	d = collections.OrderedDict()
+	d['Daily'] = hourly_average
+	d['Frequency'] = frequency_of_use
+	output_list.append(d)
+
+	j = json.dumps(output_list)
+	print(j)
+	return j

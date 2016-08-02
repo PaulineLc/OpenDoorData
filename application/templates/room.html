@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='dashboard.css') }}">
+	<!-- <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dashboard.css') }}"> -->
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='test.css') }}">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
 
@@ -9,6 +10,8 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='data_query.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='data_calculations.js') }}"></script>
 	<title>Tech Quartet</title>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 	<div id="wrapper">
@@ -52,30 +55,32 @@
 				</div>
 
 				<div class="page_title">
-					<h1>School of Computer Science - B002</h1>
+					<h1 class="section_title">Room Information</h1>
 				</div>
-
-				<div class="left_column">
-					<div class="chartArea" id="daily_average">
-						<div class="chart_title">
-							<h4>Daily Average Associated Devices</h4>
+				<div class="outer">
+					<div class="left_column">
+						<div class="chartArea" id="daily_average">
+							<div class="chart_title">
+								<h4>Daily Average Associated Devices</h4>
+							</div>
+							<canvas id="dailyAverageChart"></canvas>
 						</div>
-						<canvas id="myChart"></canvas>
+					</div>
+
+					<div class="right_column">
+						<div class="chartArea" id="frequency_of_use">
+							<div class="chart_title">
+								<h4>Frequency of Use</h4>
+							</div>
+							<canvas id="pChart"></canvas>
+						</div>
 					</div>
 				</div>
 
-				<div class="right_column">
-					<div class="chartArea" id="frequency_of_use">
-						<div class="chart_title">
-							<h4>Frequency of Use</h4>
-						</div>
-						<canvas id="pChart"></canvas>
-					</div>
-				</div>
 
 				<div class="option_selector" id="date_selector">
 					<form class="date_picker">
-					Please select a date: 
+						Please select a date: 
 						<input onchange="displayDate()" id="datething" min="2015-11-02" max="2015-11-13"
 						type="date">
 					</form>
@@ -91,15 +96,15 @@
 						<canvas id="predictedHourly-5-cat"></canvas>
 					</div>
 
-				<div class="full_column">
-					<div class="chart_title">
-						<h4>3-Category Occupancy Stastics</h4>
-					</div>
+					<div class="full_column">
+						<div class="chart_title">
+							<h4>3-Category Occupancy Stastics</h4>
+						</div>
 
-					<div class="full_column_chart">
-						<canvas id="predictedHourly-3-cat"></canvas>
+						<div class="full_column_chart">
+							<canvas id="predictedHourly-3-cat"></canvas>
+						</div>
 					</div>
-				</div>
 				</div>
 			</div>
 		</div>

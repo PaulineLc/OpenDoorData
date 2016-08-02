@@ -11,10 +11,10 @@ def hourly_average(room, day):
 	c.execute("""
 		SELECT round(avg(assoc_devices)) 
 		FROM wifi_db.wifi_log 
-		WHERE room_id = 2 AND 
+		WHERE room_id = %s AND 
 		FROM_UNIXTIME(event_time,"%%w") = %s AND
 		FROM_UNIXTIME(event_time,"%%H") >= 08  
-		GROUP BY FROM_UNIXTIME(event_time,"%%H")""", (chosen_day,))
+		GROUP BY FROM_UNIXTIME(event_time,"%%H")""", (room, chosen_day,))
 
 
 	data = c.fetchall()
@@ -66,7 +66,6 @@ def frequency_of_use(room):
 	) AS Z""", (room,))
 
 	data = c.fetchall()
-	print(data)
 	for i in data[0]:
 		frequency_data.append(str(i))
 	

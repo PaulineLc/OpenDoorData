@@ -1,13 +1,14 @@
 #views.py - Views that handle requests.
-
+import collections #get rid of this
 from flask import render_template, redirect, url_for
 from src import json_creator
 from src import queries
 from myapp import app
 from auth import auth
 from models import room
+import json
 
-from occupancy_prediction import get_occupancy_json
+from occupancy_prediction import getHistoricalData, getGeneralData
 
 
 
@@ -45,14 +46,21 @@ def renderRoomPage():
 
 @app.route('/predicted/<rid>/<date>/<month>/<year>')
 def returnPrediction(rid, date, month, year):
-    print("gotto route")
-    json = get_occupancy_json(rid, date, month, year)
-    return json
+    j = getHistoricalData(rid, date, month, year)
+    r = json.dumps(j)
+    return r
 
 @app.route('/dailyavg/<rid>')
 def returnDailyStats(rid):
-	daily_averages = queries.daily_average(rid)
-	frequency_of_use = queries.frequency_of_use(rid)
-	jdata = json_creator.createRoomJson(daily_averages, frequency_of_use)
-	print(jdata)
-	return jdata
+
+    #return a python dictionary of the average hourly predicted information for the selected room
+    hourly_predictions = getGeneralData(rid)
+
+    #then get information about the frequency of use of the particular room selected
+    frequency_of_use_data = queries.frequency_of_use(rid)
+
+    #combine them into one python dictionary and return as a JSON file to be manipulated using Javascript
+    general_data_json = json_creator.createGeneralDataJson(hourly_predictions, frequency_of_use_data)
+
+
+    return general_data_json

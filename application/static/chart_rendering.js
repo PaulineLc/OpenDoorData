@@ -1,23 +1,32 @@
 
 //Lists of strings used for yAxis labels
-var timeList = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
+var timeList_short = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
+var timeList_long = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00, 17:00"];
 var dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+//Declaring the charts as variables before creation for the sake of destroying them
+//Updating the content might be a better option
+var AverageHourlyChart = null;
 var fiveCategoryChart = null;
 var threeCategoryChart = null;
+var frequencyOfUseChart = null;
 
-function createDailyAverageChart(dailyAvg){
+function createHourlyAverageChart(hourly_averages){
+    //Get our data
+    hourly_data = []
+    for (var i = 0; i < hourly_averages.length; i++){
+        hourly_data.push(hourly_averages[i].occupancy_category_5);
+    }
 
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        lineTension: 0.1,
-        bezierCurve: false,
+    var ctx = document.getElementById("dailyAverageChart");
+    averageHourlyChart = new Chart(ctx, {
+        type: 'line',
         data: {
-            labels: dayList,
+            labels: timeList_long,
             datasets: [{
                 fill: true,
                 label: '# of Devices',
-                data: dailyAvg,
+                data: hourly_data,
                 backgroundColor:
                 'rgba(255, 99, 132, 0.2)'
                 ,
@@ -32,14 +41,15 @@ function createDailyAverageChart(dailyAvg){
                         //used for y axis title
                     },
                     ticks: {
-                        beginAtZero:true
+                        min: 0,
+                        max: 1
                     }
                 }]
             },
             maintainAspectRatio: false,
             responsive: true,
             title: {
-                fontSize: 15,
+                fontSize: 10,
                 fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
                 display: false,
                 text: "Daily Average Associated Devices"
@@ -70,7 +80,7 @@ function doSomething(stuff){
         }]
     };
 
-    var myDoughnutChart = new Chart(ctz, {
+    frequencyOfUseChart = new Chart(ctz, {
         type: 'pie',
         data: data,
         options:{
@@ -85,7 +95,7 @@ function doSomething(stuff){
             responsive: true,
             legend:{
                 display: true,
-                position: "bottom",
+                position: "top",
                 labels:{
                     padding: 5,
                     boxWidth: 20
@@ -127,12 +137,12 @@ function drawFiveCateogryChart(occupancy_data, predicted_data, associated_device
     fiveCategoryChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: timeList,
+            labels: timeList_short,
             datasets: [{
                 fill: true,
                 label: 'Actual Occupancy',
                 data: occupancy_data,
-                backgroundColor:
+                backgroundColor: 
                 'rgba(255, 99, 132, 0.2)',
                 borderColor:'rgba(255,99,132,1)',
                 borderWidth: 1
@@ -195,9 +205,13 @@ function drawThreeCategoryChart(predicted_data_3_cat){
 
     var options = {
         maintainAspectRatio: false,
-            responsive: true,
+        responsive: true,
+        elements:{
+            line:{
+                tension: 0
+            }
+        },
         scales: {
-
             yAxes: [
             {
               ticks: {
@@ -228,7 +242,7 @@ if(window.threeCategoryChart !== null){
 threeCategoryChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: timeList,
+        labels: timeList_short,
         datasets: [{
             fill: true,
             label: 'Actual Occupancy',
@@ -244,3 +258,18 @@ threeCategoryChart = new Chart(ctx, {
 
 
 }
+
+function destroyCharts(){
+    if(window.fiveCategoryChart !== null){
+        window.fiveCategoryChart.destroy();
+    }
+    if(window.threeCategoryChart !== null){
+        window.threeCategoryChart.destroy()
+    }
+    if(window.dailyAverageChart !== null){
+        window.dailyAverageChart.destroy()
+    }
+    if(window.frequencyOfUseChart !== null){
+        window.frequencyOfUseChart.destroy()
+    }
+}   
