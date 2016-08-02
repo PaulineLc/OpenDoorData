@@ -59,7 +59,7 @@ def getGeneralData(rid):
                           )
 
     wifi_logs = pd.read_sql('''
-        SELECT room_id, event_time, avg(assoc_devices) AS assoc_devices, avg(auth_devices) as auth_devices, time, building
+        SELECT AVE.room_id, AVE.event_time, avg(AVE.assoc_devices) AS assoc_devices, avg(AVE.auth_devices) as auth_devices, AVE.time, AVE.building
         FROM(
             SELECT room_id, event_time, avg(assoc_devices) AS assoc_devices, avg(auth_devices) as auth_devices, time, building
                 FROM wifi_db.wifi_log 
@@ -69,7 +69,7 @@ def getGeneralData(rid):
                     AND FROM_UNIXTIME(event_time, "%%H") > 08 
                     AND FROM_UNIXTIME(event_time, "%%H") < 19
                 GROUP BY FROM_UNIXTIME(event_time, "%%w"), FROM_UNIXTIME(event_time, "%%e"), FROM_UNIXTIME(event_time, "%%H")) AS AVE
-            GROUP BY FROM_UNIXTIME(event_time, "%%H");''', con=conn, params=[rid])
+            GROUP BY FROM_UNIXTIME(AVE.event_time, "%%H");''', con=conn, params=[rid])
 
     wifi_logs = getHourlyPrediction(wifi_logs, conn)
     
