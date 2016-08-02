@@ -3,26 +3,29 @@
 from models import room, survey, wifi_log, timetable, module
 from myapp import app # our project's Flask app
 from auth import auth # import the Auth object used by our project
+from flask import request
 
 from flask_peewee.rest import RestAPI,UserAuthentication, RestrictOwnerResource, AdminAuthentication
 
 class SurveyResource(RestrictOwnerResource):
     owner_field = 'reporter'
     
-#Ideally we want to make sure that anyone posting to the survey is entering the right room and time therefore
-#we need to restrict access to  just these users which is what the below code does however
-#we can't implement it until we have a ful timetable.    
-#     def check_post(self, obj=None):
-#         test_code = timetable.get(room_id = obj.room_id, time= obj.time).mod_code
-#         current_user = auth.get_logged_in_user().username
-#         module_instructor = test_code.username
-#         return module_instructor == current_user
-#     
-#     def check_put(self, obj):
-#         test_code = timetable.get(room_id = obj.room_id, time= obj.time).mod_code
-#         current_user = auth.get_logged_in_user().username
-#         module_instructor = test_code.username
-#         return module_instructor == current_user
+#add check to ensure that user's are associated with module they are submitting a post request to  
+    def check_post(self):
+        obj = request.get_json()
+        user = obj["reporter"]
+        mod= obj["module_code"]
+        
+        modules = module.select().where(module.module_code == mod)
+        authorized = False
+        for item in modules:
+            instructor = str(item.instructor)
+            if instructor == user:
+                authorized = True
+        print(authorized)
+
+        return authorized
+
     
 # create an instance of UserAuthentication
 user_auth = UserAuthentication(auth)
@@ -34,7 +37,7 @@ api = RestAPI(app, default_auth=user_auth)
 # register our models so they are exposed via /api/<model>/
 
 api.register(room, auth=admin_auth, allowed_methods=['GET'])
-api.register(survey,SurveyResource)
+api.register(survey,SurveyResource,allowed_methods=['GET','POST'])
 api.register(wifi_log, auth=admin_auth,allowed_methods=['GET'])
 api.register(timetable, auth=admin_auth, allowed_methods=['GET'])
 api.register(module, auth=admin_auth, allowed_methods=['GET'])

@@ -79,7 +79,8 @@ class User(BaseModel, BaseUser):
         return str(self.username)
                
 class module(BaseModel):
-    module_code = peewee.CharField(primary_key=True)
+    id_field = peewee.PrimaryKeyField()
+    module_code = peewee.CharField()
     instructor = peewee.ForeignKeyField(User,
                                         to_field='username', 
                                         db_column = 'instructor', 
@@ -87,9 +88,11 @@ class module(BaseModel):
                                         on_delete='SET NULL',
                                         on_update='CASCADE')
     
-      
+    class Meta:
+        indexes = ((('module_code','instructor'), True),)
+         
     def __str__(self):
-        return str(self.module_code)
+        return str(self.id_field)
 
 class timetable(BaseModel):
     id_field = peewee.PrimaryKeyField()
@@ -117,12 +120,13 @@ class survey(BaseModel):
     event_time = peewee.IntegerField()
     occupancy = peewee.FloatField(constraints=[peewee.Check('occupancy <= 1 AND occupancy >=0')])
     time = peewee.DateTimeField()
+    module_code = peewee.CharField(null = True)
     reporter = peewee.ForeignKeyField(User,
-                                      to_field='username', 
-                                        db_column = 'reporter', 
-                                        null=True, 
-                                        on_delete='SET NULL',
-                                        on_update='CASCADE')
+                                to_field='username', 
+                                db_column = 'reporter', 
+                                null=True, 
+                                on_delete='SET NULL',
+                                on_update='CASCADE')
     building = peewee.CharField()
     
     class Meta:

@@ -22,6 +22,9 @@
 	<label for="location">Room Location</label>
   <select name="location" id="rooms">
   </select>
+	<label for="module">Module</label>
+  <select name="module" id="modules">
+  </select>
 	<label for="time">Time</label>
   <select name="time">
     <option value=""></option>
@@ -54,6 +57,13 @@
 		options +="<option value="+"'"+'{{ room.building }}'+","+'{{ room.room_num }}'+"'"+ ">"+'{{ room.building }}'+" - "+'{{ room.room_num }}'+"</option>";
 		{% endfor %}
 		rooms.innerHTML = options;
+		 
+		var rooms = document.getElementById("modules");
+		options2 = "<option value=''></option>"
+		{% for module in modules %}
+		options2 +="<option value="+"'"+'{{ module.module_code }}'+"'"+ ">"+'{{ module.module_code }}'+"</option>";
+		{% endfor %}
+		modules.innerHTML = options2;
 	</script>
 	
 	<script>
@@ -62,6 +72,7 @@
 			event.preventDefault();
 			var loc = $('select[name="location"]').val();
 			var time = $('select[name="time"]').val();
+			var module = $('select[name="module"]').val();
 			var occupancy = $('select[name="occupancy"]').val();
 			var building= loc.substr(0, loc.indexOf(',')); 
 			var room_id= loc.substr(loc.indexOf(',')+1); 
@@ -70,13 +81,18 @@
 			var epoch = (Date.parse(date)/1000);
 			var user = '{{ user.username }}';
 
-			var submission = '{"room_id":' + room_id+', "event_time":'+epoch+
-				',"occupancy":'+ occupancy+',"time":"'+date+'","reporter":"'+user+
+			var submission = '{"room_id":' + room_id+
+				',"module_code":"'+module+
+				'", "event_time":'+epoch+
+				',"occupancy":'+occupancy+
+				',"time":"'+date+
+				'","reporter":"'+user+
 				'","building":"'+building+'"}';
+			console.log(submission);
 
 			$.ajax ({ 
 				url : '/api/survey/' ,
-				contentType: 'text/json',
+				contentType: 'application/json',
 				data : submission,
 				type: 'POST',
 				processData: false,
