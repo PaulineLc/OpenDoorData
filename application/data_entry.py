@@ -3,7 +3,7 @@ import time as tm
 import datetime
 from dateutil.parser import parse
 import models
-import linear_model
+from linear_model import get_linear_coef
 
 #useful for viewing the specific sql queries to debug
 import logging
@@ -60,8 +60,7 @@ def main():
     user.save()
     
     #setting weight to be linear model coef
-    #models.regressionModel.create(weight = linear_model.get_linear_coef())
-    models.regressionModel.create(weight = 0.88)
+    models.regressionModel.create(weight = get_linear_coef())
     
     file = r"cleaned_data/timetable.csv"
     
