@@ -1,4 +1,4 @@
-##models.py - Database models for use with your ORM, business logic, etc.
+##models.py - Database models for use with your ORM/ business logic, etc.
 
 import peewee
 import datetime
