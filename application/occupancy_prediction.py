@@ -89,9 +89,17 @@ def getGeneralData(rid):
 
 
 def getHourlyPrediction(wifi_logs, conn):
-    predict_coef = get_linear_coef() #at a later stage,this will be imported from the db
+
+    prediction_table = pd.read_sql('select * from regressionmodel where date(end_date) >= curdate();', con=conn)
+
+    if prediction_table.shape[0] > 1:
+        raise KeyError("More than 1 coefficient selected for the current date; check database")
+    
+    predict_coef = prediction_table['weight'][0]
+    predict_intercpt = prediction_table['offset'][0]
+
     room_data = pd.read_sql('select * from room;', con=conn)
-    #Convert epoch to datetime in dataframe
+    # Convert epoch to datetime in dataframe
     wifi_logs = dataframe_epochtime_to_datetime(wifi_logs, "event_time")
 
     wifi_logs = wifi_logs.groupby(['building','room_id', 'event_day', 'event_hour', 'event_month', 'event_year'], 
@@ -101,7 +109,7 @@ def getHourlyPrediction(wifi_logs, conn):
     wifi_logs['occupancy_pred'] = None
     for i in range(wifi_logs.shape[0]):
         wifi_logs.set_value(i, 'occupancy_pred', 
-                            wifi_logs['auth_devices'][i] * predict_coef)
+                            wifi_logs['auth_devices'][i] * predict_coef + predict_intercpt)
     
     #add categories
     wifi_logs['occupancy_category_5'] = None
