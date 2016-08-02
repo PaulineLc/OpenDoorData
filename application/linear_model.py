@@ -16,6 +16,7 @@ from model_functions import convert_to_epoch
 from model_functions import room_number
 from model_functions import estimate_occ
 from model_functions import dataframe_epochtime_to_datetime
+import numpy as np
 
 
 def get_linear_coef():
@@ -95,6 +96,10 @@ def get_linear_coef():
     lm = sm.ols(formula='est_occupants ~ auth', data=df).fit()
 
     coef = lm.params.auth
+
+    #convert the coefficient from dtype numpy.float64 to native python float type
+    #if left as numpy.float64, creates an error when trying to input it to the database using peewee
+    coef = np.asscalar(np.float64(coef))
 
     return coef
 
