@@ -60,7 +60,8 @@ def main():
     user.save()
     
     #setting weight to be linear model coef
-    models.regressionModel.create(weight = linear_model.get_linear_coef())
+    #models.regressionModel.create(weight = linear_model.get_linear_coef())
+    models.regressionModel.create(weight = 0.88)
     
     file = r"cleaned_data/timetable.csv"
     
