@@ -1,7 +1,7 @@
 
 //Lists of strings used for yAxis labels
 var timeList_short = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
-var timeList_long = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00, 17:00"];
+var timeList_long = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
 var dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 //Declaring the charts as variables before creation for the sake of destroying them
@@ -17,6 +17,7 @@ function createHourlyAverageChart(hourly_averages){
     for (var i = 0; i < hourly_averages.length; i++){
         hourly_data.push(hourly_averages[i].occupancy_category_5);
     }
+    console.log(hourly_data);
 
     var ctx = document.getElementById("dailyAverageChart");
     averageHourlyChart = new Chart(ctx, {
@@ -62,8 +63,8 @@ function createHourlyAverageChart(hourly_averages){
     });
 }
 
-function doSomething(stuff){
-    var ctz = document.getElementById("pChart");
+function createOccupancyChart(occu){
+    var ctz = document.getElementById("occupancy_chart");
     var data = {
         labels: [
         "In Use",
@@ -71,8 +72,8 @@ function doSomething(stuff){
         ],
         datasets: [
         {
-            data: stuff,
-            backgroundColor: ["#00ff99","rgba(255,99,132,1)"],
+            data: occu,
+            backgroundColor: ["rgba(255,99,132,1)","rgb(128, 0, 0)"],
             hoverBackgroundColor: [
             "#FF6384",
             "#36A2EB"
@@ -81,23 +82,68 @@ function doSomething(stuff){
     };
 
     frequencyOfUseChart = new Chart(ctz, {
-        type: 'pie',
+        type: 'doughnut',
         data: data,
         options:{
+            cutoutPercentage: 70,
             title: {
                 fontSize: 15,
                 fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
                 display: false,
-                text: "Frequency of Use"
+                tuext: "Occupancy Rating"
             },
             rotation: 45,
             maintainAspectRatio: false,
             responsive: true,
             legend:{
-                display: true,
+                display: false,
                 position: "top",
                 labels:{
-                    padding: 5,
+    
+                    boxWidth: 20
+
+                }
+            }
+        }
+    });
+}
+function createFrequencyOfUseChart(stuff){
+    var ctz = document.getElementById("fou_chart");
+    var data = {
+        labels: [
+        "In Use",
+        "Unused"
+        ],
+        datasets: [
+        {
+            data: stuff,
+            backgroundColor: ["rgb(102, 255, 153)","rgb(0, 153, 51)"],
+            hoverBackgroundColor: [
+            "#FF6384",
+            "#36A2EB"
+            ]
+        }]
+    };
+
+    frequencyOfUseChart = new Chart(ctz, {
+        type: 'doughnut',
+        data: data,
+        options:{
+            cutoutPercentage: 70,
+            title: {
+                fontSize: 15,
+                fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                display: false,
+                tuext: "Frequency of Use"
+            },
+            rotation: 45,
+            maintainAspectRatio: false,
+            responsive: true,
+            legend:{
+                display: false,
+                position: "top",
+                labels:{
+    
                     boxWidth: 20
 
                 }
@@ -149,7 +195,7 @@ function drawFiveCateogryChart(occupancy_data, predicted_data, associated_device
             },
             {
                 fill: true,
-                label: 'Predicted Devices',
+                label: 'Predicted Occupancy',
                 data: predicted_data,
                 backgroundColor:
                 'rgba(100, 230, 184, 0.2)',

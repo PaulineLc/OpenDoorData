@@ -44,15 +44,17 @@ function sendJSONRequest(room){
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-	        var dailyAvg = JSON.parse(xmlhttp.responseText);
+	        var general_hourly_average = JSON.parse(xmlhttp.responseText);
 	        //Once we've got the data from our database in JSON format we then
 	        //proceed to draw the chart
-	        console.log(dailyAvg);
 	        // TODO: If a chart has already been drawn 
 	        // then it needs to be refreshed rather than drawn again
-	        //destroyCharts();
-	        createHourlyAverageChart(dailyAvg[0].Daily);
-	        doSomething(dailyAvg[0].Frequency);
+
+	        var occupancy_data_points = setOccupancyPercentage(general_hourly_average[0].Daily);
+	        getFrequencyPercentage(general_hourly_average[0].Frequency)
+	        createHourlyAverageChart(general_hourly_average[0].Daily);
+	        createFrequencyOfUseChart(general_hourly_average[0].Frequency);
+	        createOccupancyChart(occupancy_data_points);
 	    }
 	};
 	xmlhttp.open("GET", url, true);

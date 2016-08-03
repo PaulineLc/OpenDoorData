@@ -175,17 +175,18 @@ header h4{
 }
 .left_column{
     background-color: white;
-    width: 70%;
+    width: 50%;
     display: inline-block;
     vertical-align: top;
-    height: 320px;
+    height: 340px;
+    margin-bottom: 5px;
 }
 
 .right_column{
-    width: 30%;
+    width: 50%;
     margin-right: -5px;
     display: inline-block;
-    height: 320px;
+    height: 340px;
     background-color: white;
 }
 
@@ -203,8 +204,25 @@ header h4{
 /*Chart Styling for room.html*/
 .chartArea{
 	background-color: white;
-	width: 100%;
+	width: 50%;
 	height: 300px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.percentage_display{
+	width: 50%;
+	display: inline-block;
+	font-size: 50px;
+	text-align: center;
+	margin-right: -5px;
+}
+
+
+.percentage_display h1{
+/*	/*width: 40%;*/
+	position: relative;
+	top: 80px;
 }
 
 
@@ -230,10 +248,10 @@ header h4{
 	height: 20px;
 	text-align: center;
 	color: white;
+	margin-bottom: 2px;
 }
 
 #date_selector{
-	margin-top: 5px;
 }
 
 .date_picker{

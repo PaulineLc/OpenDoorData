@@ -57,36 +57,52 @@
 				<div class="page_title">
 					<h1 class="section_title">Room Information</h1>
 				</div>
-				<div class="outer">
-					<div class="left_column">
-						<div class="chartArea" id="daily_average">
-							<div class="chart_title">
-								<h4>Daily Average Associated Devices</h4>
-							</div>
-							<canvas id="dailyAverageChart"></canvas>
-						</div>
+				
+				<div class="full_column">
+					<div class="chart_title">
+						<h4>Daily Average Associated Devices</h4>
 					</div>
+					<div class="full_column_chart">
+						<canvas id="dailyAverageChart"></canvas>
+					</div>
+				</div>
+				
 
-					<div class="right_column">
-						<div class="chartArea" id="frequency_of_use">
-							<div class="chart_title">
-								<h4>Frequency of Use</h4>
-							</div>
-							<canvas id="pChart"></canvas>
-						</div>
+				<div class="left_column">
+					<div class="chart_title">
+						<h4>Frequency of Use</h4>
+					</div>
+					<div class="chartArea">
+						<canvas id="fou_chart"></canvas>
+					</div>
+					<div class="percentage_display">
+						<h1 id="general_fou_percent"></h1>
 					</div>
 				</div>
 
+				<div class="right_column">
+					<div class="chart_title">
+						<h4>Occupancy Rating</h4>
+					</div>
+					<div class="chartArea">
+						<canvas id="occupancy_chart"></canvas>
+					</div>
+					<div class="percentage_display">
+						<h1 id="general_occupancy_percent"></h1>
+					</div>
+				</div>
 
+				<div class="page_title">
+					<h1 class="section_title">Historical Information</h1>
+					</div>
 				<div class="option_selector" id="date_selector">
 					<form class="date_picker">
 						Please select a date: 
 						<input onchange="displayDate()" id="datething" min="2015-11-02" max="2015-11-13"
 						type="date">
 					</form>
-
-
 				</div>
+
 				<div class="full_column">
 					<div class="chart_title">
 						<h4>5-Category Occupancy Stastics</h4>
@@ -95,20 +111,22 @@
 					<div class="full_column_chart">
 						<canvas id="predictedHourly-5-cat"></canvas>
 					</div>
+				</div>
 
-					<div class="full_column">
-						<div class="chart_title">
-							<h4>3-Category Occupancy Stastics</h4>
-						</div>
+				<div class="full_column">
+					<div class="chart_title">
+						<h4>3-Category Occupancy Stastics</h4>
+					</div>
 
-						<div class="full_column_chart">
-							<canvas id="predictedHourly-3-cat"></canvas>
-						</div>
+					<div class="full_column_chart">
+						<canvas id="predictedHourly-3-cat"></canvas>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
+</div>
 </body>
 </html>
 </html>
