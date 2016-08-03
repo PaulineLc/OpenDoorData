@@ -1,4 +1,4 @@
 import sys
 
-sys.path.insert(0, '/var/www/flask')
-from flaskapp import app as application
+sys.path.insert(0, '/var/www/summerproject/application')
+from main import app as application
