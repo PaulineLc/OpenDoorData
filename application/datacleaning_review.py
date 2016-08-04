@@ -43,4 +43,17 @@ def filelist(path):
     for root, dirs, files in os.walk(path, topdown = True):
         for name in files:
             filelist.append(os.path.join(root, name))
+    return filelist
 
+def delimiter(file):
+    '''function that XXX
+    
+    parameters
+    ----------
+    file: string representing a file that contains data to be delimited
+    '''
+    file = open(file, 'w', newline='')
+    # Return a writer object responsible for converting the user’s data into delimited strings
+    file = csv.writer(file, delimiter=',')
+    return file
+    
