@@ -30,4 +30,17 @@ def extract_zip(zipa, path):
     '''
     zipa = zipfile.ZipFile(zipa)
     zipa.extractall(path)
+    
+def filelist(path):
+    '''function that adds all files in a path to a list
+    
+    parameters
+    ----------
+    path: a string that represents the directory where the files are located
+    '''
+    # create empty list
+    filelist = []
+    for root, dirs, files in os.walk(path, topdown = True):
+        for name in files:
+            filelist.append(os.path.join(root, name))
 
