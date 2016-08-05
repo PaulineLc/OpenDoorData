@@ -15,14 +15,14 @@
 </head>
 <body>
 	<div id="wrapper">
-		<header>
-			<img src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-			<h4>UCD Occupancy Checker</h4>
-		</header>
-
 		<!--NAVBAR STUFF GOES HERE-->
 		<div id="navbar">
 			<div id="navContent">
+				<div class="navbar_title">
+					<img src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+					<h4>UCD Occupancy Checker</h4>
+				</div>
+
 				<ul id="navList">
 					<li><a href="/dashboard/home">Home</a></li>
 					<li><a href="/dashboard/building">Buildings</a></li>
@@ -35,6 +35,10 @@
 		<!--MAIN CONTENT PAGE GOES HERE-->
 		<div id="main_page">
 			<div class="dashboard_display">
+				<header>
+					<div id="navbar_symbol"><h1>≡</h1></div>
+					
+				</header>
 				<div class="option_selector">
 					<form id="building_selector">
 						Select the Building:
@@ -94,7 +98,7 @@
 
 				<div class="page_title">
 					<h1 class="section_title">Historical Information</h1>
-					</div>
+				</div>
 				<div class="option_selector" id="date_selector">
 					<form class="date_picker">
 						Please select a date: 
