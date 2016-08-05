@@ -5,7 +5,7 @@ from src import json_creator
 from src import queries
 from myapp import app
 from auth import auth
-from models import room
+from models import room,module
 import json
 
 from occupancy_prediction import getHistoricalData, getGeneralData
@@ -27,17 +27,22 @@ def renderBuildingPage():
 
 @app.route('/api/')
 def renderapi():
-    #cur.close().
     return render_template("api.html")
+
+@app.route('/home/')
+def renderhome_page():
+    return render_template("home.html")
 
 @app.route('/survey/')
 @auth.login_required
 def rendersurvey():
-    user = auth.get_logged_in_user()
+    user = auth.get_logged_in_user().username
     rooms= room.select()
-    #cur.close().
+    modules = module.select().where(module.instructor == user).order_by(module.module_code)
     return render_template("survey.html", 
-                           rooms=rooms)
+                           rooms=rooms,
+                           user = user, 
+                           modules = modules)
 
 @app.route('/dashboard/room/')
 def renderRoomPage():

@@ -3,19 +3,27 @@
 <head>
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='api.css') }}">
 	
-	<title>OpenOccupancyData</title>
+	<title>OpenDoorData</title>
 </head>
 <body>
 	<header>
         <div id="headerContents">
             <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-            <h3 id="headerTitle">UCD Computer Science Occupancy Checker</h3>
+            <h3 id="headerTitle">Open Door Data</h3>
         </div>
 	</header>
+	<nav>
+		<ul>
+			<li><a href="/home">Home</a></li>
+			<li><a href="http://127.0.0.1:5000/">Dashboard</a></li>
+			<li><a href="/api">Api</a></li>
+			<li><a href="/survey">Survey</a></li>
+		</ul>
+    </nav>
     
     
-	<h3>OpenOccupancyData official API documentation</h3>
-	<p style='text-align:center'>Access current and past OpenOccupancyData in an easy to call JSON format</p>
+	<h3>Open Door Data official API documentation</h3>
+	<p style='text-align:center'>Access current and past Open Door Data in an easy to call JSON format</p>
 	<p style='text-align:center'>Full details for accessing the data are listed in the sections below.</p>
 	
 	<div class = 'info_container'>

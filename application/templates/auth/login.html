@@ -4,12 +4,13 @@
 {% block content_title %}Header Logo{% endblock %}
 {% block content %}
 <head>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='login.css') }}">
+	
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='login.css') }}">
 </head>
 	<header>
         <div id="headerContents">
             <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-            <h3 id="headerTitle">UCD Computer Science Occupancy Checker</h3>
+            <h3 id="headerTitle">Open Door Data</h3>
         </div>
 	</header>
  {% block body %}
