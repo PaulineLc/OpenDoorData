@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='dashboard.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='test.css') }}">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	
 	<script type="text/javascript" src="{{ url_for('static', filename='chart_rendering.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='map.js') }}"></script>
@@ -21,7 +22,7 @@
 		</header>
 
 		<!--NAVBAR STUFF GOES HERE-->
-				<!--NAVBAR STUFF GOES HERE-->
+		<!--NAVBAR STUFF GOES HERE-->
 		<div id="navbar">
 			<div id="navContent">
 				<ul id="navList">
@@ -29,26 +30,112 @@
 					<li><a href="/dashboard/building">Buildings</a></li>
 					<li><a href="/dashboard/room">Rooms</a></li>
 					<li><a href="/dashboard/modules">Modules</a></li>
-					</ul>
-					</div>
+				</ul>
+			</div>
+		</div>
+
+		<!--MAIN CONTENT PAGE GOES HERE-->
+		<div id="main_page">
+
+			<div class="dashboard_display">
+				<div class="page_title">
+					<h1>Campus Map</h1>
+				</div>
+				<form class="option_selector">Select a Building:
+					<select>
+						<option selected></option>
+						<option value="scs">School of Computer Science</option>
+					</select>
+				</form>
+				<div class="map_section">
+					<div id="googleMap"></div>
 				</div>
 
-				<!--MAIN CONTENT PAGE GOES HERE-->
-				<div id="main_page">
 
-					<div class="db_display">
-						<h1>Campus Buildings</h1>
-						<div id="googleMap"></div>
+				<div class="page_title">
+					<h1 class="section_title">Building information</h1>
+				</div>
+				<div class="building_info_section">
+					<div class="three_column_left">
+						<img id="building_image" src="{{ url_for('static', filename='images/scs.jpg') }}">
+					</div>
+					<div class="three_column_middle">
+						<div id="contact_info">
+							<h3 class="table_title">
+								Contact Information:
+							</h3>
+							<table class="info_table">
+								<tr>
+									<td>Phone: </td>
+									<td>+353 1 716 2483</td>
+								</tr>
+								<tr>
+									<td>e-mail: </td>
+									<td>cs.secretary@ucd.ie</td>
+								</tr>
+							</table>
+							<h3 class="table_title">Opening Hours:</h3>
+							<table class="info_table">
+								<tr>
+									<td>Monday-Friday</td>
+									<td>09:00-17:00</td>
+								</tr>
+								<tr>
+									<td>Saturday</td>
+									<td>Closed</td>
+								</tr>
+								<tr>
+									<td>Sunday</td>
+									<td>Closed</td>
+								</tr>
+							</table>
+						</div>
+						
+					</div>
+					<div class="three_column_right">
+						<div id="general_info">
+							<h3 class="table_title">
+								General Information:
+							</h3>
 
-						<div id="building_list">
-							<div class="building_list_entry">
-								<div class="building_list_image"><img src="{{ url_for('static', filename='images/scs.jpg') }}"></div>
-								<a href="/room/2" class="building_name">School of Computer Science</a>
-							</div>
+							<table class="info_table">
+								<tr>
+									<td>Maximum Capacity:</td>
+									<td>300</td>
+								</tr>
+								<tr>
+									<td>Number of Rooms Monitored:</td>
+									<td>3</td>
+								</tr>
+							</table>
+
+							<h3 class="table_title">Room Capacity:
+							</h3>
+	
+							<table class="capacity_table">
+								<tr>
+									<th>Room</th>
+									<th>Capacity</th>
+									</tr>
+								<tr>
+									<td>B002</td>
+									<td>90</td>
+								</tr>
+								<tr>
+									<td>B003</td>
+									<td>90</td>
+								</tr>
+								<tr>
+									<td>B004</td>
+									<td>200</td>
+								</tr>
+							</table>
+
 						</div>
 					</div>
 				</div>
 			</div>
-		</body>
-		</html>
-		</html>
+		</div>
+	</div>
+</body>
+</html>
