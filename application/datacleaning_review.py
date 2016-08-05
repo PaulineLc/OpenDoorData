@@ -57,3 +57,33 @@ def delimiter(file):
     file = csv.writer(file, delimiter=',')
     return file
     
+def create_csvlist(filelist):
+    '''function that creates a list of data from a list of csv files
+    
+    parameters
+    ----------
+    filelist: list of csv files containing data to be put in list
+    '''
+    for file in filelist:
+        with open(file, 'r') as f:
+            mycsv= csv.reader(f)
+            mylist = list(mycsv)
+    return mylist
+    
+def write_to_file(file, lista):
+    '''function that XXX
+    
+    parameters
+    ---------
+    file: XXX
+    lista: XXX
+    '''
+    for i in range(0,len(mylist)):
+        if mylist[i][0] == "Key":
+            startindex = i + 1
+            break
+        
+    for i in range(startindex,len(mylist)):
+        file.writerows([mylist[i]])
+    
+    
