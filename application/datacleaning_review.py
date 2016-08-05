@@ -78,12 +78,12 @@ def write_to_file(file, lista):
     file: XXX
     lista: XXX
     '''
-    for i in range(0,len(mylist)):
-        if mylist[i][0] == "Key":
+    for i in range(0,len(lista)):
+        if lista[i][0] == "Key":
             startindex = i + 1
             break
         
-    for i in range(startindex,len(mylist)):
-        file.writerows([mylist[i]])
-    
-    
+    for i in range(startindex,len(lista)):
+        file.writerows([lista[i]])
+    return file
+  
