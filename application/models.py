@@ -46,7 +46,21 @@ class room(BaseModel):
 
     def __str__(self):
         return str(self.id_field)
-        
+
+class building(BaseModel):
+    id_field = peewee.PrimaryKeyField()
+    code = peewee.CharField()
+    name = peewee.CharField()
+    phone = peewee.CharField()
+    email = peewee.CharField()
+    opening_hour_weekday = peewee.CharField()
+    closing_hour_weekday = peewee.CharField()
+    opening_hour_weekend = peewee.CharField(default="Closed")
+    closing_hour_weekend = peewee.CharField(default="Closed")
+
+    def __str__(self):
+        return str(self.id_field)
+
 class wifi_log(BaseModel):
     id_field = peewee.PrimaryKeyField()
     room_id = peewee.IntegerField()

@@ -6,10 +6,10 @@ import models
 from linear_model import get_linear_coef
 
 #useful for viewing the specific sql queries to debug
-import logging
-logger = logging.getLogger('peewee')
-logger.setLevel(logging.DEBUG)
-logger.addHandler(logging.StreamHandler())
+# import logging
+# logger = logging.getLogger('peewee')
+# logger.setLevel(logging.DEBUG)
+# logger.addHandler(logging.StreamHandler())
 
 def main():
 
@@ -34,8 +34,16 @@ def main():
                               models.timetable,
                               models.survey,
 			                  models.regressionModel,
+                              models.building
                               ], safe=True)
     
+    models.building.create(name = "School of Computer Science", 
+    code = "scs",
+    phone = "+353 1 716 2483",
+    email = "cs.secretary@ucd.ie",
+    opening_hour_weekday = "09:00",
+    closing_hour_weekday = "19:00",
+                )   
     models.room.create(room_num = 2,
                 building = "school of computer science",
                 room_cap = 90
@@ -60,7 +68,7 @@ def main():
     user.save()
     
     #setting weight to be linear model coef
-    models.regressionModel.create(weight = get_linear_coef())
+    models.regressionModel.create(weight = get_linear_coef("cleaned_data", "full.csv", "survey_data.csv"))
     
     file = r"cleaned_data/timetable.csv"
     
