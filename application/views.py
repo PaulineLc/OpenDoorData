@@ -31,7 +31,11 @@ def renderapi():
 
 @app.route('/home/')
 def renderhome_page():
-    return render_template("home.html")
+    rooms= room.select()
+    modules = module.select()
+    return render_template("home.html",
+                           rooms = rooms,
+                           modules = modules)
 
 @app.route('/survey/')
 @auth.login_required

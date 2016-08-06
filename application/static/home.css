@@ -1,0 +1,104 @@
+html, body{
+    margin: 0;
+    padding: 0;
+	margin-bottom: 3%;
+}
+header{
+    background-color: #222222;
+    height: 100px;
+}
+
+#headerContents{
+    margin: auto;
+    width: 980px;
+    
+}
+
+#headerLogo{
+    height: 80px;
+    padding: 10px;
+    display: inline;
+    vertical-align: middle;
+}
+
+#headerTitle{
+    display: inline;
+    color: white;
+    font-family: Arial;
+}
+nav {
+	display: table;
+    background-color: white;
+	position: relative;
+    overflow: hidden;
+	width:100%;
+	margin: auto;
+	border-bottom-style: solid;
+	border-color: dimgrey;
+}
+nav ul{
+    margin: 0;
+    padding: 0;
+	list-style-type: none;
+	display: table-row;	
+}
+nav ul li {
+	display: table-cell;
+	padding: 0;
+	text-align: center;
+	width:25%;
+	margin:auto;
+}
+nav > ul > li:hover{
+	background-color: skyblue;
+}
+nav > ul > li > a {
+	text-align: center;
+    color:black;
+	text-decoration: none;
+	display:block;
+	font-size: 30px; 
+	padding: 10px;
+	font-size: 1.6vw;
+}
+.input_form{
+	background-color: lightgrey;
+	margin-top: 2%;
+	padding: 2%;
+	width:100%;
+	border-radius: 5px;
+	display: table;
+}
+form{
+	display: table-row;
+}
+select,input,label{
+	display:table-cell;
+}
+label,select,input{
+	border-radius: 5px;
+	/*padding: 1%;*/
+	/*font-size: 12px; 
+	font-size: 1.6vw;*/
+	
+}
+select, input{
+	width: 15%;
+}
+label{
+	width: 6%;
+}
+option, label{
+	/*font-size: 12px; 
+	font-size: 1.6vw;*/
+}
+input{
+	background-color: indianred;
+}
+input:hover {
+    background-color: skyblue;
+}
+
+
+
+

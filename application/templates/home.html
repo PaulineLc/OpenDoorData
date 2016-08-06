@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='home.css') }}">
+	
+	<title>OpenDoorData</title>
+</head>
+<body>
+	<header>
+        <div id="headerContents">
+            <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+            <h3 id="headerTitle">Open Door Data</h3>
+        </div>
+	</header>
+	
+	<nav>
+		<ul>
+			<li><a href="/home">Home</a></li>
+			<li><a href="http://127.0.0.1:5000/">Dashboard</a></li>
+			<li><a href="/api">Api</a></li>
+			<li><a href="/survey">Survey</a></li>
+		</ul>
+    </nav>
+    
+	<!--build a four part selection process where users can select from drop down location/time/occupancy then a week calendar will appear showing those spots that fit the description.
+	-->
+	
+	<div class="input_form">
+		<form action="">
+			<label for="location">Location</label>
+		  <select name="location" id="rooms">
+		  </select>
+			<label for="module">Module</label>
+		  <select name="module" id="modules">
+		  </select>
+			<label for="week">Week</label>
+		  <select name="week">
+			<option value=""></option>
+			<option value="week_1">Week 1</option>
+			<option value="week_2">Week 2</option>
+		  </select>
+			<label for="occupancy">Occupancy</label>
+		  <select name="occupancy">
+			<option value=""></option>
+			<option value=0.0>0%</option>
+			<option value=0.25>25%</option>
+			<option value=0.50>50%</option>
+			<option value=0.75>75%</option>
+			<option value=1.0>100%</option>
+		  </select>
+		  <input type="submit">
+		</form>
+	</div>
+	
+	<script type = "text/javascript">
+		var rooms = document.getElementById("rooms");
+		options = "<option value=''></option>"
+		{% for room in rooms %}
+		options +="<option value="+"'"+'{{ room.building }}'+","+'{{ room.room_num }}'+"'"+ ">"+'{{ room.building }}'+" - "+'{{ room.room_num }}'+"</option>";
+		{% endfor %}
+		rooms.innerHTML = options;
+		 
+		var rooms = document.getElementById("modules");
+		options2 = "<option value=''></option>"
+		{% for module in modules %}
+		options2 +="<option value="+"'"+'{{ module.module_code }}'+"'"+ ">"+'{{ module.module_code }}'+"</option>";
+		{% endfor %}
+		modules.innerHTML = options2;
+	</script>
+
+
+</body>
+</html>
