@@ -221,8 +221,8 @@ header{
 /*Chart Styling for room.html*/
 .chartArea{
 	background-color: white;
-	width: 100%;
-	padding: 20px;
+	width: 95%;
+	margin-top: 10px;
 	height: 300px;
 	display: block;
 }
