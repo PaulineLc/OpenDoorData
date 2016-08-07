@@ -60,3 +60,33 @@ function sendJSONRequest(room){
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
 }
+
+function getBuildingInfo(){
+	//get the code for the building selected
+	var selector = document.getElementById("building_select");
+	building_selection = selector.options[selector.selectedIndex].value;
+	
+	//query the information from the controller
+	queryBuildingInfo(building_selection);
+}
+
+function queryBuildingInfo(building_code){
+	var xmlhttp = new XMLHttpRequest();
+	var url = "/getBuildingInfo/" + building_code;
+	console.log(url);
+	
+
+	xmlhttp.onreadystatechange = function() {
+	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	        var b_info = JSON.parse(xmlhttp.responseText);
+	        console.log(b_info);
+	        //Update the marker on the map
+	        addMarker(b_info.building_info[9], b_info.building_info[10]);
+
+	        //insert the building information into hidden divs
+	        insertBuildingInfo(b_info);
+	    }
+	};
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+}

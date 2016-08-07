@@ -23,13 +23,14 @@ html, body{
 }
 
 header{
+
 	width: 100%;
 	height: 50px;
 	margin-bottom: 5px;
 }
 
 /*All CSS classes related to the header go here*/
-.navbar_title{
+#navbar_title{
 	background-color: black;
 	height: 50px;
 	width: 100%;
@@ -39,9 +40,10 @@ header{
 #navbar_symbol{
 	width: 20px;
 	margin-left: 10px;
+	transition: margin-left 0.2s;
 }
 
-.navbar_title img{
+#navbar_title img{
 	height: 30px;
 	margin-top:10px;
 	display: inline-block;
@@ -51,9 +53,11 @@ header{
 	margin-right: 10px;
 }
 
-.navbar_title h4{
+#product_name{
 	font-size: 13px;
 	margin-top:10px;
+	opacity: 0;
+	transition: opacity 1s;
 	color: white;
 	vertical-align: middle;
 	display: inline-block;
@@ -64,7 +68,9 @@ header{
 
 #navbar{
 	position: fixed;
-	width: 220px;
+	width: 0;
+	transition: width 0.2s;
+	overflow: hidden;
     top: 0px;
     left: 0px;
 	background-color: #2F4050;
@@ -126,6 +132,11 @@ header{
 
 .textContent{
 	background-color: white;
+	text-align: center;
+}
+
+.textContent img{
+	padding-top: 10px;
 }
 
 .textContent p{
@@ -211,6 +222,7 @@ header{
 .chartArea{
 	background-color: white;
 	width: 100%;
+	padding: 20px;
 	height: 300px;
 	display: block;
 }
@@ -310,11 +322,10 @@ header{
 
 .three_column_left{
 	background-color: white;
-	width: 33%;
-	display: inline-block;
-	vertical-align: top;
+	width: 100%;
+	margin-bottom: 10px;
+	display: block;
 	/*border: solid 1px black;*/
-	margin-right: -5px;
 	text-align: center;
 }
 
@@ -324,23 +335,21 @@ header{
 
 .three_column_middle{
 	text-align: center;
-	width: 33%;
+	width: 100%;
+	margin-bottom: 10px;
 	background-color: white;
-	display: inline-block;
-	vertical-align: top;
+	display: block;
 	/*border: solid 1px red;*/
-	margin-right: -5px;
 }
 
 .three_column_right{
-	width: 33%;
-	display: inline-block;
-	vertical-align: top;
-	margin-right: -5px;
+	width: 100%;
+	display: block;
 }
 
 .table_title{
 	font-weight: 700;
+	font-size: 25px;
 	border-bottom: 1px solid black;
 	text-align: left;
 }

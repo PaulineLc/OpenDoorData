@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='dashboard.css') }}">
+	<!-- <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dashboard.css') }}"> -->
+	<link rel=stylesheet type=text/css media="(min-width: 640px)" href="{{ url_for('static', filename='test.css') }}">
+	<link rel=stylesheet type=text/css media="(max-width: 640px)" href="{{ url_for('static', filename='dashboard_640.css') }}">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script src="http://maps.googleapis.com/maps/api/js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
-	
+
 	<script type="text/javascript" src="{{ url_for('static', filename='chart_rendering.js') }}"></script>
-	<script type="text/javascript" src="{{ url_for('static', filename='map.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='data_query.js') }}"></script>
-
-
+	<script type="text/javascript" src="{{ url_for('static', filename='data_calculations.js') }}"></script>
 	<title>Tech Quartet</title>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 	<div id="wrapper">
-		<header>
-			<img src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-			<h4>UCD Occupancy Checker</h4>
-		</header>
-
 		<!--NAVBAR STUFF GOES HERE-->
-				<!--NAVBAR STUFF GOES HERE-->
+		
 		<div id="navbar">
 			<div id="navContent">
+				<div id="navbar_title">
+					<img src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+					<h4 id="product_name">UCD Occupancy Checker</h4>
+				</div>
+
 				<ul id="navList">
 					<li><a href="/dashboard/home">Home</a></li>
 					<li><a href="/dashboard/building">Buildings</a></li>
 					<li><a href="/dashboard/room">Rooms</a></li>
 					<li><a href="/dashboard/modules">Modules</a></li>
-					</ul>
-					</div>
-				</div>
+				</ul>
+			</div>
+		</div>
 
 				<!--MAIN CONTENT PAGE GOES HERE-->
-				<div id="main_page">
-
+				<div id="home_main_page">
+					<header>
+					<div onclick="showNavBar()" id="navbar_symbol"><h1>≡</h1></div>
+				</header>
 					<div class="home_display">
 					<div class="textContent">
+					<img src="{{ url_for('static', filename='images/ucd-logo.png') }}">
 					<h1>Welcome</h1>
 					<p>Hi and welcome to your dashboard. From here you can look at occupancy information for individual room across the college campus. The information includes historical occupancy data, frequency of use and average occupancy data.<br>
 					<br>
