@@ -29,22 +29,22 @@ public class MainActivity extends AppCompatActivity {
 
                                 String currentRoom = "";
 
-                                if (my_text.equals("4c:72:b9:1f:08:18")) {
-                                    currentRoom = "Home";
-                                } else if (my_text.equals("6c:99:89:99:cc:30")) {
+                                if (my_text.equals("6c:99:89:99:cc:3f")) {
+                                    currentRoom = "B0.02";
+                                } else if (my_text.equals("6c:99:89:a1:e5:af")) {
                                     currentRoom = "B0.03";
                                 } else if (my_text.equals("6c:99:89:99:d7:0f")) {
                                     currentRoom = "B0.04";
-                                }else if (my_text.equals("6c:99:89:a1:e5:af")) {
-                                    currentRoom = "B0.02";
                                 } else {
-                                    currentRoom = "unknown";
+                                    currentRoom = "unknown room";
                                 }
 
                                 my_textview.setText("BSSID:" + my_text +
                                         "\n" +
                                         "Current room:\n" +
-                                        currentRoom);
+                                        currentRoom + "\n" +
+                                        "Signal strenght: " + getSignalStrenght() +
+                                        "\nTime: " + System.currentTimeMillis());
                             }
                         });
                     }
@@ -61,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         return wifiInfo.getBSSID();
+    }
+
+    public int getSignalStrenght() {
+        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        return wifiInfo.getRssi();
     }
 
 }
