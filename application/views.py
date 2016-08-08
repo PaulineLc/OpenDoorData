@@ -13,7 +13,7 @@ from occupancy_prediction import getHistoricalData, getGeneralData
 
 
 
-@app.route('/')
+@app.route('/dashboard/')
 def renderHome():
     return redirect(url_for('renderDashboardHome'))
 
@@ -29,7 +29,7 @@ def renderBuildingPage():
 def renderapi():
     return render_template("api.html")
 
-@app.route('/home/')
+@app.route('/')
 def renderhome_page():
     rooms= room.select()
     modules = module.select()

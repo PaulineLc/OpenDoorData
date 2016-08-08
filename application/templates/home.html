@@ -15,8 +15,8 @@
 	
 	<nav>
 		<ul>
-			<li><a href="/home">Home</a></li>
-			<li><a href="http://127.0.0.1:5000/">Dashboard</a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/dashboard">Dashboard</a></li>
 			<li><a href="/api">Api</a></li>
 			<li><a href="/survey">Survey</a></li>
 		</ul>
@@ -30,43 +30,147 @@
 			<label for="location">Location</label>
 		  <select name="location" id="rooms">
 		  </select>
+			
 			<label for="module">Module</label>
 		  <select name="module" id="modules">
 		  </select>
+			
 			<label for="week">Week</label>
 		  <select name="week">
-			<option value=""></option>
+			<option value="any">Any</option>
 			<option value="week_1">Week 1</option>
 			<option value="week_2">Week 2</option>
 		  </select>
+			
 			<label for="occupancy">Occupancy</label>
 		  <select name="occupancy">
-			<option value=""></option>
+			<option value="any">Any</option>
 			<option value=0.0>0%</option>
 			<option value=0.25>25%</option>
 			<option value=0.50>50%</option>
 			<option value=0.75>75%</option>
 			<option value=1.0>100%</option>
 		  </select>
+			
 		  <input type="submit">
 		</form>
 	</div>
 	
 	<script type = "text/javascript">
 		var rooms = document.getElementById("rooms");
-		options = "<option value=''></option>"
+		options = "<option value='any'>Any</option>"
 		{% for room in rooms %}
 		options +="<option value="+"'"+'{{ room.building }}'+","+'{{ room.room_num }}'+"'"+ ">"+'{{ room.building }}'+" - "+'{{ room.room_num }}'+"</option>";
 		{% endfor %}
 		rooms.innerHTML = options;
 		 
 		var rooms = document.getElementById("modules");
-		options2 = "<option value=''></option>"
+		options2 = "<option value='any'>Any</option>"
 		{% for module in modules %}
 		options2 +="<option value="+"'"+'{{ module.module_code }}'+"'"+ ">"+'{{ module.module_code }}'+"</option>";
 		{% endfor %}
 		modules.innerHTML = options2;
 	</script>
+	
+<div id="calendar">
+  <header>
+    <button id= 'back'>«</button>
+    <p>week 1</p>
+    <button id = 'forward'>»</button>
+  </header>
+<table>
+  <tr id="weekdays">
+	<td>Hour</td>
+    <td>Mon</td>
+    <td>Tue</td>
+    <td>Wed</td>
+    <td>Th</td>
+    <td>Fri</td>
+  </tr>
+	
+  <tr>
+    <td id = "hour">8am</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+  <tr>
+    <td id = "hour">9am</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">10am</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">11am</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">12pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">1pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">2pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">3pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">4pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">5pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	
+</table>
+</div>
 
 
 </body>

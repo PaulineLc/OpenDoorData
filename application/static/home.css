@@ -2,6 +2,7 @@ html, body{
     margin: 0;
     padding: 0;
 	margin-bottom: 3%;
+	height: 100%;
 }
 header{
     background-color: #222222;
@@ -63,42 +64,79 @@ nav > ul > li > a {
 }
 .input_form{
 	background-color: lightgrey;
-	margin-top: 2%;
+	width: 20%;
+	float: left;
+	height: 100%;
+	transition: width ease .5s;
+}
+label,input, select{
+	display:block;
+	width: 90%;
+	margin: 2%;
 	padding: 2%;
-	width:100%;
-	border-radius: 5px;
-	display: table;
+	text-align: center;
+	font-size: 12px; 
+	font-size: 1.6vw;
 }
-form{
-	display: table-row;
-}
-select,input,label{
-	display:table-cell;
-}
-label,select,input{
-	border-radius: 5px;
-	/*padding: 1%;*/
-	/*font-size: 12px; 
-	font-size: 1.6vw;*/
-	
-}
-select, input{
-	width: 15%;
-}
-label{
-	width: 6%;
-}
-option, label{
-	/*font-size: 12px; 
-	font-size: 1.6vw;*/
+option{
+	font-size: 10px; 
+	font-size: 1.2vw;
+	box-shadow: none;
+	border: none;
 }
 input{
 	background-color: indianred;
+	margin-top: 5%;
 }
 input:hover {
     background-color: skyblue;
 }
-
+label{
+	margin: 1%;
+}
+select{
+	box-shadow: none;
+	border: none;
+}
+#calendar{
+	width: 75%;
+	float: right;
+	height: 100%;
+	border: 1px solid black;
+	margin: 2%;
+}
+#calendar tr{
+	border: 3px solid black;
+	padding: 2%;
+	width:100%;
+	margin: auto;
+}
+#calendar header{
+	background-color: skyblue;
+	padding: 2%;
+}
+#calendar table{
+	padding: 2%;
+}
+#calendar td{
+	width: 1%;
+	margin:auto;
+	border: 1px solid black;
+}
+#calendar p{
+	text-align: center;
+	font-size: 1.8vw;
+	font-style:italic;
+}
+#back{
+	float: left;
+}
+#forward{
+	float: right;
+}
+#hour{
+	width:auto;
+}
 
 
 
