@@ -94,7 +94,7 @@ def getHourlyPrediction(wifi_logs, conn):
 
     if prediction_table.shape[0] > 1:
         raise KeyError("More than 1 coefficient selected for the current date; check database")
-    
+
     predict_coef = prediction_table['weight'][0]
     predict_intercpt = prediction_table['offset'][0]
 
