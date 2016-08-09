@@ -31,3 +31,34 @@ function setOccupancyPercentage(occu){
 	console.log(occupancy_data_points);
 	return occupancy_data_points;
 }
+
+function calculateYaxisLabels(minfo){
+	//initiate labels to an empty array
+	var labels = [];
+
+	//loop through each class that has been recorded and create a yaxis label string consisting of the date format = 'day' of 'month' 'yea' @ 'TIME'
+	for (var i = 0; i < minfo.length; i++){
+		var dateStr = minfo[i].event_day + " " + getMonth(minfo[i].event_month) + " " + minfo[i].event_year + " @ " + minfo[i].event_hour;
+		labels.push(dateStr);
+	}
+
+	return labels;
+}
+
+function getMonth(m_int){
+	var month = new Array();
+	month[1] = "January";
+	month[2] = "February";
+	month[3] = "March";
+	month[4] = "April";
+	month[5] = "May";
+	month[6] = "June";
+	month[7] = "July";
+	month[8] = "August";
+	month[9] = "September";
+	month[10] = "October";
+	month[11] = "November";
+	month[12] = "December";
+
+	return month[m_int];
+}
