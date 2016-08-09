@@ -25,6 +25,14 @@ def renderDashboardHome():
 def renderBuildingPage():
     return render_template("building.html")
 
+@app.route('/getBuildingInfo/<bid>')
+def getBuldingInfo(bid):
+    binfo = queries.getBuildingInfo(bid)
+    brinfo = queries.getBuildingRoomInfo(bid)
+    building_json = json_creator.createBuildingInfoJson(binfo, brinfo)
+    print(building_json)
+    return building_json
+
 @app.route('/api/')
 def renderapi():
     return render_template("api.html")
