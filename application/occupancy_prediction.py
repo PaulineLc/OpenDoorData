@@ -74,7 +74,8 @@ def getGeneralData(rid):
     wifi_logs = getHourlyPrediction(wifi_logs, conn)
     
     wifi_logs_merged = wifi_logs[['building', 
-                           'room_id',                  
+                           'room_id',         
+                           'occupancy_pred',         
                            'assoc_devices',
                            'event_day', 
                            'event_hour', 
@@ -86,7 +87,40 @@ def getGeneralData(rid):
 
     return returnPredictionJson(wifi_logs_merged)
 
+def getModuleData(mid):
+    #Connect to database
+    configdb = app.config['DATABASE']
+    
+    conn = pymysql.connect(db = 'wifi_db',
+                           host = configdb['host'],
+                          user = configdb['user'],
+                          password =configdb['password']
+                          )
 
+    wifi_logs = pd.read_sql('''SELECT wifilogs.building as building, wifilogs.assoc_devices as assoc_devices, wifilogs.auth_devices as auth_devices, wifilogs.time as Time, wifilogs.room_id as room_id, wifilogs.event_time as event_time, timetable.mod_code as module_code, timetable.reg_stu as reg_students, timetable.time as Date
+        FROM wifi_db.wifi_log AS wifilogs, wifi_db.timetable AS timetable
+        WHERE FROM_UNIXTIME(wifilogs.event_time, "%%H") = FROM_UNIXTIME(timetable.event_time, "%%H") AND
+            FROM_UNIXTIME(wifilogs.event_time, "%%w") = FROM_UNIXTIME(timetable.event_time, "%%w") AND
+            wifilogs.room_id = timetable.room_id AND
+            timetable.mod_code = %s AND
+            FROM_UNIXTIME(wifilogs.event_time, "%%e") = FROM_UNIXTIME(timetable.event_time, "%%e");
+            ''', con=conn, params=[mid])
+
+    wifi_logs = getHourlyPrediction(wifi_logs, conn)
+    
+    wifi_logs_merged = wifi_logs[['building', 
+                           'room_id',         
+                           'occupancy_pred',         
+                           'assoc_devices',
+                           'event_day', 
+                           'event_hour', 
+                           'event_month',
+                           'event_year', 
+                           'occupancy_category_5', 
+                           'occupancy_category_3',
+                           'binary_occupancy']]
+
+    return returnPredictionJson(wifi_logs_merged)    
 
 def getHourlyPrediction(wifi_logs, conn):
 
@@ -100,10 +134,15 @@ def getHourlyPrediction(wifi_logs, conn):
 
     room_data = pd.read_sql('select * from room;', con=conn)
     # Convert epoch to datetime in dataframe
+
+    print(wifi_logs)
+
     wifi_logs = dataframe_epochtime_to_datetime(wifi_logs, "event_time")
 
     wifi_logs = wifi_logs.groupby(['building','room_id', 'event_day', 'event_hour', 'event_month', 'event_year'], 
                                   as_index=False).median()
+
+    print(wifi_logs)
 
     #Calculate predicted occupancy
     wifi_logs['occupancy_pred'] = None
@@ -180,7 +219,4 @@ def set_occupancy_category(occupants, capacity):
     
     return cat5, cat3, cat2 #This will return a tuple
 
-    
-if __name__ == "__main__":
-    get_occupancy_json()
-    print(get_occupancy_json())
+
