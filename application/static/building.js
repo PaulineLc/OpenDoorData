@@ -1,11 +1,12 @@
 function insertBuildingInfo(binfo){
-	//inset picture into left div
+	///This function inserts the building information returned from the database into the 'building_info_section' div.
 
+	//insert picture into left div
+	//The image source is returned as part of the JSON file
 	var image_source = "/static/" + binfo.building_info[0][11]; 
-	console.log(image_source);
 	document.getElementById('building_image').src = image_source;
-	//insert contact information into the middle div
 
+	//insert contact information into the middle div
 	var middle_div_content = `<div id="contact_info">
 							<h3 class="table_title">
 								Contact Information:
@@ -38,6 +39,8 @@ function insertBuildingInfo(binfo){
 	document.getElementById("contact_info_div").innerHTML = middle_div_content;
 
 	//insert the general occupancy stats in the right column
+	
+	//Calculate the building total capacity according to the room capacity
 	var total_capacity = 0
 	for (var i = 0; i < binfo.room_list.length; i++){
 		total_capacity += binfo.room_list[i][1];

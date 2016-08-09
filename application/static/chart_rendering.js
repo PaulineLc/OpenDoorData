@@ -5,65 +5,20 @@ var timeList_long = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:0
 var dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 //Declaring the charts as variables before creation for the sake of destroying them
-//Updating the content might be a better option
+//TODO: Updating the content might be a better option
 var AverageHourlyChart = null;
 var fiveCategoryChart = null;
 var threeCategoryChart = null;
 var frequencyOfUseChart = null;
+var OccupancyRatingChart = null;
+var ModuleDataChart = null;
 
-function createHourlyAverageChart(hourly_averages){
-    //Get our data
-    hourly_data = []
-    for (var i = 0; i < hourly_averages.length; i++){
-        hourly_data.push(hourly_averages[i].occupancy_category_5);
-    }
-    console.log(hourly_data);
-
-    var ctx = document.getElementById("dailyAverageChart");
-    averageHourlyChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: timeList_long,
-            datasets: [{
-                fill: true,
-                label: '# of Devices',
-                data: hourly_data,
-                backgroundColor:
-                'rgba(255, 99, 132, 0.2)'
-                ,
-                borderColor:'rgba(255,99,132,1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    scaleLabel:{
-                        //used for y axis title
-                    },
-                    ticks: {
-                        min: 0,
-                        max: 1
-                    }
-                }]
-            },
-            maintainAspectRatio: false,
-            responsive: true,
-            title: {
-                fontSize: 10,
-                fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                display: false,
-                text: "Daily Average Associated Devices"
-            },
-            legend: {
-                display: false
-            }
-
-        }
-    });
-}
 
 function createOccupancyChart(occu){
+    //Destroy the chart if it already exists
+    if(window.OccupancyRatingChart !== null){
+        window.OccupancyRatingChart.destroy()
+    }
     var ctz = document.getElementById("occupancy_chart");
     var data = {
         labels: [
@@ -81,7 +36,7 @@ function createOccupancyChart(occu){
         }]
     };
 
-    frequencyOfUseChart = new Chart(ctz, {
+    OccupancyRatingChart = new Chart(ctz, {
         type: 'doughnut',
         data: data,
         options:{
@@ -108,6 +63,12 @@ function createOccupancyChart(occu){
     });
 }
 function createFrequencyOfUseChart(stuff){
+
+    //Destroy the chart if it already exists
+    if(window.frequencyOfUseChart !== null){
+        window.frequencyOfUseChart.destroy()
+    }
+
     var ctz = document.getElementById("fou_chart");
     var data = {
         labels: [
@@ -154,6 +115,9 @@ function createFrequencyOfUseChart(stuff){
 
 
 function drawPredictedValueCharts(predictedValues){
+    //This function takes the predicted values for occupancy returned via the JSON file and plots them onto
+    //the 5-category and 3 category charts
+
     var dataLength = Object.keys(predictedValues).length;
     var occupancy_data = [];
     var predicted_data_5_cat = [];
@@ -305,13 +269,72 @@ threeCategoryChart = new Chart(ctx, {
 
 }
 
-function plotModuleStastics(m_info){
+
+
+function plotModuleStastics(m_info, reg_stu){
     //we need to dynamially create the date timestamps that are placed on the chart y-axis because the number of 
     //classess of a particular model that has taken place is not predefined
     var ylabels = calculateYaxisLabels(m_info);
 
-    //Now we get the data points, which are the 
+    //Now we get the data points
+    var module_data_points = [];
+    for (var i = 0; i < m_info.length; i++){
+        var p = Math.round(m_info[i].occupancy_pred / reg_stu * 100);
+        module_data_points.push(p);
+    } 
     //pass the labels to the chart creation function
+    createModuleChart(ylabels, module_data_points);
+}
+
+function createModuleChart(ylabels, ydata){
+    var ctx = document.getElementById("moduleInfoChart");
+
+    if(window.ModuleDataChart !== null){
+        window.ModuleDataChart.destroy();
+    }
+    ModuleDataChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ylabels,
+            datasets: [{
+                fill: true,
+                label: '# of Devices',
+                data: ydata,
+                backgroundColor:
+                'rgba(255, 99, 132, 0.2)'
+                ,
+                borderColor:'rgba(255,99,132,1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    scaleLabel:{
+                        //used for y axis title
+                    },
+                    ticks: {
+                        minRotation: 90,
+                        maxRotation: 90,
+                        min: 0,
+                        max: 100
+                    }
+                }]
+            },
+            maintainAspectRatio: false,
+            responsive: true,
+            title: {
+                fontSize: 10,
+                fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                display: false,
+                text: "Daily Average Associated Devices"
+            },
+            legend: {
+                display: false
+            }
+
+        }
+    });
 
 }
 
