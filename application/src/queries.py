@@ -79,3 +79,17 @@ def getDay(day):
 	days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 	return days.index(day)
 
+def getModuleList():
+	module_list = []
+	conn = pymysql.connect(host='localhost', user='root', password='summer')
+	c = conn.cursor()
+
+	c.execute("""SELECT module_code FROM wifi_db.module
+	""")
+
+	data = c.fetchall()
+	for i in data:
+		module_list.append(str(i[0]))
+	
+	#json_output = jc.return_json(frequency_data)
+	return module_list
