@@ -305,6 +305,16 @@ threeCategoryChart = new Chart(ctx, {
 
 }
 
+function plotModuleStastics(m_info){
+    //we need to dynamially create the date timestamps that are placed on the chart y-axis because the number of 
+    //classess of a particular model that has taken place is not predefined
+    var ylabels = calculateYaxisLabels(m_info);
+
+    //Now we get the data points, which are the 
+    //pass the labels to the chart creation function
+
+}
+
 function destroyCharts(){
     if(window.fiveCategoryChart !== null){
         window.fiveCategoryChart.destroy();

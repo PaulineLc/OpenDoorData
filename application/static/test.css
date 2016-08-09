@@ -68,6 +68,7 @@ header{
     left: 0px;
 	background-color: #2F4050;
 	height: 100%;
+	display: block;
 	width: 220px;
 }
 
@@ -169,7 +170,7 @@ header{
 	text-align: center;
 }
 
-#building_selector{
+#selector{
 	position: relative;
 	top: 8px;
 	display: inline-block;
@@ -209,6 +210,7 @@ header{
     margin-right: -5px;
     display: inline-block;
     height: 340px;
+
     background-color: white;
     margin-bottom: 5px;
 }
@@ -231,20 +233,20 @@ header{
 	height: 300px;
 	display: inline-block;
 	vertical-align: top;
+	margin-right: -5px;
 }
 
 .percentage_display{
 	width: 50%;
 	display: inline-block;
-	font-size: 50px;
+	font-size: 40px;
 	text-align: center;
-	margin-right: -5px;
 }
 
 
 .percentage_display h1{
 /*	/*width: 40%;*/
-	position: relative;
+	position:relative;
 	top: 80px;
 }
 

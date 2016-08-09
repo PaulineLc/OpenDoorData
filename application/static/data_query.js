@@ -90,3 +90,21 @@ function queryBuildingInfo(building_code){
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
 }
+
+function getModuleInfo(){
+	var xmlhttp = new XMLHttpRequest();
+	var url = "/getModuleInfo/COMP30190";
+	console.log(url);
+	
+
+	xmlhttp.onreadystatechange = function() {
+	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	        var m_info = JSON.parse(xmlhttp.responseText);
+	        console.log(m_info);
+	        //plot the module information on a chart
+	        plotModuleStastics(m_info)
+	    }
+	};
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+}
