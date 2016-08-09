@@ -38,6 +38,8 @@ class room(BaseModel):
     room_num = peewee.IntegerField()
     room_cap = peewee.IntegerField()
     building = peewee.CharField()
+    building_code = peewee.CharField()
+    code = peewee.CharField()
     
     class Meta:
         indexes = (
@@ -57,6 +59,9 @@ class building(BaseModel):
     closing_hour_weekday = peewee.CharField()
     opening_hour_weekend = peewee.CharField(default="Closed")
     closing_hour_weekend = peewee.CharField(default="Closed")
+    lat = peewee.DoubleField()
+    lon = peewee.DoubleField()
+    image_dir = peewee.CharField()
 
     def __str__(self):
         return str(self.id_field)

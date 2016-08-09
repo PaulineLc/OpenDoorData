@@ -43,18 +43,27 @@ def main():
     email = "cs.secretary@ucd.ie",
     opening_hour_weekday = "09:00",
     closing_hour_weekday = "19:00",
+    lat = 53.3092327,
+    lon = -6.2239067,
+    image_dir = "images/scs.jpg"
                 )   
     models.room.create(room_num = 2,
                 building = "school of computer science",
-                room_cap = 90
+                room_cap = 90,
+                building_code = "scs",
+                code = "B002"
                 )
     models.room.create(room_num = 3,
                 building = "school of computer science",
-                room_cap = 90
+                room_cap = 90,
+                building_code = "scs",
+                code = "B003"
                 )
     models.room.create(room_num = 4,
                 building = "school of computer science",
-                room_cap = 220
+                room_cap = 220,
+                building_code = "scs",
+                code = "B004"
                 )
     models.User.create(username = "admin",
                  password = "password",
