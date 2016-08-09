@@ -1,55 +1,10 @@
 import pymysql
 from src import json_creator as jc
 
-def hourly_average(room, day):
-	'''Returns a list of the hourly averages of connected devices based on 
-	the database information'''
-	hourly_data = []
-	chosen_day = getDay(day)
-	conn = pymysql.connect(host='localhost', user='root', password='summer')
-	c = conn.cursor()
-	c.execute("""
-		SELECT round(avg(assoc_devices)) 
-		FROM wifi_db.wifi_log 
-		WHERE room_id = %s AND 
-		FROM_UNIXTIME(event_time,"%%w") = %s AND
-		FROM_UNIXTIME(event_time,"%%H") >= 08  
-		GROUP BY FROM_UNIXTIME(event_time,"%%H")""", (room, chosen_day,))
-
-
-	data = c.fetchall()
-	for i in data:
-		hourly_data.append(str(i[0]))
-
-	json_output = jc.return_json(hourly_data)
-
-	return json_output
-
-def daily_average(room):
-    '''Returns a list of the hourly averages of connected devices based on 
-    the database information'''
-    daily_data = []
-    conn = pymysql.connect(host='localhost', user='root', password='summer')
-    c = conn.cursor()
-    c.execute("""
-    	SELECT round(avg(assoc_devices)) 
-    	FROM wifi_db.wifi_log
-    	WHERE room_id = %s AND 
-    	FROM_UNIXTIME(event_time, "%%H") >= 9 AND 
-    	FROM_UNIXTIME(event_time, "%%H") <= 19 AND
-    	FROM_UNIXTIME(event_time, "%%w") < 6 AND
-    	FROM_UNIXTIME(event_time, "%%w") > 0 
-    	GROUP BY FROM_UNIXTIME(event_time, "%%w")""", (room,))
-
-    data = c.fetchall()
-    for i in data:
-    	daily_data.append(str(i[0]))
-
-    #json_output = jc.return_json(daily_data)
-
-    return daily_data
-
 def frequency_of_use(room):
+	'''This function queries the database for the number of hours that a room has been in use
+	and not in use respectively.'''
+
 	frequency_data = []
 	conn = pymysql.connect(host='localhost', user='root', password='summer')
 	c = conn.cursor()
@@ -72,14 +27,9 @@ def frequency_of_use(room):
 	#json_output = jc.return_json(frequency_data)
 	return frequency_data
 
-
-
-def getDay(day):
-	'''Returns the day of the week as it is represented in SQLite as a string that can be used for comparison'''
-	days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-	return days.index(day)
-
 def getModuleList():
+	'''This function queries the database for all the distince modules that are listed in the 'timetable' table'''
+
 	module_list = []
 	conn = pymysql.connect(host='localhost', user='root', password='summer')
 	c = conn.cursor()
@@ -95,6 +45,7 @@ def getModuleList():
 	return module_list
 
 def getBuildingInfo(bid):
+	'''Returns the stored information for a specific building in the database'''
 	building_data = []
 	conn = pymysql.connect(host='localhost', user='root', password='summer')
 	c = conn.cursor()
@@ -108,6 +59,9 @@ def getBuildingInfo(bid):
 	return building_data
 
 def getBuildingRoomInfo(bid):
+	'''Returns a list of all the rooms and capacities of the rooms that are listed to be associated with a 
+	particular building'''
+
 	building_room_data = []
 	conn = pymysql.connect(host='localhost', user='root', password='summer')
 	c = conn.cursor()
@@ -119,3 +73,22 @@ def getBuildingRoomInfo(bid):
 		building_room_data.append((i))
 
 	return building_room_data
+
+def getModuleCapacity(mid):
+	'''Returns the number of registered students for a particular model according to the 'timetable' table'''
+	building_room_data = []
+	conn = pymysql.connect(host='localhost', user='root', password='summer')
+	c = conn.cursor()
+
+	c.execute("""SELECT distinct(reg_stu) FROM wifi_db.timetable WHERE mod_code = %s""", (mid,))
+
+	data = c.fetchall()
+
+	return data[0][0]
+
+
+
+def getDay(day):
+	'''Returns the day of the week as it is represented in SQLite as a string that can be used for comparison'''
+	days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+	return days.index(day)
