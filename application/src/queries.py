@@ -93,3 +93,29 @@ def getModuleList():
 	
 	#json_output = jc.return_json(frequency_data)
 	return module_list
+
+def getBuildingInfo(bid):
+	building_data = []
+	conn = pymysql.connect(host='localhost', user='root', password='summer')
+	c = conn.cursor()
+
+	c.execute("""SELECT * FROM wifi_db.building WHERE code = %s""", (bid,))
+
+	data = c.fetchall()
+	for i in data:
+		building_data.append((i))
+
+	return building_data
+
+def getBuildingRoomInfo(bid):
+	building_room_data = []
+	conn = pymysql.connect(host='localhost', user='root', password='summer')
+	c = conn.cursor()
+
+	c.execute("""SELECT code, room_cap FROM wifi_db.room WHERE building_code = %s""", (bid,))
+
+	data = c.fetchall()
+	for i in data:
+		building_room_data.append((i))
+
+	return building_room_data
