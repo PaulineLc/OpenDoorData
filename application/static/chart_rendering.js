@@ -13,6 +13,57 @@ var frequencyOfUseChart = null;
 var OccupancyRatingChart = null;
 var ModuleDataChart = null;
 
+function createHourlyAverageChart(hourly_averages){
+    //Get our data
+    hourly_data = []
+    for (var i = 0; i < hourly_averages.length; i++){
+        hourly_data.push(hourly_averages[i].occupancy_category_5);
+    }
+    console.log(hourly_data);
+
+    var ctx = document.getElementById("dailyAverageChart");
+    averageHourlyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: timeList_long,
+            datasets: [{
+                fill: true,
+                label: '# of Devices',
+                data: hourly_data,
+                backgroundColor:
+                'rgba(255, 99, 132, 0.2)'
+                ,
+                borderColor:'rgba(255,99,132,1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    scaleLabel:{
+                        //used for y axis title
+                    },
+                    ticks: {
+                        min: 0,
+                        max: 1
+                    }
+                }]
+            },
+            maintainAspectRatio: false,
+            responsive: true,
+            title: {
+                fontSize: 10,
+                fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                display: false,
+                text: "Daily Average Associated Devices"
+            },
+            legend: {
+                display: false
+            }
+
+        }
+    });
+}
 
 function createOccupancyChart(occu){
     //Destroy the chart if it already exists
