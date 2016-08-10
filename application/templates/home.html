@@ -2,11 +2,12 @@
 <html>
 <head>
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='home.css') }}">
-	
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<title>OpenDoorData</title>
 </head>
 <body>
-	<header>
+	<div id = "main_page">
+	<header id="site_header">
         <div id="headerContents">
             <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
             <h3 id="headerTitle">Open Door Data</h3>
@@ -22,17 +23,11 @@
 		</ul>
     </nav>
     
-	<!--build a four part selection process where users can select from drop down location/time/occupancy then a week calendar will appear showing those spots that fit the description.
-	-->
-	
+	<div id = "wrapper">
 	<div class="input_form">
 		<form action="">
 			<label for="location">Location</label>
 		  <select name="location" id="rooms">
-		  </select>
-			
-			<label for="module">Module</label>
-		  <select name="module" id="modules">
 		  </select>
 			
 			<label for="week">Week</label>
@@ -63,17 +58,10 @@
 		options +="<option value="+"'"+'{{ room.building }}'+","+'{{ room.room_num }}'+"'"+ ">"+'{{ room.building }}'+" - "+'{{ room.room_num }}'+"</option>";
 		{% endfor %}
 		rooms.innerHTML = options;
-		 
-		var rooms = document.getElementById("modules");
-		options2 = "<option value='any'>Any</option>"
-		{% for module in modules %}
-		options2 +="<option value="+"'"+'{{ module.module_code }}'+"'"+ ">"+'{{ module.module_code }}'+"</option>";
-		{% endfor %}
-		modules.innerHTML = options2;
 	</script>
 	
 <div id="calendar">
-  <header>
+  <header id= "calendar_header">
     <button id= 'back'>«</button>
     <p>week 1</p>
     <button id = 'forward'>»</button>
@@ -84,7 +72,7 @@
     <td>Mon</td>
     <td>Tue</td>
     <td>Wed</td>
-    <td>Th</td>
+    <td>Thur</td>
     <td>Fri</td>
   </tr>
 	
@@ -171,7 +159,7 @@
 	
 </table>
 </div>
-
-
+</div>
+</div>
 </body>
 </html>
