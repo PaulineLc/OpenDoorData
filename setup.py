@@ -6,27 +6,20 @@ try:
 except ImportError:
     from distutils.core import setup, find_packages
     
-#requirements = pip.req.parse_requirements('requirements.txt')
-
-requirements = []
-for i in pip.get_installed_distributions(local_only=True):
-    requirements.append(str(i))
-
-
+#use requirements.txt to get necessary installs
+with open(r"requirements.txt") as f:
+    required = f.read().splitlines()
+    
 setup(
-  name='Tech-Quartet',
+  name='Open Door Data',
   version='0.1.0',
-  description='UCD Summer research project',
-  url='',
+  description='UCD summer research project',
+  url='git@git.ucd.ie:coolhanddon/summerproject.git',
   license='MIT',
-  author='',
-  author_email='',
+  author='UCD summer research project',
+  long_description=open('README.md').read(),
   packages=find_packages(exclude=['tests*']),
-  install_requires= requirements,
+  install_requires = required,
   include_package_data=True,
-  entry_points = {
-  'console_scripts': ["",
-  ]
-  },
+  )
 
-)
