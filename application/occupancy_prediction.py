@@ -3,6 +3,8 @@ import pymysql
 import pandas as pd
 from model_functions import dataframe_epochtime_to_datetime
 from linear_model import get_linear_coef
+from models import wifi_log,room
+import datetime
 
 def getHistoricalData(rid, date, month, year):
     '''Takes in a specific room_id, date, month and year as parameters and returns
@@ -219,4 +221,45 @@ def set_occupancy_category(occupants, capacity):
     
     return cat5, cat3, cat2 #This will return a tuple
 
+def full_room_json(rid):
+    
+    query1 = wifi_log.select().order_by(wifi_log.event_time.desc()).get()
+    query = wifi_log.select().order_by(wifi_log.event_time).get()
+    begin = query.event_time
+    end = query1.event_time
+    one_day = 86400
+    json_list = []
+    
+    while begin<=end:
+        date = datetime.datetime.fromtimestamp(begin)
+        cur_data = getHistoricalData(rid, date.day, date.month, date.year)
+        json_list.append(cur_data) 
+        begin += one_day
 
+    
+    return json_list
+
+
+def total_full_json():
+    
+    query1 = wifi_log.select().order_by(wifi_log.event_time.desc()).get()
+    query = wifi_log.select().order_by(wifi_log.event_time).get()
+    begin = query.event_time
+    end = query1.event_time
+    one_day = 86400
+    
+    rooms = room.select()
+    room_list = []
+    for item in rooms:
+        room_list.append(item.room_num)
+    json_list = []
+    
+    while begin<=end:
+        date = datetime.datetime.fromtimestamp(begin)
+        for item in room_list:
+            cur_data = getHistoricalData(item, date.day, date.month, date.year)
+            json_list.append(cur_data) 
+            begin += one_day
+        
+    
+    return json_list
