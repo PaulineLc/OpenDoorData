@@ -1,7 +1,7 @@
 ##api.py - Where you register models to be exposed via a REST API
 
 from models import room, survey, wifi_log, timetable, module
-from myapp import app # our project's Flask app
+from app import app # our project's Flask app
 from auth import auth # import the Auth object used by our project
 from flask import request
 

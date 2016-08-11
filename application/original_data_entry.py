@@ -6,10 +6,10 @@ import models
 from linear_model import get_linear_coef
 
 #useful for viewing the specific sql queries to debug
-# import logging
-# logger = logging.getLogger('peewee')
-# logger.setLevel(logging.DEBUG)
-# logger.addHandler(logging.StreamHandler())
+import logging
+logger = logging.getLogger('peewee')
+logger.setLevel(logging.DEBUG)
+logger.addHandler(logging.StreamHandler())
 
 def main():
 
@@ -79,7 +79,7 @@ def main():
     #setting weight to be linear model coef
     models.regressionModel.create(weight = get_linear_coef("cleaned_data", "full.csv", "survey_data.csv"))
     
-    file = r"cleaned_data/timetable.csv"
+    file = r"Data/original_cleaned_data/timetable.csv"
     
     with open(file, 'r') as f:
         mycsv= csv.reader(f)
@@ -117,7 +117,7 @@ def main():
                         
     f.close()
      
-    file = r"cleaned_data/full.csv"
+    file = r"Data/original_cleaned_data/full.csv"
      
     with open(file, 'r') as f:
         mycsv= csv.reader(f)
@@ -137,7 +137,7 @@ def main():
       
     f.close()
      
-    file = r"cleaned_data/survey_data.csv"
+    file = r"Data/original_cleaned_data/survey_data.csv"
      
     with open(file, 'r') as f:
         mycsv= csv.reader(f)

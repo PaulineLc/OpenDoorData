@@ -1,0 +1,1 @@
+#This file puts newly parsed data into the database then deletes it from the folder
