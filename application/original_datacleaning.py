@@ -3,6 +3,7 @@ import os
 import csv
 
 def main():
+    os.chdir("..")
     newpath = r'Data\original_dirty_data\WiFiLogs'
     if not os.path.exists(newpath):
         os.makedirs(newpath)

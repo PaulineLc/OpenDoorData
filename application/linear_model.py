@@ -17,6 +17,7 @@ from model_functions import room_number
 from model_functions import estimate_occ
 from model_functions import dataframe_epochtime_to_datetime
 import numpy as np
+import models
 
 
 def get_linear_coef(folder, file_1, file_2):
@@ -111,5 +112,8 @@ def get_linear_coef(folder, file_1, file_2):
 
 
 if __name__ == "__main__":
-    coef = get_linear_coef('cleaned_data', 'full.csv', 'survey_data.csv')
+    os.chdir("..")
+    coef = get_linear_coef(r'Data/original_cleaned_data', r'full.csv', r'survey_data.csv')
+    #setting weight to be linear model coef
+    models.regressionModel.create(weight = coef)
     print("Linear coefficient:", coef)

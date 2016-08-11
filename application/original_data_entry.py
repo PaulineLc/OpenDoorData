@@ -4,6 +4,7 @@ import datetime
 from dateutil.parser import parse
 import models
 from linear_model import get_linear_coef
+import os
 
 #useful for viewing the specific sql queries to debug
 import logging
@@ -12,7 +13,7 @@ logger.setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler())
 
 def main():
-
+    os.chdir("..")
     def epochtime(x): 
         string = parse(x)
         epoch = int(tm.mktime(string.timetuple()))
@@ -75,10 +76,7 @@ def main():
     user = models.User.get(models.User.username == "admin")
     user.set_password ("password")
     user.save()
-    
-    #setting weight to be linear model coef
-    models.regressionModel.create(weight = get_linear_coef("cleaned_data", "full.csv", "survey_data.csv"))
-    
+        
     file = r"Data/original_cleaned_data/timetable.csv"
     
     with open(file, 'r') as f:

@@ -1,4 +1,4 @@
-from myapp import app
+from app import app
 import pymysql
 import pandas as pd
 from model_functions import dataframe_epochtime_to_datetime
