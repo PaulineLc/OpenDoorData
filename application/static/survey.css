@@ -90,6 +90,7 @@ nav > ul > li > a {
 	width:70%;
 	margin:auto;
 	border-radius: 5px;
+	margin-bottom: 2%;
 }
 label,select,input{
 	width: 100%;
