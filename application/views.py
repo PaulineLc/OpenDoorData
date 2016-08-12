@@ -1,5 +1,4 @@
 #views.py - Views that handle requests.
-import collections #get rid of this
 from flask import render_template, redirect, url_for
 from src import json_creator
 from src import queries
@@ -7,11 +6,41 @@ from app import app
 from auth import auth
 from models import room,module
 import json
+from occupancy_prediction import getHistoricalData, getGeneralData, getModuleData,full_room_json,total_full_json
 
-from occupancy_prediction import getHistoricalData, getGeneralData, getModuleData
+@app.route('/')
+def renderHome_Page():
+    rooms= room.select()
+    modules = module.select()
+    return render_template("home.html",
+                           rooms = rooms,
+                           modules = modules)
+@app.route('/api/')
+def renderApi():
+    return render_template("api.html")
 
+@app.route('/api/<rid>/')
+def returnFull_Room(rid):
+    data = full_room_json(rid)
+    json_Data = json.dumps(data)
+    return render_template("json_template.html", json_Data = json_Data)
 
+@app.route('/api/all/')
+def returnPrediction():
+    data = total_full_json()
+    json_Data = json.dumps(data)
+    return render_template("json_template.html", json_Data = json_Data)
 
+@app.route('/survey/')
+@auth.login_required
+def rendersurvey():
+    user = auth.get_logged_in_user().username
+    rooms= room.select()
+    modules = module.select().where(module.instructor == user).order_by(module.module_code)
+    return render_template("survey.html", 
+                           rooms=rooms,
+                           user = user, 
+                           modules = modules)
 
 @app.route('/dashboard/')
 def renderHome():
@@ -32,33 +61,9 @@ def getBuldingInfo(bid):
     building_json = json_creator.createBuildingInfoJson(binfo, brinfo)
     return building_json
 
-@app.route('/api/')
-def renderapi():
-    return render_template("api.html")
-
-@app.route('/')
-def renderhome_page():
-    rooms= room.select()
-    modules = module.select()
-    return render_template("home.html",
-                           rooms = rooms,
-                           modules = modules)
-
-@app.route('/survey/')
-@auth.login_required
-def rendersurvey():
-    user = auth.get_logged_in_user().username
-    rooms= room.select()
-    modules = module.select().where(module.instructor == user).order_by(module.module_code)
-    return render_template("survey.html", 
-                           rooms=rooms,
-                           user = user, 
-                           modules = modules)
-
 @app.route('/dashboard/room/')
 def renderRoomPage():
     return render_template("room.html")
-
 
 @app.route('/predicted/<rid>/<date>/<month>/<year>')
 def returnPrediction(rid, date, month, year):
