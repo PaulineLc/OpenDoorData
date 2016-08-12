@@ -22,14 +22,14 @@ def renderApi():
 @app.route('/api/<rid>/')
 def returnFull_Room(rid):
     data = full_room_json(rid)
-    json_Data = json.dumps(data)
-    return render_template("json_template.html", json_Data = json_Data)
+    jsonData = json.dumps(data)
+    return render_template("json_template.html", json_Data = jsonData)
 
 @app.route('/api/all/')
 def returnPrediction():
     data = total_full_json()
-    json_Data = json.dumps(data)
-    return render_template("json_template.html", json_Data = json_Data)
+    jsonData = json.dumps(data)
+    return render_template("json_template.html", json_Data = jsonData)
 
 @app.route('/survey/')
 @auth.login_required
@@ -104,3 +104,4 @@ def getModuleInfo(mid):
     #Merge both module information variables into one JSON file and return
     m_full = json_creator.returnModuleJSON(m_data, m_capacity)
     return m_full
+
