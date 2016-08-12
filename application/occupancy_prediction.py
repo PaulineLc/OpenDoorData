@@ -234,15 +234,11 @@ def full_room_json(rid):
             begin += one_day
     
     while begin<=end:
-        print("round1")
+
         date = datetime.datetime.fromtimestamp(begin)
-        print(date.day)
-        print(date.month)
-        print(date.year)
         try:
             cur_data = getHistoricalData(rid, date.day, date.month, date.year)
         except:
-            print("breaking")
             break
         json_list.append(cur_data)
         if date.strftime("%a") != "Fri":

@@ -15,18 +15,18 @@ def renderHome_Page():
     jsonData = json.dumps(data)
     return render_template("home.html",
                            rooms = rooms,
-                           jsonData = jsonData)
+                           )
 @app.route('/api/')
 def renderApi():
     return render_template("api.html")
 
-@app.route('/api/<rid>/')
+@app.route('/api/occupancy/<rid>/')
 def returnFull_Room(rid):
     data = full_room_json(rid)
     jsonData = json.dumps(data)
     return render_template("json_template.html", jsonData = jsonData)
 
-@app.route('/api/all/')
+@app.route('/api/occupancy/')
 def returnTotalJson():
     data = total_full_json()
     jsonData = json.dumps(data)

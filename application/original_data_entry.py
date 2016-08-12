@@ -5,12 +5,15 @@ from dateutil.parser import parse
 import models
 from linear_model import get_linear_coef
 import os
+from app import app
+import logging
+
 
 #useful for viewing the specific sql queries to debug
-import logging
-logger = logging.getLogger('peewee')
-logger.setLevel(logging.DEBUG)
-logger.addHandler(logging.StreamHandler())
+if app.config['DEBUG']:
+    logger = logging.getLogger('peewee')
+    logger.setLevel(logging.DEBUG)
+    logger.addHandler(logging.StreamHandler())
 
 def main():
     os.chdir("..")
