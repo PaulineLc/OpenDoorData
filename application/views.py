@@ -3,12 +3,12 @@ import collections #get rid of this
 from flask import render_template, redirect, url_for
 from src import json_creator
 from src import queries
-from myapp import app
+from app import app
 from auth import auth
 from models import room,module
 import json
 
-from occupancy_prediction import getHistoricalData, getGeneralData
+from occupancy_prediction import getHistoricalData, getGeneralData, getModuleData
 
 
 
@@ -30,7 +30,6 @@ def getBuldingInfo(bid):
     binfo = queries.getBuildingInfo(bid)
     brinfo = queries.getBuildingRoomInfo(bid)
     building_json = json_creator.createBuildingInfoJson(binfo, brinfo)
-    print(building_json)
     return building_json
 
 @app.route('/api/')
@@ -91,6 +90,12 @@ def renderModules():
 
 @app.route('/getModuleInfo/<mid>')
 def getModuleInfo(mid):
+    #Get the general module data
     m_data = getModuleData(mid)
-    m_json_data = json.dumps(m_data)
-    return m_json_data
+
+    #Get the capacity of the module chosen for calculations on client side
+    m_capacity = queries.getModuleCapacity(mid)
+
+    #Merge both module information variables into one JSON file and return
+    m_full = json_creator.returnModuleJSON(m_data, m_capacity)
+    return m_full
