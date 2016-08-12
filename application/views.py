@@ -24,13 +24,13 @@ def renderApi():
 def returnFull_Room(rid):
     data = full_room_json(rid)
     jsonData = json.dumps(data)
-    return render_template("json_template.html", json_Data = jsonData)
+    return render_template("json_template.html", jsonData = jsonData)
 
 @app.route('/api/all/')
 def returnTotalJson():
     data = total_full_json()
     jsonData = json.dumps(data)
-    return render_template("json_template.html", json_Data = jsonData)
+    return render_template("json_template.html", jsonData = jsonData)
 
 @app.route('/survey/')
 @auth.login_required
