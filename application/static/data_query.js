@@ -11,14 +11,14 @@ function getPredictedInfo(date, month, year){
 	var xmlhttp = new XMLHttpRequest();
 	
 	var url = "/predicted/" + room_selection + "/" + date + "/" + month + "/" + year;
-	console.log(url)
+	
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 	        var predictedValues = JSON.parse(xmlhttp.responseText);
 	        //Once we've got the data from our database in JSON format we then
 	        //proceed to draw the chart
-	        console.log(predictedValues);
+	        
 	        drawPredictedValueCharts(predictedValues);
 	    }
 	};
@@ -73,13 +73,13 @@ function getBuildingInfo(){
 function queryBuildingInfo(building_code){
 	var xmlhttp = new XMLHttpRequest();
 	var url = "/getBuildingInfo/" + building_code;
-	console.log(url);
+	
 	
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 	        var b_info = JSON.parse(xmlhttp.responseText);
-	        console.log(b_info);
+	        
 	        //Update the marker on the map
 	        addMarker(b_info.building_info[9], b_info.building_info[10]);
 
@@ -93,16 +93,20 @@ function queryBuildingInfo(building_code){
 
 function getModuleInfo(){
 	var xmlhttp = new XMLHttpRequest();
-	var url = "/getModuleInfo/COMP30190";
-	console.log(url);
+
+	var selector = document.getElementById("module_select");
+	var module_selected = selector.options[selector.selectedIndex].value;
+	var url = "/getModuleInfo/" + module_selected;
+	
 	
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 	        var m_info = JSON.parse(xmlhttp.responseText);
-	        console.log(m_info);
+	        
 	        //plot the module information on a chart
-	        plotModuleStastics(m_info)
+	        plotModuleStastics(m_info.module_info, m_info.registered_students)
+
 	    }
 	};
 	xmlhttp.open("GET", url, true);
