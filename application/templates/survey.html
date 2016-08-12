@@ -2,17 +2,26 @@
 <html>
 <head>
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='survey.css') }}">
-
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<title>Tech Quartet</title>
+	<title>OpenDoorData</title>
 </head>
 <body>
-	<header>
+	<header id = "site_header">
         <div id="headerContents">
             <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-            <h3 id="headerTitle">UCD Computer Science Occupancy Checker</h3>
+            <h3 id="headerTitle">Open Door Data</h3>
         </div>
 	</header>
+	
+	<nav>
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/dashboard">Dashboard</a></li>
+			<li><a href="/api">Api</a></li>
+			<li><a href="/survey">Survey</a></li>
+		</ul>
+    </nav>
 	
     <h2 style='text-align:center'>Occupancy Survey Submission</h2>
 	<p style='text-align:center'>Please select the three options below to submit occupancy information for your classroom</p>
@@ -79,7 +88,7 @@
 			var d = new Date();
 			var date = d.getFullYear() + "-" + (d.getMonth()+1)+"-"+ d.getDate() + " " + time;
 			var epoch = (Date.parse(date)/1000);
-			var user = '{{ user.username }}';
+			var user = '{{ user }}';
 
 			var submission = '{"room_id":' + room_id+
 				',"module_code":"'+module+

@@ -1,0 +1,440 @@
+* {
+	font-family: "Open Sans";
+	padding: 0;
+	margin: 0;
+ /* Useful for testing purposes
+	background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;*/
+}
+html{
+    padding: 0;
+	height: auto;
+	min-height: 100%;
+	width: 100%;
+}
+body{
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	display: inline-block;
+	width: 100%;
+}
+/*Used to make sure that screen elements don't extent out past the max width*/
+
+#wrapper{
+	display:table;
+	height 100%;
+	width: 100%;
+	background-color: #f2f2f2;
+}
+#site_header{
+    background-color: #222222;
+	height: 17vh;
+	width: 100%;
+	display: table;
+}
+#headerContents{
+    margin: auto;
+    width: 100%;   
+}
+#headerLogo{
+    height: 80px;
+    padding: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+#headerTitle{
+    display: inline;
+    color: white;
+    font-family: Arial;
+}
+nav {
+	display: table;
+    background-color: white;
+    overflow: hidden;
+	width:100%;
+	margin: auto;
+	border-bottom-style: solid;
+	border-color: dimgrey;
+	height: 1.6vh;
+}
+nav ul{
+    margin: 0;
+    padding: 0;
+	list-style-type: none;
+	display: table-row;	
+}
+nav ul li {
+	display: table-cell;
+	padding: 0;
+	text-align: center;
+	width:25%;
+	margin:auto;
+}
+nav > ul > li:hover{
+	background-color: skyblue;
+}
+nav > ul > li > a {
+	text-align: center;
+    color:black;
+	text-decoration: none;
+	display:block; 
+	padding: 10px;
+	font-size: 1.4vw;
+}
+
+
+/*All CSS relating to the navigation bar*/
+
+#navbar{
+	display: inline-block;
+    top: 0px;
+    left: 0px;
+	background-color: #2F4050;
+	height: 100%;
+	width: 16%;
+}
+
+
+#navContent{
+	color: white;
+}
+
+#navList{
+	font-size: 14px;
+	font-weight: 600;
+	list-style-type: none;
+}
+
+#navList li{
+	padding: 10px;
+}
+
+#navList li:hover{
+	background-color: #293846;
+	box-shadow: 5px 0 0 #00b3b3 inset;
+} 
+
+#navList a{
+	text-decoration: none;
+	color: white;
+	display: block;
+	position: relative;
+	left: 20px;
+}
+
+
+/*Styling to contain the right hand side of the page*/
+#main_page{
+	width: 73%;
+	float: right;
+	border: 1px solid black;
+	margin: 2%;
+	display: inline-block;
+}
+
+.dashboard_display{
+	margin: 0 5px 5px 5px;
+}
+
+/*==========================DBHOME.HTML=====================*/
+
+#home_main_page{
+	max-height: 100%;
+	margin:2%;
+    background-color: white;
+	width: 80%;
+	display: inline-block;
+	float: right;
+	box-sizing:border-box;
+}
+.textContent{
+	background-color: white;
+	text-align: center;
+	height: 100%;
+	box-sizing:border-box;
+}
+
+.textContent img{
+	padding-top: 10px;
+}
+
+.textContent p{
+	font-size: 28px;
+}
+
+.textContent h1{
+	font-size: 60px;
+	color: #66ff99;
+}
+.textContent h1, p{
+	font-family: Arial;
+	padding: 10px;
+}
+
+.home_display{
+	background-color: white;
+	height: 100%;
+	border: 1px solid black;
+}
+
+
+/*=========================ROOM.HTML======================*/
+
+/*Stuff relating to submit form at the top*/
+
+.option_selector{
+	background-color: white;
+	border-radius: 3px;
+	height: 50px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+#selector{
+	position: relative;
+	top: 8px;
+	display: inline-block;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+#room_selector{
+	position: relative;
+	top: 8px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#submit_button{
+	position: relative;
+	top: 8px;
+}
+
+
+/*Chart div and chart styling*/
+.outer{
+	padding: 5px;
+	background-color: white;
+}
+.left_column{
+    background-color: white;
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    height: 340px;
+    margin-bottom: 5px;
+}
+
+.right_column{
+    width: 50%;
+    margin-right: -5px;
+    display: inline-block;
+    height: 340px;
+
+    background-color: white;
+    margin-bottom: 5px;
+}
+
+
+.page_title{
+    background-color: white;
+    border-radius: 3px;
+    padding: 5px 5px 10px 5px;
+    text-align: left;
+}
+
+.page_title h1{
+	border-bottom: solid 1px black;
+}
+/*Chart Styling for room.html*/
+.chartArea{
+	background-color: white;
+	width: 50%;
+	height: 300px;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: -5px;
+}
+
+.percentage_display{
+	width: 50%;
+	display: inline-block;
+	font-size: 40px;
+	text-align: center;
+}
+
+
+.percentage_display h1{
+/*	/*width: 40%;*/
+	position:relative;
+	top: 80px;
+}
+
+
+.frequency_of_use{
+	height: 300px;
+	width: 100%;
+}
+
+.full_column{
+	background-color: white;
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.full_column_chart{
+	height: 300px;
+	background-color: white;
+}
+
+.chart_title{
+	background-color: #00ccff;
+	height: 20px;
+	text-align: center;
+	color: white;
+	margin-bottom: 2px;
+}
+
+#date_selector{
+}
+
+.date_picker{
+	position: relative;
+	top: 10px;
+}
+/*===========================BUILDING.HTML=========================*/
+
+#googleMap{
+	height: 500px;
+}
+
+.map_section{
+	margin-bottom: 5px;
+	padding: 10px;
+	background-color: white;
+}
+
+.building_list{
+	background-color: white;
+	list-style-type: none;
+}
+
+.building_list li{
+	padding: 5px;
+	transition: background-color 0.5s;
+}
+
+.list_element_title{
+	height: 50px;
+	margin: 0;
+	padding: 5px;
+}
+
+.list_element_title:hover{
+	background-color: lightgray;
+	cursor: pointer;
+
+}
+.building_list a{
+	display: block;
+}
+
+
+.building_list h4{
+	display: inline-block;
+}
+
+.building_list_element_sub_section{
+	height: 10px;
+	background-color: green;
+	transition: height 0.2s;
+}
+
+
+.building_list_element{
+	height: 50px;
+}
+
+.building_info_section{
+	background-color: white;
+	padding: 0.5%;
+}
+
+.three_column_left{
+	background-color: white;
+	width: 33%;
+	display: inline-block;
+	vertical-align: top;
+	/*border: solid 1px black;*/
+	margin-right: -5px;
+	text-align: center;
+}
+
+#building_image{
+	width: 80%;
+}
+
+.three_column_middle{
+	text-align: center;
+	width: 33%;
+	background-color: white;
+	display: inline-block;
+	vertical-align: top;
+	/*border: solid 1px red;*/
+	margin-right: -5px;
+}
+
+.three_column_right{
+	width: 33%;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: -5px;
+}
+
+.table_title{
+	font-weight: 700;
+	border-bottom: 1px solid black;
+	text-align: left;
+}
+
+#contact_info{
+	width: 80%;
+	margin: auto;
+}
+
+#general_info{
+	width: 80%;
+	margin: auto;
+}
+.info_table{
+	width: 100%;
+	padding: 10px;
+}
+
+.info_table td:first-child{
+	font-weight: 700;
+	text-align: left;
+}
+
+.info_table td:last-child{
+	text-align: right;
+}
+
+.capacity_table{
+	width: 100%;
+	padding: 10px;
+}
+
+.capacity_table td:first-child{
+	font-weight: 700;
+	text-align: center;
+}
+
+.capacity_table td:last-child{
+	text-align: center;
+}
+
+/*=======RESPONSIVE STYLING FOR ROOM PAGE=============*/

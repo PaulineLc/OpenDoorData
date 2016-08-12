@@ -11,14 +11,14 @@ function getPredictedInfo(date, month, year){
 	var xmlhttp = new XMLHttpRequest();
 	
 	var url = "/predicted/" + room_selection + "/" + date + "/" + month + "/" + year;
-	console.log(url)
+	
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 	        var predictedValues = JSON.parse(xmlhttp.responseText);
 	        //Once we've got the data from our database in JSON format we then
 	        //proceed to draw the chart
-	        console.log(predictedValues);
+	        
 	        drawPredictedValueCharts(predictedValues);
 	    }
 	};
@@ -44,15 +44,69 @@ function sendJSONRequest(room){
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-	        var dailyAvg = JSON.parse(xmlhttp.responseText);
+	        var general_hourly_average = JSON.parse(xmlhttp.responseText);
 	        //Once we've got the data from our database in JSON format we then
 	        //proceed to draw the chart
-	        console.log(dailyAvg);
 	        // TODO: If a chart has already been drawn 
 	        // then it needs to be refreshed rather than drawn again
-	        //destroyCharts();
-	        createHourlyAverageChart(dailyAvg[0].Daily);
-	        doSomething(dailyAvg[0].Frequency);
+
+	        var occupancy_data_points = setOccupancyPercentage(general_hourly_average[0].Daily);
+	        getFrequencyPercentage(general_hourly_average[0].Frequency)
+	        createHourlyAverageChart(general_hourly_average[0].Daily);
+	        createFrequencyOfUseChart(general_hourly_average[0].Frequency);
+	        createOccupancyChart(occupancy_data_points);
+	    }
+	};
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+}
+
+function getBuildingInfo(){
+	//get the code for the building selected
+	var selector = document.getElementById("building_select");
+	building_selection = selector.options[selector.selectedIndex].value;
+	
+	//query the information from the controller
+	queryBuildingInfo(building_selection);
+}
+
+function queryBuildingInfo(building_code){
+	var xmlhttp = new XMLHttpRequest();
+	var url = "/getBuildingInfo/" + building_code;
+	
+	
+
+	xmlhttp.onreadystatechange = function() {
+	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	        var b_info = JSON.parse(xmlhttp.responseText);
+	        
+	        //Update the marker on the map
+	        addMarker(b_info.building_info[9], b_info.building_info[10]);
+
+	        //insert the building information into hidden divs
+	        insertBuildingInfo(b_info);
+	    }
+	};
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+}
+
+function getModuleInfo(){
+	var xmlhttp = new XMLHttpRequest();
+
+	var selector = document.getElementById("module_select");
+	var module_selected = selector.options[selector.selectedIndex].value;
+	var url = "/getModuleInfo/" + module_selected;
+	
+	
+
+	xmlhttp.onreadystatechange = function() {
+	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	        var m_info = JSON.parse(xmlhttp.responseText);
+	        
+	        //plot the module information on a chart
+	        plotModuleStastics(m_info.module_info, m_info.registered_students)
+
 	    }
 	};
 	xmlhttp.open("GET", url, true);

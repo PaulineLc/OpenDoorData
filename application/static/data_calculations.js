@@ -7,3 +7,42 @@ function convertToPercentage(data, capacity){
 	}
 	return data
 }
+
+function getFrequencyPercentage(freq){
+	//This function calculates and displays the frequency of use of a particular room according to the JSON data
+	var sum = parseInt(freq[0]) + parseInt(freq[1]);
+	var frequency_percentage = Math.round(freq[0] / sum * 100);
+	document.getElementById("general_fou_percent").innerHTML = frequency_percentage.toString() + "%";
+}
+
+function setOccupancyPercentage(occu){
+	//This function calculates and displays the occupancy rating of a particular room according to the JSON data
+	var sum = 0;
+	for (var i  = 0; i < occu.length; i++){
+		sum += occu[i].occupancy_category_5;
+	}
+
+	var occupancy_percentage = Math.round((sum / occu.length) * 100);
+	var occupancy_data_points = []
+	occupancy_data_points.push(occupancy_percentage);
+
+	document.getElementById("general_occupancy_percent").innerHTML = occupancy_percentage.toString() + "%";
+	occupancy_data_points.push(100 - occupancy_percentage);
+	return occupancy_data_points;
+}
+
+function calculateYaxisLabels(minfo){
+	//Based on the times supplied in the JSON data this function will create the Y axis labels that are used on the historial 
+	//module data graph
+
+	//initiate labels to an empty array
+	var labels = [];
+
+	//loop through each class that has been recorded and create a yaxis label string consisting of the date format = 'day' of 'month' 'yea' @ 'TIME'
+	for (var i = 0; i < minfo.length; i++){
+		var dateStr = minfo[i].event_day + "/" + minfo[i].event_month + "/" + minfo[i].event_year + " @ " + minfo[i].event_hour;
+		labels.push(dateStr);
+	}
+
+	return labels;
+}

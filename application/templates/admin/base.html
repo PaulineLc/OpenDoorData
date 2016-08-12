@@ -12,7 +12,7 @@
   <meta name="author" content="">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="{{ url_for('admin.static', filename='css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('admin.static', filename='css/bootstrap.min.responsive.css') }}">
   <link rel="stylesheet" href="{{ url_for('admin.static', filename='css/chosen.css') }}">
@@ -29,10 +29,10 @@
   {% block extra_script %}{% endblock %}
 </head>
 
-<body class="{% block body_class %}admin{% endblock %}">
+<body class="{% block body_class %}admin{% endblock %}" style="padding-top: 0;">
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
-      <div class="container-fluid">
+      <div class="container-fluid" >
         <a class="brand" href="{{ url_for('admin.index') }}">Open Door Data Admin</a>
         <ul class="nav">
           <li class="active"><a href="{{ url_for('admin.index') }}">Dashboard</a></li>
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid" style="padding-top: 60px;">
     <div class="row-fluid">
       <div class="span3">
         <div class="well sidebar-nav">

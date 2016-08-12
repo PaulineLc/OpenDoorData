@@ -4,8 +4,7 @@ import peewee
 import datetime
 from flask_peewee.auth import BaseUser
 import pymysql
-from myapp import app
-from email.policy import default
+from app import app
 
 if __name__ == "__main__":
     configdb = app.config['DATABASE']
@@ -17,7 +16,6 @@ if __name__ == "__main__":
     c = conn.cursor()
     c.execute("CREATE DATABASE IF NOT EXISTS wifi_db")
     conn.close()
-
 configdb = app.config['DATABASE']
 db = peewee.MySQLDatabase("wifi_db",
                           host = configdb['host'],
@@ -38,6 +36,8 @@ class room(BaseModel):
     room_num = peewee.IntegerField()
     room_cap = peewee.IntegerField()
     building = peewee.CharField()
+    building_code = peewee.CharField()
+    code = peewee.CharField()
     
     class Meta:
         indexes = (
@@ -46,7 +46,24 @@ class room(BaseModel):
 
     def __str__(self):
         return str(self.id_field)
-        
+
+class building(BaseModel):
+    id_field = peewee.PrimaryKeyField()
+    code = peewee.CharField()
+    name = peewee.CharField()
+    phone = peewee.CharField()
+    email = peewee.CharField()
+    opening_hour_weekday = peewee.CharField()
+    closing_hour_weekday = peewee.CharField()
+    opening_hour_weekend = peewee.CharField(default="Closed")
+    closing_hour_weekend = peewee.CharField(default="Closed")
+    lat = peewee.DoubleField()
+    lon = peewee.DoubleField()
+    image_dir = peewee.CharField()
+
+    def __str__(self):
+        return str(self.id_field)
+
 class wifi_log(BaseModel):
     id_field = peewee.PrimaryKeyField()
     room_id = peewee.IntegerField()

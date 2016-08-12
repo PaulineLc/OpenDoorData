@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='home.css') }}">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<title>OpenDoorData</title>
+</head>
+<body>
+	<div id = "main_page">
+	<header id="site_header">
+        <div id="headerContents">
+            <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+            <h3 id="headerTitle">Open Door Data</h3>
+        </div>
+	</header>
+	
+	<nav>
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/dashboard">Dashboard</a></li>
+			<li><a href="/api">Api</a></li>
+			<li><a href="/survey">Survey</a></li>
+		</ul>
+    </nav>
+    
+	<div id = "wrapper">
+	<div class="input_form">
+		<form action="">
+			<label for="location">Location</label>
+		  <select name="location" id="rooms">
+		  </select>
+			
+			<label for="week">Week</label>
+		  <select name="week">
+			<option value="any">Any</option>
+			<option value="week_1">Week 1</option>
+			<option value="week_2">Week 2</option>
+		  </select>
+			
+			<label for="occupancy">Occupancy</label>
+		  <select name="occupancy">
+			<option value="any">Any</option>
+			<option value=0.0>0%</option>
+			<option value=0.25>25%</option>
+			<option value=0.50>50%</option>
+			<option value=0.75>75%</option>
+			<option value=1.0>100%</option>
+		  </select>
+			
+		  <input type="submit">
+		</form>
+	</div>
+	
+	<script type = "text/javascript">
+		var rooms = document.getElementById("rooms");
+		options = "<option value='any'>Any</option>"
+		{% for room in rooms %}
+		options +="<option value="+"'"+'{{ room.building }}'+","+'{{ room.room_num }}'+"'"+ ">"+'{{ room.building }}'+" - "+'{{ room.room_num }}'+"</option>";
+		{% endfor %}
+		rooms.innerHTML = options;
+	</script>
+	
+<div id="calendar">
+  <header id= "calendar_header">
+    <button id= 'back'>«</button>
+    <p>week 1</p>
+    <button id = 'forward'>»</button>
+  </header>
+<table>
+  <tr id="weekdays">
+	<td>Hour</td>
+    <td>Mon</td>
+    <td>Tue</td>
+    <td>Wed</td>
+    <td>Thur</td>
+    <td>Fri</td>
+  </tr>
+	
+  <tr>
+    <td id = "hour">8am</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+  <tr>
+    <td id = "hour">9am</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">10am</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">11am</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">12pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">1pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">2pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">3pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">4pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	<tr>
+    <td id = "hour">5pm</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+    <td>Test_test</td>
+  </tr>
+	
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>

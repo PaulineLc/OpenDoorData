@@ -1,0 +1,1 @@
+#This file takes new wifi log data and cleans it for database submission

@@ -1,6 +1,6 @@
 #entry point to site
 
-from myapp import app
+from app import app
 
 from auth import *
 from admin import admin

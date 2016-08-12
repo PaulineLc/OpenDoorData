@@ -1,7 +1,7 @@
 ##admin.py - Where you register models for admin interface
 from flask_peewee.admin import Admin, ModelAdmin
 
-from myapp import app
+from app import app
 from auth import auth
 from models import User, wifi_log,room,timetable,survey,module, regressionModel
 

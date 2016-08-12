@@ -1,8 +1,10 @@
-from myapp import app
+from app import app
 import pymysql
 import pandas as pd
 from model_functions import dataframe_epochtime_to_datetime
 from linear_model import get_linear_coef
+from models import wifi_log,room
+import datetime
 
 def getHistoricalData(rid, date, month, year):
     '''Takes in a specific room_id, date, month and year as parameters and returns
@@ -74,7 +76,8 @@ def getGeneralData(rid):
     wifi_logs = getHourlyPrediction(wifi_logs, conn)
     
     wifi_logs_merged = wifi_logs[['building', 
-                           'room_id',                  
+                           'room_id',         
+                           'occupancy_pred',         
                            'assoc_devices',
                            'event_day', 
                            'event_hour', 
@@ -86,7 +89,40 @@ def getGeneralData(rid):
 
     return returnPredictionJson(wifi_logs_merged)
 
+def getModuleData(mid):
+    #Connect to database
+    configdb = app.config['DATABASE']
+    
+    conn = pymysql.connect(db = 'wifi_db',
+                           host = configdb['host'],
+                          user = configdb['user'],
+                          password =configdb['password']
+                          )
 
+    wifi_logs = pd.read_sql('''SELECT wifilogs.building as building, wifilogs.assoc_devices as assoc_devices, wifilogs.auth_devices as auth_devices, wifilogs.time as Time, wifilogs.room_id as room_id, wifilogs.event_time as event_time, timetable.mod_code as module_code, timetable.reg_stu as reg_students, timetable.time as Date
+        FROM wifi_db.wifi_log AS wifilogs, wifi_db.timetable AS timetable
+        WHERE FROM_UNIXTIME(wifilogs.event_time, "%%H") = FROM_UNIXTIME(timetable.event_time, "%%H") AND
+            FROM_UNIXTIME(wifilogs.event_time, "%%w") = FROM_UNIXTIME(timetable.event_time, "%%w") AND
+            wifilogs.room_id = timetable.room_id AND
+            timetable.mod_code = %s AND
+            FROM_UNIXTIME(wifilogs.event_time, "%%e") = FROM_UNIXTIME(timetable.event_time, "%%e");
+            ''', con=conn, params=[mid])
+
+    wifi_logs = getHourlyPrediction(wifi_logs, conn)
+    
+    wifi_logs_merged = wifi_logs[['building', 
+                           'room_id',         
+                           'occupancy_pred',         
+                           'assoc_devices',
+                           'event_day', 
+                           'event_hour', 
+                           'event_month',
+                           'event_year', 
+                           'occupancy_category_5', 
+                           'occupancy_category_3',
+                           'binary_occupancy']]
+
+    return returnPredictionJson(wifi_logs_merged)    
 
 def getHourlyPrediction(wifi_logs, conn):
 
@@ -100,10 +136,15 @@ def getHourlyPrediction(wifi_logs, conn):
 
     room_data = pd.read_sql('select * from room;', con=conn)
     # Convert epoch to datetime in dataframe
+
+    print(wifi_logs)
+
     wifi_logs = dataframe_epochtime_to_datetime(wifi_logs, "event_time")
 
     wifi_logs = wifi_logs.groupby(['building','room_id', 'event_day', 'event_hour', 'event_month', 'event_year'], 
                                   as_index=False).median()
+
+    print(wifi_logs)
 
     #Calculate predicted occupancy
     wifi_logs['occupancy_pred'] = None
@@ -180,7 +221,50 @@ def set_occupancy_category(occupants, capacity):
     
     return cat5, cat3, cat2 #This will return a tuple
 
+def full_room_json(rid):
     
-if __name__ == "__main__":
-    get_occupancy_json()
-    print(get_occupancy_json())
+    query1 = wifi_log.select().order_by(wifi_log.event_time.desc()).get()
+    query = wifi_log.select().order_by(wifi_log.event_time).get()
+    begin = query.event_time
+    end = query1.event_time
+    one_day = 86400
+    json_list = []
+    date = datetime.datetime.fromtimestamp(begin)
+    if int(date.strftime("%H"))>16:
+            begin += one_day
+    
+    while begin<=end:
+        print("round1")
+        date = datetime.datetime.fromtimestamp(begin)
+        print(date.day)
+        print(date.month)
+        print(date.year)
+        try:
+            cur_data = getHistoricalData(rid, date.day, date.month, date.year)
+        except:
+            print("breaking")
+            break
+        json_list.append(cur_data)
+        if date.strftime("%a") != "Fri":
+            begin += one_day
+        else:
+            begin += (one_day*3)
+
+    
+    return json_list
+
+
+
+def total_full_json():
+    
+    rooms = room.select()
+    room_list = []
+    for item in rooms:
+        room_list.append(item.room_num)
+    json_list = []
+    
+    for item in room_list:
+        cur_data = full_room_json(item)
+        json_list.append(cur_data)
+    
+    return json_list

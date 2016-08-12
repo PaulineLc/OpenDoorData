@@ -17,9 +17,10 @@ from model_functions import room_number
 from model_functions import estimate_occ
 from model_functions import dataframe_epochtime_to_datetime
 import numpy as np
+import models
 
 
-def get_linear_coef():
+def get_linear_coef(folder, file_1, file_2):
     '''This function contains a linear regression model that predicts the number of
     people in a room based on the number of devices connected to wifi access points
     in that room.
@@ -30,6 +31,12 @@ def get_linear_coef():
     of devices connected per hour.
 
     The model was originally prepared in iPython notebooks.
+    
+    Parameters
+    ----------
+    folder: the folder containing file_1 and file_2
+    file_1: file containing wifi log data with data fields 'room', 'event_time', 'ass', and 'auth'
+    file_2: file containing survey data
 
     Returns
     ----------
@@ -39,9 +46,9 @@ def get_linear_coef():
 
     # Read file
     # OS agnostic -- should work on Mac / Windows / Linux
-    folder = 'cleaned_data'
-    file_full_data = 'full.csv'
-    file_survey_data = 'survey_data.csv'
+    folder = folder
+    file_full_data = file_1
+    file_survey_data = file_2
 
     pathw = os.path.join(folder, file_full_data)
     paths = os.path.join(folder, file_survey_data)
@@ -105,5 +112,8 @@ def get_linear_coef():
 
 
 if __name__ == "__main__":
-    coef = get_linear_coef()
+    os.chdir("..")
+    coef = get_linear_coef(r'Data/original_cleaned_data', r'full.csv', r'survey_data.csv')
+    #setting weight to be linear model coef
+    models.regressionModel.create(weight = coef)
     print("Linear coefficient:", coef)

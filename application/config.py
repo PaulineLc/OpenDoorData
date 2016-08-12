@@ -1,4 +1,4 @@
-# config
+#configuration
     
 class Config(object):
     DATABASE = {

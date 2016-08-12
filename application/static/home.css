@@ -84,41 +84,90 @@ nav > ul > li > a {
 	padding: 10px;
 	font-size: 1.4vw;
 }
-h3{
+.input_form{
+	background-color: lightgrey;
+	width: 20%;
+	height: 100%;
+	transition: width ease .5s;
+	display: inline-block;
+}
+label,input, select{
+	display:block;
+	width: 90%;
+	margin: 2%;
+	padding: 2%;
+	text-align: center;
+	font-size: 12px; 
+	font-size: 1.6vw;
+}
+option{
+	font-size: 10px; 
+	font-size: 1.2vw;
+	box-shadow: none;
+	border: none;
+}
+input{
+	background-color: indianred;
+	margin-top: 5%;
+}
+input:hover {
+    background-color: skyblue;
+}
+label{
+	margin: 1%;
+}
+select{
+	box-shadow: none;
+	border: none;
+}
+#calendar{
+	width: 73%;
+	float: right;
+	border: 1px solid black;
+	margin: 2%;
+	display: inline-block;
+}
+#calendar tr{
+	border: 3px solid black;
+	padding: 2%;
+	width:100%;
+	margin: auto;
+}
+#calendar_header{
+	background-color: skyblue;
+	padding: 2%;
 	text-align: center;
 }
-.info_container{
-	padding:2%;
-	border-radius: 5px;
+#calendar table{
+	padding: 2%;
 }
-.table_container{
-	padding:2%;
+#calendar td{
+	width: 1%;
 	margin:auto;
-	width:70%;
-	background-color: darkgray;
-	border-radius: 5px;
+	border: 1px solid black;
 }
-.table_container img{
-	margin: auto;
-	width:100%;
+#calendar p{
+	text-align: center;
+	font-size: 3vw;
+	font-style:italic;
+	display: inline-block;
+	width: 70%;
 }
-table{
-	margin: auto;
-	width:100%;
-	border-collapse: collapse;
-	background-color: white;
-	border: 1px solid lightgray;
-	table-layout:fixed;
+#back, #forward{
+	display: inline-block;
+	text-align: center;
+	width: 10%;
+	text-decoration: none;
+	border: none;
+	cursor: pointer;
+	background-color: skyblue;
+	font-size: 3vw;
 }
 
-tr:nth-child(even) {
-    background-color: lightgray;
+#hour{
+	width:auto;
 }
-td,th{
-	border: 1px solid lightgray;
-	padding: 10px;
-	text-align: center;
-}
-li{
-	text-align: left;
-}
+
+
+
+

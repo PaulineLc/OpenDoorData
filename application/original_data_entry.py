@@ -4,6 +4,7 @@ import datetime
 from dateutil.parser import parse
 import models
 from linear_model import get_linear_coef
+import os
 
 #useful for viewing the specific sql queries to debug
 import logging
@@ -12,7 +13,7 @@ logger.setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler())
 
 def main():
-
+    os.chdir("..")
     def epochtime(x): 
         string = parse(x)
         epoch = int(tm.mktime(string.timetuple()))
@@ -34,19 +35,36 @@ def main():
                               models.timetable,
                               models.survey,
 			                  models.regressionModel,
+                              models.building
                               ], safe=True)
     
+    models.building.create(name = "School of Computer Science", 
+    code = "scs",
+    phone = "+353 1 716 2483",
+    email = "cs.secretary@ucd.ie",
+    opening_hour_weekday = "09:00",
+    closing_hour_weekday = "19:00",
+    lat = 53.3092327,
+    lon = -6.2239067,
+    image_dir = "images/scs.jpg"
+                )   
     models.room.create(room_num = 2,
                 building = "school of computer science",
-                room_cap = 90
+                room_cap = 90,
+                building_code = "scs",
+                code = "B002"
                 )
     models.room.create(room_num = 3,
                 building = "school of computer science",
-                room_cap = 90
+                room_cap = 90,
+                building_code = "scs",
+                code = "B003"
                 )
     models.room.create(room_num = 4,
                 building = "school of computer science",
-                room_cap = 220
+                room_cap = 220,
+                building_code = "scs",
+                code = "B004"
                 )
     models.User.create(username = "admin",
                  password = "password",
@@ -58,11 +76,8 @@ def main():
     user = models.User.get(models.User.username == "admin")
     user.set_password ("password")
     user.save()
-    
-    #setting weight to be linear model coef
-    models.regressionModel.create(weight = get_linear_coef())
-    
-    file = r"cleaned_data/timetable.csv"
+        
+    file = r"Data/original_cleaned_data/timetable.csv"
     
     with open(file, 'r') as f:
         mycsv= csv.reader(f)
@@ -100,7 +115,7 @@ def main():
                         
     f.close()
      
-    file = r"cleaned_data/full.csv"
+    file = r"Data/original_cleaned_data/full.csv"
      
     with open(file, 'r') as f:
         mycsv= csv.reader(f)
@@ -120,7 +135,7 @@ def main():
       
     f.close()
      
-    file = r"cleaned_data/survey_data.csv"
+    file = r"Data/original_cleaned_data/survey_data.csv"
      
     with open(file, 'r') as f:
         mycsv= csv.reader(f)
