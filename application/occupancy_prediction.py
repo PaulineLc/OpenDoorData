@@ -254,6 +254,7 @@ def full_room_json(rid):
     return json_list
 
 
+
 def total_full_json():
     
     rooms = room.select()
