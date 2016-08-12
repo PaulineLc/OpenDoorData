@@ -11,10 +11,11 @@ from occupancy_prediction import getHistoricalData, getGeneralData, getModuleDat
 @app.route('/')
 def renderHome_Page():
     rooms= room.select()
-    modules = module.select()
+    data = total_full_json()
+    jsonData = json.dumps(data)
     return render_template("home.html",
                            rooms = rooms,
-                           modules = modules)
+                           jsonData = jsonData)
 @app.route('/api/')
 def renderApi():
     return render_template("api.html")
@@ -26,7 +27,7 @@ def returnFull_Room(rid):
     return render_template("json_template.html", json_Data = jsonData)
 
 @app.route('/api/all/')
-def returnPrediction():
+def returnTotalJson():
     data = total_full_json()
     jsonData = json.dumps(data)
     return render_template("json_template.html", json_Data = jsonData)
