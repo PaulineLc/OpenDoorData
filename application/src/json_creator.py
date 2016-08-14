@@ -3,7 +3,7 @@ import collections
 
 #TODO: These functions are highly repetitive, can they be made more modular
 
-def createGeneralDataJson(hourly_average, frequency_of_use):
+def createGeneralDataJson(hourly_average, frequency_of_use, occupancy_rating):
 	'''Function that takes in the hourly average data created from occupancy_prediction.py and the frequency of use data
 	for a room and returns the two parameters merged into one JSON file'''
 
@@ -12,6 +12,7 @@ def createGeneralDataJson(hourly_average, frequency_of_use):
 	d = collections.OrderedDict()
 	d['Daily'] = hourly_average
 	d['Frequency'] = frequency_of_use
+	d['Occupancy_Rating'] = occupancy_rating
 
 	output_list.append(d)
 	j = json.dumps(output_list)

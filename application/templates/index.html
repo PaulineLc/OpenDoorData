@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='main.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<header>
+		<div class="wrapper">
+			<img id="header_image" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+			<h3 id="header_title">Open Door Data</h3>
+		</div>
+	</header>
+	<nav>
+
+		<ul>
+			<div class="wrapper">
+				<li><a href="/">Home</a></li>
+				<li><a>Dashboard</a>
+					<ul>
+						<li><a href="#">General Information</a></li>
+						<li><a href="/dashboard/building">Building Information</a></li>
+						<li><a href="/dashboard/room">Room Information</a></li>
+						<li><a href="/dashboard/module">Module Information</a></li>
+					</ul>
+				</li>
+				<li><a href="/api">API</a>
+				</li>
+				<li><a href="/survey">Survey</a></li>
+			</div>
+		</ul>
+		</nav>
+
+		<div class="wrapper">
+			<div id="left_content_section">
+		<div class="text_content">
+			<h1>Welcome</h1>
+			<br>
+			<p>This is the UCD Occupancy Detetction service. Here you can access occupancy and spatial utilization information for a number of rooms across the campus. Our service allows you to see information for <a href="#">Buildings</a>, <a href="#">Rooms</a> and even specific <a href="#">modules</a> throughout the semester.</p>
+			<br>
+			<h1>How Does it Work?</h1>
+			<br>
+			<p>This service utilises the Universitiy's WiFi network in order to determine occupancy information. The number of connected devices to a room's access point allows us to classify how many people are in the room at any given time.</p>
+			<br>
+			<h1>Who is this service for?</h1>
+			<br>
+			<p>This service is intended for Building Administrators who wish to see the utilisation of classroom space and Lecturers who would like to check the attendance trends for their lectures.</p>
+			<br>
+			<h1>How Can I Help?</h1>
+			<br>
+			<p>If you're a lecturer that uses this service and would like to contribute, feel free to download our app that allows you to submit attendance data for your classes. We use the information you give us to make our occupancy classification better and gives you better results. You can also submit results via the <a href="#">Survey Page</a>.</p>
+		</div>
+	</div>
+
+	<div class="footer">
+		<div class="wrapper">
+		<h4>Copyright © 2016 The Tech Quartet. All Rights Reserved</h4>
+	<div></div>
+</div>
+</nav>
+</body>
+</html>
