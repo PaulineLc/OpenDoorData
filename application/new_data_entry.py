@@ -5,7 +5,7 @@ import time as tm
 import datetime
 from dateutil.parser import parse
 import os
-from models import wifi_log
+import models
 from app import app
 import logging
 
@@ -55,10 +55,11 @@ def main():
                                     )
               
             f.close()
-             
+            os.remove(r"Data/new_cleaned_data/full.csv") 
             
             models.db.close()
-            print ("Database updated")
+            if app.config['DEBUG']:
+                print ("Database updated")
             
         tm.sleep(300)
 if __name__ == '__main__':

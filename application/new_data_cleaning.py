@@ -51,9 +51,11 @@ def main():
                      
                 for i in range(startindex,len(mylist)):
                     a.writerows([mylist[i]])
+                
+                os.remove(file)
                          
             fc.close()
-            os.remove(r"Data\new_cleaned_data\full.csv")
+
         time.sleep(300)
     
 if __name__ == "__main__":
