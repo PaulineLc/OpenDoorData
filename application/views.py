@@ -6,16 +6,19 @@ from app import app
 from auth import auth
 from models import room,module
 import json
-from occupancy_prediction import getHistoricalData, getGeneralData, getModuleData,full_room_json,total_full_json
+from occupancy_prediction import getHistoricalData, getOccupancyRating, getGeneralData, getModuleData,full_room_json,total_full_json
 
 @app.route('/')
 def renderHome_Page():
-    rooms= room.select()
-    data = total_full_json()
-    jsonData = json.dumps(data)
-    return render_template("home.html",
-                           rooms = rooms,
-                           )
+    return render_template("index.html")
+
+# def renderHome_Page():
+#     rooms= room.select()
+#     data = total_full_json()
+#     jsonData = json.dumps(data)
+#     return render_template("home.html",
+#                            rooms = rooms,
+#                            )
 @app.route('/api/')
 def renderApi():
     return render_template("api.html")
@@ -53,7 +56,7 @@ def renderDashboardHome():
 
 @app.route('/dashboard/building')
 def renderBuildingPage():
-    return render_template("building.html")
+    return render_template("building_test.html")
 
 @app.route('/getBuildingInfo/<bid>')
 def getBuldingInfo(bid):
@@ -64,7 +67,7 @@ def getBuldingInfo(bid):
 
 @app.route('/dashboard/room/')
 def renderRoomPage():
-    return render_template("room.html")
+    return render_template("room_test.html")
 
 @app.route('/predicted/<rid>/<date>/<month>/<year>')
 def returnPrediction(rid, date, month, year):
@@ -81,8 +84,11 @@ def returnDailyStats(rid):
     #then get information about the frequency of use of the particular room selected
     frequency_of_use_data = queries.frequency_of_use(rid)
 
+    #then get the occupancy rating
+    occupancy_rating = getOccupancyRating(rid)
+    print(occupancy_rating)
     #combine them into one python dictionary and return as a JSON file to be manipulated using Javascript
-    general_data_json = json_creator.createGeneralDataJson(hourly_predictions, frequency_of_use_data)
+    general_data_json = json_creator.createGeneralDataJson(hourly_predictions, frequency_of_use_data, occupancy_rating)
 
 
     return general_data_json

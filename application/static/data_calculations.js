@@ -13,22 +13,20 @@ function getFrequencyPercentage(freq){
 	var sum = parseInt(freq[0]) + parseInt(freq[1]);
 	var frequency_percentage = Math.round(freq[0] / sum * 100);
 	document.getElementById("general_fou_percent").innerHTML = frequency_percentage.toString() + "%";
+	return frequency_percentage;
+}
+
+function getUtilisationScore(freq, occu){
+	var score = Math.round(freq * occu / 100)
+	document.getElementById("utilisation_percent").innerHTML = score.toString() + "%"; 
+	return score;
 }
 
 function setOccupancyPercentage(occu){
 	//This function calculates and displays the occupancy rating of a particular room according to the JSON data
-	var sum = 0;
-	for (var i  = 0; i < occu.length; i++){
-		sum += occu[i].occupancy_category_5;
-	}
+	
 
-	var occupancy_percentage = Math.round((sum / occu.length) * 100);
-	var occupancy_data_points = []
-	occupancy_data_points.push(occupancy_percentage);
-
-	document.getElementById("general_occupancy_percent").innerHTML = occupancy_percentage.toString() + "%";
-	occupancy_data_points.push(100 - occupancy_percentage);
-	return occupancy_data_points;
+	document.getElementById("general_occupancy_percent").innerHTML = occu.toString() + "%";
 }
 
 function calculateYaxisLabels(minfo){
