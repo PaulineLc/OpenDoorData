@@ -117,6 +117,31 @@
 				</ul>		
 			</td>
 		</tr>
+		<tr>
+			<td>Occupancy</td>
+			<td>Occupancy based on wifi log data. Unlike other tables this is a derived table and therefore can only be queried directly "api/occupancy" or queried specifying a specific room "api/occupancy/2".</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<ul>
+					<li>event_day: day number for the log</li>
+					<li>event_year: year number for the log</li>
+					<li>event_hour: hour number for the log</li>
+					<li>auth_devices: number of authenticated devices</li>
+					<li>assoc_devices: number of associated devices</li>
+					<li>building: building name</li>
+					<li>room_id: room number for the log</li>
+					<li>capacity: room capacity</li>
+					<li>occupancy: manually reported data for occupancy level</li>
+					<li>occupancy_pred: occupancy number based on wifi log data</li>
+					<li>occupancy_category_5: occupancy level based on wifi log data divided into five categories</li>
+					<li>occupancy_category_3: occupancy level based on wifi log data divided into three categories</li>
+					<li>binary_occupancy: occupancy level based on wifi log data divided into two categories</li>
+				</ul>		
+			</td>
+		</tr>
+		
 
 		</table>
 	</div>

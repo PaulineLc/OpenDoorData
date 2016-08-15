@@ -12,6 +12,7 @@ var threeCategoryChart = null;
 var frequencyOfUseChart = null;
 var OccupancyRatingChart = null;
 var ModuleDataChart = null;
+var utilisationChart = null;
 
 function createHourlyAverageChart(hourly_averages){
     //Get our data
@@ -44,6 +45,9 @@ function createHourlyAverageChart(hourly_averages){
                         //used for y axis title
                     },
                     ticks: {
+                        callback: function(label, index, labels) {
+                            return Math.round(label*100) + "%";
+                        },
                         min: 0,
                         max: 1
                     }
@@ -59,6 +63,11 @@ function createHourlyAverageChart(hourly_averages){
             },
             legend: {
                 display: false
+            },
+            elements:{
+                line:{
+                    tension: 0
+                }
             }
 
         }
@@ -70,6 +79,9 @@ function createOccupancyChart(occu){
     if(window.OccupancyRatingChart !== null){
         window.OccupancyRatingChart.destroy()
     }
+
+    var data_points = [occu, 100-occu];
+
     var ctz = document.getElementById("occupancy_chart");
     var data = {
         labels: [
@@ -78,7 +90,7 @@ function createOccupancyChart(occu){
         ],
         datasets: [
         {
-            data: occu,
+            data: data_points,
             backgroundColor: ["rgba(255,99,132,1)","rgb(128, 0, 0)"],
             hoverBackgroundColor: [
             "#FF6384",
@@ -96,16 +108,16 @@ function createOccupancyChart(occu){
                 fontSize: 15,
                 fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
                 display: false,
-                tuext: "Occupancy Rating"
+                text: "Occupancy Rating"
             },
-            rotation: 45,
+            rotation: 0,
             maintainAspectRatio: false,
             responsive: true,
             legend:{
                 display: false,
                 position: "top",
                 labels:{
-    
+
                     boxWidth: 20
 
                 }
@@ -146,16 +158,15 @@ function createFrequencyOfUseChart(stuff){
                 fontSize: 15,
                 fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
                 display: false,
-                tuext: "Frequency of Use"
+                text: "Frequency of Use"
             },
-            rotation: 45,
+            rotation: 0,
             maintainAspectRatio: false,
             responsive: true,
             legend:{
                 display: false,
                 position: "top",
                 labels:{
-    
                     boxWidth: 20
 
                 }
@@ -235,7 +246,9 @@ function drawFiveCateogryChart(occupancy_data, predicted_data, associated_device
                         //used for y axis title
                     },
                     ticks: {
-                        min: 0
+                        callback: function(label, index, labels) {
+                            return Math.round(label*100) + "%";
+                        }
                     }
                 }]
             },
@@ -276,23 +289,23 @@ function drawThreeCategoryChart(predicted_data_3_cat){
             yAxes: [
             {
               ticks: {
-               callback: function(label, index, labels) {
-                if (label == 1){
-                    return "Full";
-                }
-                else if (label == 0.5){
-                    return "Occupied";
-                }
-                else{
-                 return "Empty";
-                }
-                },
-                min: "0",
-                max: "1",
-                fixedStepSize: 0.5
-         },
-    }]
-}
+                 callback: function(label, index, labels) {
+                    if (label == 1){
+                        return "Full";
+                    }
+                    else if (label == 0.5){
+                        return "Occupied";
+                    }
+                    else{
+                       return "Empty";
+                   }
+               },
+               min: "0",
+               max: "1",
+               fixedStepSize: 0.5
+           },
+       }]
+   }
 }
 var ctx = document.getElementById("predictedHourly-3-cat");
 if(window.threeCategoryChart !== null){
@@ -387,6 +400,58 @@ function createModuleChart(ylabels, ydata){
         }
     });
 
+}
+
+function createUtilisationChart(uti){
+
+    //Destroy the chart if it already exists
+    if(window.utilisationChart !== null){
+        window.utilisationChart.destroy()
+    }
+
+    var data_points = [uti, 100-uti];
+    var ctz = document.getElementById("utilisation_chart");
+    var data = {
+        labels: [
+        "In Use",
+        "Unused"
+        ],
+        datasets: [
+        {
+            data: data_points,
+            backgroundColor: ["rgb(255, 255, 128)","rgb(179, 179, 0)"],
+            hoverBackgroundColor: [
+            "#FF6384",
+            "#36A2EB"
+            ]
+        }]
+    };
+
+    utilisationChart = new Chart(ctz, {
+        type: 'doughnut',
+        data: data,
+        options:{
+            cutoutPercentage: 70,
+            title: {
+                fontSize: 15,
+                fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                display: false,
+                tuext: "Frequency of Use"
+            },
+            rotation: 0,
+            maintainAspectRatio: false,
+            responsive: true,
+            legend:{
+                display: false,
+                position: "top",
+                labels:{
+
+                    boxWidth: 20
+
+                }
+            }
+        }
+    });
 }
 
 function destroyCharts(){

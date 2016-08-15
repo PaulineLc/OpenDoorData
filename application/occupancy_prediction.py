@@ -49,6 +49,43 @@ def getHistoricalData(rid, date, month, year):
 
     return returnPredictionJson(wifi_logs)
 
+def getOccupancyRating(rid):
+    '''Takes in a specific room_id, date, month and year as parameters and returns
+    the historical predicted occupancy data for each hour of that particular day'''
+
+    #Connect to database
+    configdb = app.config['DATABASE']
+    
+    conn = pymysql.connect(db = 'wifi_db',
+                           host = configdb['host'],
+                          user = configdb['user'],
+                          password =configdb['password']
+                          )
+
+    wifi_logs = pd.read_sql('''
+        SELECT logd.room_id, logd.event_time, auth_devices, assoc_devices, logd.building, room_cap AS capacity 
+        FROM wifi_db.room AS rooms, wifi_db.wifi_log AS logd, wifi_db.survey AS survey 
+        WHERE logd.room_id = %s
+            AND logd.room_id = rooms.room_num
+            AND logd.room_id = survey.room_id
+            AND FROM_UNIXTIME(logd.event_time, "%%e") = FROM_UNIXTIME(survey.event_time, "%%e")
+            AND FROM_UNIXTIME(logd.event_time, "%%m") = FROM_UNIXTIME(survey.event_time, "%%m")
+            AND FROM_UNIXTIME(logd.event_time, "%%H") = FROM_UNIXTIME(survey.event_time, "%%H");''', con=conn, params=[rid])
+
+    wifi_logs = getHourlyPrediction(wifi_logs, conn)
+    
+    wifi_logs_merged = wifi_logs[['occupancy_pred', 'event_hour','capacity']]
+
+    return calculateOccupancyRating(returnPredictionJson(wifi_logs_merged))
+
+def calculateOccupancyRating(d):
+    sum = 0
+
+    for i in d:
+        sum += (i['occupancy_pred'] / i['capacity']) * 100
+
+    return round(sum/len(d))
+        
 
 def getGeneralData(rid):
     #Connect to database
@@ -137,14 +174,12 @@ def getHourlyPrediction(wifi_logs, conn):
     room_data = pd.read_sql('select * from room;', con=conn)
     # Convert epoch to datetime in dataframe
 
-    print(wifi_logs)
 
     wifi_logs = dataframe_epochtime_to_datetime(wifi_logs, "event_time")
 
     wifi_logs = wifi_logs.groupby(['building','room_id', 'event_day', 'event_hour', 'event_month', 'event_year'], 
                                   as_index=False).median()
 
-    print(wifi_logs)
 
     #Calculate predicted occupancy
     wifi_logs['occupancy_pred'] = None
@@ -162,7 +197,7 @@ def getHourlyPrediction(wifi_logs, conn):
         building = wifi_logs['building'][i]
 
         capacity = room_data['room_cap'].loc[(room_data['room_num'] == room) & (room_data['building'] == building)].values[0]
-        print(wifi_logs['occupancy_pred'][i])
+        #print(wifi_logs['occupancy_pred'][i])
         prediction = set_occupancy_category(wifi_logs['occupancy_pred'][i], capacity)
         
         wifi_logs.set_value(i, 'occupancy_category_5', prediction[0])
@@ -234,15 +269,11 @@ def full_room_json(rid):
             begin += one_day
     
     while begin<=end:
-        print("round1")
+
         date = datetime.datetime.fromtimestamp(begin)
-        print(date.day)
-        print(date.month)
-        print(date.year)
         try:
             cur_data = getHistoricalData(rid, date.day, date.month, date.year)
         except:
-            print("breaking")
             break
         json_list.append(cur_data)
         if date.strftime("%a") != "Fri":
@@ -268,3 +299,4 @@ def total_full_json():
         json_list.append(cur_data)
     
     return json_list
+

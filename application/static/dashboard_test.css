@@ -1,149 +1,163 @@
-
 *{
-	padding: 0;
 	margin: 0;
-	font-family: "Open Sans";
+	padding: 0;
+	font-family: Helvetica;
 }
 
-
-
-html, body{
-	background-color: white;
-	height: 100%;
-	width: 100%;
-}
-
-
-
-/*Used to make sure that screen elements don't extent out past the max width*/
-#wrapper{
-	width: 100%;
-	height: 100%;
-	background-color: #f2f2f2;
-}
 
 header{
+	height: 80px;
+	background-color: #222222;
 	width: 100%;
-	height: 50px;
-	margin-bottom: 5px;
+}
+
+#header_image{
+	height: 60px;
+	margin-top: 10px;
+	margin-left: 10px;
+	display: inline;
+	vertical-align: middle;
+}
+
+#header_title{
+	font-weight: 300;
+	position: relative;
+	top: 5px;
+	left: 10px;
+	color: white;
+	display: inline;
+	font-family: helvetica;
+}
+
+/*This was done with the help of tutorial http://line25.com/tutorials/how-to-create-a-pure-css-dropdown-menu*/
+nav{
+	width: 100%;
+}
+nav ul ul {
+	display: none;
+	z-index: 10;
+}
+
+nav ul li:hover > ul {
+	display: block;
+}
+
+nav ul {
+	width: 100%;
+	background: #0099cc; 
+	list-style: none;
+	position: relative;
+	display: inline-table;
+}
+
+nav ul li {
+	float: left;
+}
+
+nav ul li:hover {
+	background: #4b545f;
+
+}
+		
+nav ul li:hover a {
+	color: #fff;
+}
+	
+nav ul li a {
+	display: block;
+	padding: 10px;
+	color: white;
+	text-decoration: none;
+}
+
+nav ul ul {
+	background: #5f6975;
+	border-radius: 0px; 
+	padding: 0;
+	position: absolute; 
+	top: 100%;
+	width: auto;
+}
+
+nav ul ul li {
+	float: none; 
+	position: relative;
+	}
+
+nav ul ul li a {
+	padding: 10px;
+	color: #fff;
+	}
+
+nav ul ul li a:hover {
+	background: #4b545f;
+}
+
+#left_content_section{
+	width: 100%;
+	background-color: white;
+	height: auto;
+}
+
+#hero_image_section{
+	padding: 10px;
 	text-align: center;
 }
 
-#page_name{
-	position: relative;
-	transition: opacity 0.2s;
-	display: inline-block;
-	top: 10px;
-	overflow: hidden;
-}
-
-/*All CSS classes related to the header go here*/
-#navbar_title{
-	background-color: black;
-	height: 50px;
+#hero_image_section img{
+	margin-left: auto;
+	margin-right: auto;
 	width: 100%;
-	z-index: 10;
 }
 
-#navbar_symbol{
-	z-index: 4;
-	position: absolute;
-	width: 20px;
-	border: solid 1px red;
-	margin-left: 10px;
-	transition: margin-left 0.2s;
+.text_content{
+	
 }
 
-#navbar_title img{
-	height: 30px;
-	margin-top:10px;
-	display: inline-block;
-	vertical-align: middle;
-	position: relative;
-	left: 5px;
-	margin-right: 10px;
+.wrapper{
+	max-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-#product_name{
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  color: #999999;
+  background-color: #222222;
+}
+
+.footer h4{
+	font-weight: 300;
 	font-size: 13px;
-	margin-top:10px;
-	opacity: 0;
-	transition: opacity 1s;
-	color: white;
-	vertical-align: middle;
-	display: inline-block;
-	font-family: Arial;
-}
-
-/*All CSS relating to the navigation bar*/
-
-#navbar{
-	position: fixed;
-	width: 0;
-	transition: width 0.2s;
-	overflow: hidden;
-    top: 0px;
-    left: 0px;
-	background-color: #2F4050;
-	height: 100%;
-	z-index: 10;
-}
-
-.navbar_section_title{
-	font-weight: normal;
-	font-size: 15px;
-}
-
-#navbar_title_main{
-	display: block;
-	width: 180px;
-	margin: auto;
-	border-bottom: 1px solid white;
-}
-
-#navContent{
-	color: white;
-}
-
-#navList{
-	font-size: 14px;
-	font-weight: 600;
-	list-style-type: none;
-}
-
-#navList li{
-	padding: 10px;
-
-}
-
-#navList li:hover{
-	background-color: #293846;
-	box-shadow: 5px 0 0 #00b3b3 inset;
-} 
-
-#navList a{
-	text-decoration: none;
-	color: white;
-	display: block;
-	position: relative;
-	left: 20px;
 }
 
 
 /*Styling to contain the right hand side of the page*/
 #main_page{
-	margin: 0;
+	height: 100%;
+	margin-left: 220px;
+    background-color: #f2f2f2;
 	}
 
 .dashboard_display{
-	margin: 0;
+	margin: 0 5px 5px 5px;
 }
 
 /*==========================DBHOME.HTML=====================*/
 
+#home_main_page{
+	height: 100%;
+	margin-left: 220px;
+    background-color: white;
+}
 .textContent{
 	background-color: white;
 	text-align: center;
+	min-height: 100%;
 }
 
 .textContent img{
@@ -159,11 +173,13 @@ header{
 	color: #66ff99;
 }
 .textContent h1, p{
-	font-family: Arial;
+	font-family: Helvetica;
 	padding: 10px;
 }
 
-
+.home_display{
+	background-color: white;
+}
 
 
 /*=========================ROOM.HTML======================*/
@@ -173,12 +189,11 @@ header{
 .option_selector{
 	background-color: white;
 	border-radius: 3px;
-	height: 80px;
-	margin-bottom: 5px;
+	height: 60px;
 	text-align: center;
 }
 
-#building_selector{
+#selector{
 	position: relative;
 	top: 8px;
 	display: inline-block;
@@ -186,9 +201,12 @@ header{
 	vertical-align: middle;
 }
 
+
 #room_selector{
 	position: relative;
 	top: 8px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 #submit_button{
@@ -204,16 +222,19 @@ header{
 }
 .left_column{
     background-color: white;
-    width: 100%;
-    height: auto;
-    display: block;
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    height: 340px;
     margin-bottom: 5px;
 }
 
 .right_column{
-    width: 100%;
-    display: block;
-    height: auto;
+    width: 50%;
+    margin-right: -5px;
+    display: inline-block;
+    height: 340px;
+
     background-color: white;
     margin-bottom: 5px;
 }
@@ -231,19 +252,30 @@ header{
 }
 /*Chart Styling for room.html*/
 .chartArea{
+	padding-top: 10px;
 	background-color: white;
-	width: 95%;
-	margin-top: 10px;
+	width: 100%;
 	height: 150px;
-	display: block;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: -5px;
 }
 
 .percentage_display{
-	width: 100%;
-	margin: 0;
+	display: block;
 	text-align: center;
 }
 
+
+.percentage_display h1{
+/*	/*width: 40%;*/
+}
+
+
+.frequency_of_use{
+	height: 300px;
+	width: 100%;
+}
 
 .full_column{
 	background-color: white;
@@ -257,14 +289,24 @@ header{
 	background-color: white;
 }
 
+.full_column_chart_tall{
+	height: 600px;
+	background-color: white;
+}
+
 .chart_title{
-	background-color: #00ccff;
-	height: 20px;
+	background-color: #0099CC;
+	
 	text-align: center;
 	color: white;
 	margin-bottom: 2px;
+	font-weight: 200;
 }
 
+.chart_title h4{
+	font-weight: 200;
+	padding: 5px;
+}
 #date_selector{
 }
 
@@ -275,10 +317,12 @@ header{
 /*===========================BUILDING.HTML=========================*/
 
 #googleMap{
-	height: 300px;
+	height: 500px;
+
 }
 
 .map_section{
+	z-index: 8;
 	margin-bottom: 5px;
 	padding: 10px;
 	background-color: white;
@@ -330,12 +374,16 @@ header{
 	padding: 0.5%;
 }
 
+.three_column_left, .three_column_right, .three_column_middle{
+	height: 250px;
+}
 .three_column_left{
 	background-color: white;
-	width: 100%;
-	margin-bottom: 10px;
-	display: block;
+	width: 33%;
+	display: inline-block;
+	vertical-align: top;
 	/*border: solid 1px black;*/
+	margin-right: -5px;
 	text-align: center;
 }
 
@@ -345,21 +393,23 @@ header{
 
 .three_column_middle{
 	text-align: center;
-	width: 100%;
-	margin-bottom: 10px;
+	width: 33%;
 	background-color: white;
-	display: block;
+	display: inline-block;
+	vertical-align: top;
 	/*border: solid 1px red;*/
+	margin-right: -5px;
 }
 
 .three_column_right{
-	width: 100%;
-	display: block;
+	width: 33%;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: -5px;
 }
 
 .table_title{
 	font-weight: 700;
-	font-size: 25px;
 	border-bottom: 1px solid black;
 	text-align: left;
 }

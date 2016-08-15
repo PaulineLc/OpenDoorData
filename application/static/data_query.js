@@ -11,15 +11,19 @@ function getPredictedInfo(date, month, year){
 	var xmlhttp = new XMLHttpRequest();
 	
 	var url = "/predicted/" + room_selection + "/" + date + "/" + month + "/" + year;
-	
+	console.log(url);
 
 	xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 	        var predictedValues = JSON.parse(xmlhttp.responseText);
 	        //Once we've got the data from our database in JSON format we then
 	        //proceed to draw the chart
+	        console.log(predictedValues);
 	        
 	        drawPredictedValueCharts(predictedValues);
+	    }
+	    else if (xmlhttp.status == 500){
+	    	console.log("no data available");
 	    }
 	};
 	xmlhttp.open("GET", url, true);
@@ -49,12 +53,14 @@ function sendJSONRequest(room){
 	        //proceed to draw the chart
 	        // TODO: If a chart has already been drawn 
 	        // then it needs to be refreshed rather than drawn again
-
-	        var occupancy_data_points = setOccupancyPercentage(general_hourly_average[0].Daily);
-	        getFrequencyPercentage(general_hourly_average[0].Frequency)
+	        console.log(general_hourly_average);
+	        var freq_percentage = getFrequencyPercentage(general_hourly_average[0].Frequency);
+	       	var utilisationScore = getUtilisationScore(freq_percentage, general_hourly_average[0].Occupancy_Rating);
 	        createHourlyAverageChart(general_hourly_average[0].Daily);
 	        createFrequencyOfUseChart(general_hourly_average[0].Frequency);
-	        createOccupancyChart(occupancy_data_points);
+	        setOccupancyPercentage(general_hourly_average[0].Occupancy_Rating);
+	        createOccupancyChart(general_hourly_average[0].Occupancy_Rating);
+	        createUtilisationChart(general_hourly_average[0].Occupancy_Rating);
 	    }
 	};
 	xmlhttp.open("GET", url, true);

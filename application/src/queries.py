@@ -11,14 +11,10 @@ def frequency_of_use(room):
 
 	c.execute("""
 	SELECT 
-	round(COUNT(case when assoc_devices <> 0 then assoc_devices end),2) AS occupied_slots,
-	round(COUNT(case when assoc_devices = 0 then assoc_devices end),2) AS unoccupied_slots
-	FROM(
-	SELECT *
-	FROM wifi_db.wifi_log
-	WHERE room_id = %s AND FROM_UNIXTIME(event_time, "%%H") >= 9
-	GROUP BY FROM_UNIXTIME(event_time, "%%H"), FROM_UNIXTIME(event_time, "%%j")
-	) AS Z""", (room,))
+    SUM(CASE WHEN mod_code IS NOT NULL THEN 1 ELSE 0 END) As not_null_num, 
+    SUM(CASE WHEN mod_code IS NULL THEN 1 ELSE 0 END) AS null_num
+	FROM wifi_db.timetable
+	WHERE room_id = %s;""", (room,))
 
 	data = c.fetchall()
 	for i in data[0]:

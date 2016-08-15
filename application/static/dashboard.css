@@ -8,7 +8,7 @@
 
 
 html, body{
-	background-color: white;
+	background-color: #f2f2f2;
 	height: 100%;
 	width: 100%;
 }
@@ -23,18 +23,10 @@ html, body{
 }
 
 header{
+	display: none;
 	width: 100%;
 	height: 50px;
 	margin-bottom: 5px;
-	text-align: center;
-}
-
-#page_name{
-	position: relative;
-	transition: opacity 0.2s;
-	display: inline-block;
-	top: 10px;
-	overflow: hidden;
 }
 
 /*All CSS classes related to the header go here*/
@@ -46,12 +38,7 @@ header{
 }
 
 #navbar_symbol{
-	z-index: 4;
-	position: absolute;
-	width: 20px;
-	border: solid 1px red;
 	margin-left: 10px;
-	transition: margin-left 0.2s;
 }
 
 #navbar_title img{
@@ -64,11 +51,9 @@ header{
 	margin-right: 10px;
 }
 
-#product_name{
+#navbar_title h4{
 	font-size: 13px;
 	margin-top:10px;
-	opacity: 0;
-	transition: opacity 1s;
 	color: white;
 	vertical-align: middle;
 	display: inline-block;
@@ -79,14 +64,12 @@ header{
 
 #navbar{
 	position: fixed;
-	width: 0;
-	transition: width 0.2s;
-	overflow: hidden;
     top: 0px;
     left: 0px;
 	background-color: #2F4050;
 	height: 100%;
-	z-index: 10;
+	display: block;
+	width: 220px;
 }
 
 .navbar_section_title{
@@ -113,7 +96,6 @@ header{
 
 #navList li{
 	padding: 10px;
-
 }
 
 #navList li:hover{
@@ -132,18 +114,26 @@ header{
 
 /*Styling to contain the right hand side of the page*/
 #main_page{
-	margin: 0;
+	height: 100%;
+	margin-left: 220px;
+    background-color: #f2f2f2;
 	}
 
 .dashboard_display{
-	margin: 0;
+	margin: 0 5px 5px 5px;
 }
 
 /*==========================DBHOME.HTML=====================*/
 
+#home_main_page{
+	height: 100%;
+	margin-left: 220px;
+    background-color: white;
+}
 .textContent{
 	background-color: white;
 	text-align: center;
+	min-height: 100%;
 }
 
 .textContent img{
@@ -163,7 +153,9 @@ header{
 	padding: 10px;
 }
 
-
+.home_display{
+	background-color: white;
+}
 
 
 /*=========================ROOM.HTML======================*/
@@ -173,12 +165,12 @@ header{
 .option_selector{
 	background-color: white;
 	border-radius: 3px;
-	height: 80px;
+	height: 60px;
 	margin-bottom: 5px;
 	text-align: center;
 }
 
-#building_selector{
+#selector{
 	position: relative;
 	top: 8px;
 	display: inline-block;
@@ -189,6 +181,8 @@ header{
 #room_selector{
 	position: relative;
 	top: 8px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 #submit_button{
@@ -204,16 +198,19 @@ header{
 }
 .left_column{
     background-color: white;
-    width: 100%;
-    height: auto;
-    display: block;
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    height: 340px;
     margin-bottom: 5px;
 }
 
 .right_column{
-    width: 100%;
-    display: block;
-    height: auto;
+    width: 50%;
+    margin-right: -5px;
+    display: inline-block;
+    height: 340px;
+
     background-color: white;
     margin-bottom: 5px;
 }
@@ -232,18 +229,32 @@ header{
 /*Chart Styling for room.html*/
 .chartArea{
 	background-color: white;
-	width: 95%;
-	margin-top: 10px;
-	height: 150px;
-	display: block;
+	width: 50%;
+	height: 300px;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: -5px;
 }
 
 .percentage_display{
-	width: 100%;
-	margin: 0;
+	width: 50%;
+	display: inline-block;
+	font-size: 40px;
 	text-align: center;
 }
 
+
+.percentage_display h1{
+/*	/*width: 40%;*/
+	position:relative;
+	top: 80px;
+}
+
+
+.frequency_of_use{
+	height: 300px;
+	width: 100%;
+}
 
 .full_column{
 	background-color: white;
@@ -254,6 +265,11 @@ header{
 
 .full_column_chart{
 	height: 300px;
+	background-color: white;
+}
+
+.full_column_chart_tall{
+	height: 600px;
 	background-color: white;
 }
 
@@ -275,7 +291,7 @@ header{
 /*===========================BUILDING.HTML=========================*/
 
 #googleMap{
-	height: 300px;
+	height: 500px;
 }
 
 .map_section{
@@ -332,10 +348,11 @@ header{
 
 .three_column_left{
 	background-color: white;
-	width: 100%;
-	margin-bottom: 10px;
-	display: block;
+	width: 33%;
+	display: inline-block;
+	vertical-align: top;
 	/*border: solid 1px black;*/
+	margin-right: -5px;
 	text-align: center;
 }
 
@@ -345,21 +362,23 @@ header{
 
 .three_column_middle{
 	text-align: center;
-	width: 100%;
-	margin-bottom: 10px;
+	width: 33%;
 	background-color: white;
-	display: block;
+	display: inline-block;
+	vertical-align: top;
 	/*border: solid 1px red;*/
+	margin-right: -5px;
 }
 
 .three_column_right{
-	width: 100%;
-	display: block;
+	width: 33%;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: -5px;
 }
 
 .table_title{
 	font-weight: 700;
-	font-size: 25px;
 	border-bottom: 1px solid black;
 	text-align: left;
 }
