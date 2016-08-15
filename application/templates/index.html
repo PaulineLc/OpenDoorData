@@ -4,6 +4,8 @@
 	<link rel=stylesheet type=text/css media="(min-width: 640px)" href="{{ url_for('static', filename='dashboard_test.css') }}">
 	<link rel=stylesheet type=text/css media="(max-width: 640px)" href="{{ url_for('static', filename='dashboard_640.css') }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
 </head>
 <body>
 	<div id="full_screen_header">
@@ -47,9 +49,12 @@
 
 			<ul id="navList">
 				<li><a href="/">Home</a></li>
-				<li><a href="/dashboard/building">Buildings</a></li>
-				<li><a href="/dashboard/room">Rooms</a></li>
-				<li><a href="/dashboard/modules">Modules</a></li>
+				<li><a href="/dashboard/general">General Information</a></li>
+				<li><a href="/dashboard/building">Building Information</a></li>
+				<li><a href="/dashboard/room">Room Information</a></li>
+				<li><a href="/dashboard/module">Module Information</a></li>
+				<li><a href="/api">API</a></li>
+				<li><a href="/survey">Survey</a></li>
 			</ul>
 		</div>
 	</div>
