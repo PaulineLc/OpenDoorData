@@ -50,8 +50,11 @@ def get_linear_coef(folder, file_1, file_2):
     file_full_data = file_1
     file_survey_data = file_2
 
-    pathw = os.path.join(folder, file_full_data)
-    paths = os.path.join(folder, file_survey_data)
+    print(os.getcwd())
+    pathw = os.path.join('Data', folder, file_full_data)
+    paths = os.path.join('Data', folder, file_survey_data)
+    print(pathw)
+    print(paths)
 
     wifi_df = pd.read_csv(pathw, names=['room', 'event_time', 'ass', 'auth'])
     occupancy_df = pd.read_csv(paths)

@@ -31,6 +31,7 @@ def main():
         
         return (building,room)
     
+
     models.db.create_tables([models.room,
                               models.User,
                               models.module,
@@ -41,6 +42,9 @@ def main():
                               models.building
                               ], safe=True)
     
+    models.regressionModel.create(weight = get_linear_coef("original_cleaned_data", "full.csv", "survey_data.csv"))
+
+
     models.building.create(name = "School of Computer Science", 
     code = "scs",
     phone = "+353 1 716 2483",
