@@ -7,22 +7,32 @@
 	<title>OpenDoorData</title>
 </head>
 <body>
-	<header id = "site_header">
-        <div id="headerContents">
-            <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-            <h3 id="headerTitle">Open Door Data</h3>
-        </div>
+	<header>
+		<div class="wrapper">
+			<img id="header_image" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+			<h3 id="header_title">Open Door Data</h3>
+		</div>
 	</header>
-	
 	<nav>
+
 		<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="/dashboard">Dashboard</a></li>
-			<li><a href="/api">Api</a></li>
-			<li><a href="/survey">Survey</a></li>
+			<div class="wrapper">
+				<li><a href="/">Home</a></li>
+				<li><a>Dashboard</a>
+					<ul>
+						<li><a href="#">General Information</a></li>
+						<li><a href="/dashboard/building">Building Information</a></li>
+						<li><a href="/dashboard/room">Room Information</a></li>
+						<li><a href="/dashboard/module">Module Information</a></li>
+					</ul>
+				</li>
+				<li><a href="/api">API</a>
+				</li>
+				<li><a href="/survey">Survey</a></li>
+			</div>
 		</ul>
-    </nav>
-	
+	</nav>
+	<div id = "main_page">
     <h2 style='text-align:center'>Occupancy Survey Submission</h2>
 	<p style='text-align:center'>Please select the three options below to submit occupancy information for your classroom</p>
 
@@ -58,6 +68,7 @@
   <br><br>
   <input type="submit">
 </form>
+</div>
 </div>
 	<script type = "text/javascript">
 		var rooms = document.getElementById("rooms");

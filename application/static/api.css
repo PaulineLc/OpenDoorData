@@ -1,9 +1,7 @@
-* {
-	font-family: "Open Sans";
- /* Useful for testing purposes
-	background: #000 !important;
-  color: #0f0 !important;
-  outline: solid #f00 1px !important;*/
+*{
+	margin: 0;
+	padding: 0;
+	font-family: Helvetica;
 }
 html{
     padding: 0;
@@ -24,65 +22,99 @@ body{
 	height: 100%;
 	display: inline-block;
 }
-#wrapper{
-	display:table;
-	height 100%;
-	width: 100%;	
-}
-#site_header{
-    background-color: #222222;
-	height: 17vh;
+
+header{
+	height: 80px;
+	background-color: #222222;
 	width: 100%;
-	display: table;
 }
-#headerContents{
-    margin: auto;
-    width: 100%;   
+
+#header_image{
+	height: 60px;
+	margin-top: 10px;
+	margin-left: 10px;
+	display: inline;
+	vertical-align: middle;
 }
-#headerLogo{
-    height: 80px;
-    padding: 10px;
-    display: inline-block;
-    vertical-align: middle;
+
+#header_title{
+	font-weight: 300;
+	position: relative;
+	top: 5px;
+	left: 10px;
+	color: white;
+	display: inline;
+	font-family: helvetica;
 }
-#headerTitle{
-    display: inline;
-    color: white;
-    font-family: Arial;
+nav{
+	width: 100%;
 }
-nav {
-	display: table;
-    background-color: white;
-    overflow: hidden;
-	width:100%;
-	margin: auto;
-	border-bottom-style: solid;
-	border-color: dimgrey;
-	height: 1.6vh;
+nav ul ul {
+	display: none;
+	z-index: 10;
 }
-nav ul{
-    margin: 0;
-    padding: 0;
-	list-style-type: none;
-	display: table-row;	
+
+nav ul li:hover > ul {
+	display: block;
 }
+
+nav ul {
+	width: 100%;
+	background: #0099cc; 
+	list-style: none;
+	position: relative;
+	display: inline-table;
+}
+
 nav ul li {
-	display: table-cell;
-	padding: 0;
-	text-align: center;
-	width:25%;
-	margin:auto;
+	float: left;
 }
-nav > ul > li:hover{
-	background-color: skyblue;
+
+nav ul li:hover {
+	background: #4b545f;
+
 }
-nav > ul > li > a {
-	text-align: center;
-    color:black;
-	text-decoration: none;
-	display:block; 
+		
+nav ul li:hover a {
+	color: #fff;
+}
+	
+nav ul li a {
+	display: block;
 	padding: 10px;
-	font-size: 1.4vw;
+	color: white;
+	text-decoration: none;
+}
+
+nav ul ul {
+	background: #5f6975;
+	border-radius: 0px; 
+	padding: 0;
+	position: absolute; 
+	top: 100%;
+	width: auto;
+}
+
+nav ul ul li {
+	float: none; 
+	position: relative;
+	}
+
+nav ul ul li a {
+	padding: 10px;
+	color: #fff;
+	}
+
+nav ul ul li a:hover {
+	background: #4b545f;
+}
+.wrapper{
+	max-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#main_page{
+	margin-top: 2%;
 }
 h3{
 	text-align: center;
@@ -121,4 +153,5 @@ td,th{
 }
 li{
 	text-align: left;
+	list-style-type: none;
 }
