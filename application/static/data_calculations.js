@@ -24,8 +24,6 @@ function getUtilisationScore(freq, occu){
 
 function setOccupancyPercentage(occu){
 	//This function calculates and displays the occupancy rating of a particular room according to the JSON data
-	
-
 	document.getElementById("general_occupancy_percent").innerHTML = occu.toString() + "%";
 }
 

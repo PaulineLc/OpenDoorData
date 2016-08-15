@@ -117,8 +117,6 @@ html, body{
 }
 
 #navList li{
-	padding: 10px;
-
 }
 
 #navList li:hover{
@@ -131,7 +129,7 @@ html, body{
 	color: white;
 	display: block;
 	position: relative;
-	left: 20px;
+	padding: 10px;
 }
 
 
@@ -238,6 +236,11 @@ html, body{
 
 .full_column_chart{
 	height: 300px;
+	background-color: white;
+}
+
+.full_column_chart_tall{
+	height: 500px;
 	background-color: white;
 }
 
