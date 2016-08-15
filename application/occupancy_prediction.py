@@ -6,6 +6,7 @@ from linear_model import get_linear_coef
 from models import wifi_log,room
 import datetime
 
+
 def getHistoricalData(rid, date, month, year):
     '''Takes in a specific room_id, date, month and year as parameters and returns
     the historical predicted occupancy data for each hour of that particular day'''
