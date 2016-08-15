@@ -18,6 +18,15 @@ body{
 	display: inline-block;
 	width: 100%;
 }
+
+#mobile_header{
+	display: none;
+}
+
+#navbar{
+	display: none;
+}
+
 #main_page{
 	width: 100%;
 	height: 100%;

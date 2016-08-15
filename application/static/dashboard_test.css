@@ -32,6 +32,10 @@ header{
 	font-family: helvetica;
 }
 
+#navbar{
+	display: none;
+}
+
 /*This was done with the help of tutorial http://line25.com/tutorials/how-to-create-a-pure-css-dropdown-menu*/
 nav{
 	width: 100%;

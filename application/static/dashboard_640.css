@@ -146,30 +146,9 @@ html, body{
 
 /*==========================DBHOME.HTML=====================*/
 
-.textContent{
-	background-color: white;
-	text-align: center;
-}
-
-.textContent img{
-	padding-top: 10px;
-}
-
-.textContent p{
-	font-size: 28px;
-}
-
-.textContent h1{
-	font-size: 60px;
-	color: #66ff99;
-}
-.textContent h1, p{
-	font-family: Arial;
+.text_content{
 	padding: 10px;
 }
-
-
-
 
 /*=========================ROOM.HTML======================*/
 
