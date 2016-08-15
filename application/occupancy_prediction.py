@@ -174,14 +174,12 @@ def getHourlyPrediction(wifi_logs, conn):
     room_data = pd.read_sql('select * from room;', con=conn)
     # Convert epoch to datetime in dataframe
 
-    print(wifi_logs)
 
     wifi_logs = dataframe_epochtime_to_datetime(wifi_logs, "event_time")
 
     wifi_logs = wifi_logs.groupby(['building','room_id', 'event_day', 'event_hour', 'event_month', 'event_year'], 
                                   as_index=False).median()
 
-    print(wifi_logs)
 
     #Calculate predicted occupancy
     wifi_logs['occupancy_pred'] = None
@@ -199,7 +197,7 @@ def getHourlyPrediction(wifi_logs, conn):
         building = wifi_logs['building'][i]
 
         capacity = room_data['room_cap'].loc[(room_data['room_num'] == room) & (room_data['building'] == building)].values[0]
-        print(wifi_logs['occupancy_pred'][i])
+        #print(wifi_logs['occupancy_pred'][i])
         prediction = set_occupancy_category(wifi_logs['occupancy_pred'][i], capacity)
         
         wifi_logs.set_value(i, 'occupancy_category_5', prediction[0])
@@ -301,3 +299,4 @@ def total_full_json():
         json_list.append(cur_data)
     
     return json_list
+
