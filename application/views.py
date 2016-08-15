@@ -12,13 +12,6 @@ from occupancy_prediction import getHistoricalData, getOccupancyRating, getGener
 def renderHome_Page():
     return render_template("index.html")
 
-# def renderHome_Page():
-#     rooms= room.select()
-#     data = total_full_json()
-#     jsonData = json.dumps(data)
-#     return render_template("home.html",
-#                            rooms = rooms,
-#                            )
 @app.route('/api/')
 def renderApi():
     return render_template("api.html")
@@ -111,4 +104,10 @@ def getModuleInfo(mid):
     #Merge both module information variables into one JSON file and return
     m_full = json_creator.returnModuleJSON(m_data, m_capacity)
     return m_full
+
+@app.route('/dashboard/general')
+def renderGeneral():
+    rooms= room.select()
+    return render_template("db_general.html", rooms=rooms)
+
 

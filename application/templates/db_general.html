@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='home.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='db_general.css') }}">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	
 	<title>OpenDoorData</title>
 </head>
 <body>
-	<div id = "main_page">
-	<header id="site_header">
-        <div id="headerContents">
-            <img id="headerLogo" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-            <h3 id="headerTitle">Open Door Data</h3>
-        </div>
+	<header>
+		<div class="wrapper">
+			<img id="header_image" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+			<h3 id="header_title">Open Door Data</h3>
+		</div>
 	</header>
-	
 	<nav>
+
+
 		<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="/dashboard">Dashboard</a></li>
-			<li><a href="/api">Api</a></li>
-			<li><a href="/survey">Survey</a></li>
+			<div class="wrapper">
+				<li><a href="/">Home</a></li>
+				<li><a>Dashboard</a>
+					<ul>
+						<li><a href="/dashboard/general">General Information</a></li>
+						<li><a href="/dashboard/building">Building Information</a></li>
+						<li><a href="/dashboard/room">Room Information</a></li>
+						<li><a href="/dashboard/module">Module Information</a></li>
+					</ul>
+				</li>
+				<li><a href="/api">API</a>
+				</li>
+				<li><a href="/survey">Survey</a></li>
+			</div>
 		</ul>
-    </nav>
+		</nav>
     
-	<div id = "wrapper">
+    <div id = "main_page">
+    
 	<div class="input_form">
 		<form action="">
 			<label for="location">Location</label>
