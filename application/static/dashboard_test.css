@@ -4,6 +4,9 @@
 	font-family: Helvetica;
 }
 
+#mobile_header{
+	display: none;
+}
 
 header{
 	height: 80px;
@@ -111,7 +114,7 @@ nav ul ul li a:hover {
 }
 
 .text_content{
-	
+	padding: 10px;	
 }
 
 .wrapper{
@@ -154,28 +157,7 @@ nav ul ul li a:hover {
 	margin-left: 220px;
     background-color: white;
 }
-.textContent{
-	background-color: white;
-	text-align: center;
-	min-height: 100%;
-}
 
-.textContent img{
-	padding-top: 10px;
-}
-
-.textContent p{
-	font-size: 28px;
-}
-
-.textContent h1{
-	font-size: 60px;
-	color: #66ff99;
-}
-.textContent h1, p{
-	font-family: Helvetica;
-	padding: 10px;
-}
 
 .home_display{
 	background-color: white;

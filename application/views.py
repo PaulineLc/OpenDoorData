@@ -93,12 +93,12 @@ def returnDailyStats(rid):
 
     return general_data_json
 
-@app.route('/dashboard/modules')
+@app.route('/dashboard/module')
 def renderModules():
     #need to get the list of all the modules that are on record
     module_list = queries.getModuleList()
     print(module_list)
-    return render_template('modules.html', modules=module_list)
+    return render_template('module_test.html', modules=module_list)
 
 @app.route('/getModuleInfo/<mid>')
 def getModuleInfo(mid):
