@@ -116,6 +116,11 @@ nav ul ul li a:hover {
 #main_page{
 	margin-top: 2%;
 }
+#main_page p{
+	font-size: 1.6vw;
+	padding: 1%;
+	text-align:center;
+}
 .survey_form{
 	background-color: lightgrey;
 	padding: 2%;
