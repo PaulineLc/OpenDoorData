@@ -378,12 +378,17 @@ function createModuleChart(ylabels, ydata){
                         //used for y axis title
                     },
                     ticks: {
-                        minRotation: 90,
-                        maxRotation: 90,
                         min: 0,
                         max: 100
                     }
+                }],
+                xAxes: [{
+                    ticks: {
+                        minRotation: 0,
+                        maxRotation: 90
+                    }
                 }]
+
             },
             maintainAspectRatio: false,
             responsive: true,
