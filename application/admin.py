@@ -15,10 +15,6 @@ class ModuleAdmin(ModelAdmin):
     filter_exclude = ('instructor__password','instructor__join_date','instructor__')
     filter_fields = ('module_code','instructor__username','instructor__email','instructor__id')
      
-class WifiAdmin(ModelAdmin):
-    columns = ('room_id', 'time', 'assoc_devices','auth_devices', 'building')
-    foreign_key_lookups = {'room_id': 'room_num','building':'building'}
-    filter_fields = ('room_id', 'time', 'assoc_devices','auth_devices','building')
    
 class TimetableAdmin(ModelAdmin):
     columns = ('room_id', 'mod_code', 'time','reg_stu', 'building')
@@ -41,15 +37,6 @@ class UserAdmin(ModelAdmin):
         return user
 
 
-class SurveyAdmin(ModelAdmin):
-    columns = ('room_id', 'time', 'occupancy','reporter', 'building')
-    foreign_key_lookups = {'room_id':'room_num','building':'building'}
-    filter_fields = ('id_field','room_id', 'time', 'occupancy','reporter__username','building')
-    
-class regressionAdmin(ModelAdmin):
-    columns = ('offset', 'weight', 'end_date')
-
-
 
 #importing admin models
 admin = Admin(app, auth)
@@ -57,8 +44,5 @@ auth.register_admin(admin)
 admin.register(User, UserAdmin)
 admin.register(room, RoomAdmin)
 admin.register(module, ModuleAdmin)
-admin.register(wifi_log, WifiAdmin)
 admin.register(timetable, TimetableAdmin)
-admin.register(survey, SurveyAdmin)
-#admin.register(regressionModel, regressionAdmin)
 

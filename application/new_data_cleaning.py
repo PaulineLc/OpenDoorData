@@ -7,9 +7,9 @@ import shutil
 import time
 
 def main():
+    os.chdir("..")
     while True:
-        while os.path.isfile(r"Data\new_data\CSI WiFiLogs.zip"):
-            os.chdir("..") 
+        while os.path.isfile(r"Data\new_data\CSI WiFiLogs.zip"): 
                
             zip1 = zipfile.ZipFile(r"Data\new_data\CSI WiFiLogs.zip")  
             zip1.extractall(r'Data\new_data')
