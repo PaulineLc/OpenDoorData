@@ -1,38 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='api.css') }}">
+		<link rel=stylesheet type=text/css media="(min-width: 640px)" href="{{ url_for('static', filename='api.css') }}">
+	<link rel=stylesheet type=text/css media="(max-width: 640px)" href="{{ url_for('static', filename='api_640.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	
 	<title>OpenDoorData</title>
 </head>
 <body>
-	<header>
-		<div class="wrapper">
-			<img id="header_image" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-			<h3 id="header_title">Open Door Data</h3>
+	<div id="full_screen_header">
+		<div id="wrapper">
+			<!--NAVBAR STUFF GOES HERE-->
+
+			<header id="large_screen_header">
+				<div class="wrapper">
+					<img id="header_image" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+					<h3 id="header_title">Open Door Data</h3>
+				</div>
+			</header>
+			<nav>
+
+				<ul>
+					<div class="wrapper">
+						<li><a href="/">Home</a></li>
+						<li><a>Dashboard</a>
+							<ul>
+								<li><a href="#">General Information</a></li>
+								<li><a href="/dashboard/building">Building Information</a></li>
+								<li><a href="/dashboard/room">Room Information</a></li>
+								<li><a href="/dashboard/module">Module Information</a></li>
+							</ul>
+						</li>
+						<li><a href="/api">API</a>
+						</li>
+						<li><a href="/survey">Survey</a></li>
+					</div>
+				</ul>
+			</nav>
 		</div>
-	</header>
-	<nav>
-
-
-		<ul>
-			<div class="wrapper">
-				<li><a href="/">Home</a></li>
-				<li><a>Dashboard</a>
-					<ul>
-						<li><a href="/dashboard/general">General Information</a></li>
-						<li><a href="/dashboard/building">Building Information</a></li>
-						<li><a href="/dashboard/room">Room Information</a></li>
-						<li><a href="/dashboard/module">Module Information</a></li>
-					</ul>
-				</li>
-				<li><a href="/api">API</a>
-				</li>
-				<li><a href="/survey">Survey</a></li>
+	</div>
+	<!-- MOBILE NAVBAR -->
+	<div id="navbar">
+		<div id="navContent">
+			<div id="navbar_title">
+				<img src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+				<h4 id="product_name">UCD Occupancy Checker</h4>
 			</div>
-		</ul>
-		</nav>
+
+			<ul id="navList">
+				<li><a href="/">Home</a></li>
+				<li><a href="/dashboard/building">Buildings</a></li>
+				<li><a href="/dashboard/room">Rooms</a></li>
+				<li><a href="/dashboard/modules">Modules</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+	<div id="mobile_header">
+		<div onclick="showNavBar()" id="navbar_symbol"><h1>≡</h1></div>
+		<h4 id="page_name">Room Information</h4>
+	</div>
     
     <div id = "main_page">
 	<h3>Open Door Data official API documentation</h3>
