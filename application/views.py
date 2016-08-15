@@ -6,7 +6,9 @@ from app import app
 from auth import auth
 from models import room,module
 import json
-from occupancy_prediction import getHistoricalData, getOccupancyRating, getGeneralData, getModuleData,full_room_json,total_full_json
+from occupancy_prediction import getHistoricalData,getOccupancyRating, getGeneralData 
+from occupancy_prediction import getWeeks,getModuleData,full_room_json,total_full_json
+
 
 @app.route('/')
 def renderHome_Page():
@@ -108,6 +110,11 @@ def getModuleInfo(mid):
 @app.route('/dashboard/general')
 def renderGeneral():
     rooms= room.select()
-    return render_template("db_general.html", rooms=rooms)
+    weeks = getWeeks()
+    return render_template("db_general.html", rooms=rooms, weeks=weeks)
 
-
+@app.route('/dashboard/general/<rid>/')
+def returnRoom_Data(rid):
+    data = full_room_json(rid)
+    jsonData = json.dumps(data)
+    return jsonData

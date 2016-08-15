@@ -301,3 +301,18 @@ def total_full_json():
     
     return json_list
 
+def getWeeks():
+    query = wifi_log.select().order_by(wifi_log.event_time).get()
+    query1 = wifi_log.select().order_by(wifi_log.event_time.desc()).get()
+    begin = query.event_time
+    one_day = 86400
+    end = query1.event_time- (one_day*4)
+    week_list = []
+    
+    while begin <=end:
+        date = datetime.datetime.fromtimestamp(begin).strftime('%d-%m-%Y')
+        week_list.append(str(date))
+        begin += (one_day*7)
+        
+    return week_list
+    

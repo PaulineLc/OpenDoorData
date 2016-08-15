@@ -43,10 +43,7 @@
 		  </select>
 			
 			<label for="week">Week</label>
-		  <select name="week">
-			<option value="any">Any</option>
-			<option value="week_1">Week 1</option>
-			<option value="week_2">Week 2</option>
+		  <select name="week" id = "weeks">
 		  </select>
 			
 			<label for="occupancy">Occupancy</label>
@@ -70,13 +67,18 @@
 		options +="<option value="+"'"+'{{ room.building }}'+","+'{{ room.room_num }}'+"'"+ ">"+'{{ room.building }}'+" - "+'{{ room.room_num }}'+"</option>";
 		{% endfor %}
 		rooms.innerHTML = options;
+		 
+		var weeks = document.getElementById("weeks");
+		options = "<option value='any'>Any</option>"
+		{% for week in weeks %}
+		options +="<option value="+"'"+'{{ week }}'+"'"+ ">"+"Week of "+'{{ week }}'+"</option>";
+		{% endfor %}
+		weeks.innerHTML = options;
 	</script>
 	
 <div id="calendar">
   <header id= "calendar_header">
-    <button id= 'back'>«</button>
-    <p>week 1</p>
-    <button id = 'forward'>»</button>
+    <p>week</p>
   </header>
 <table>
   <tr id="weekdays">
