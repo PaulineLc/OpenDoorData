@@ -3,7 +3,7 @@
 <head>
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='db_general.css') }}">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<title>OpenDoorData</title>
 </head>
 <body>
@@ -48,132 +48,127 @@
 			
 			<label for="occupancy">Occupancy</label>
 		  <select name="occupancy">
-			<option value="any">Any</option>
+			<option value="all">All</option>
 			<option value=0.0>0%</option>
 			<option value=0.25>25%</option>
 			<option value=0.50>50%</option>
 			<option value=0.75>75%</option>
 			<option value=1.0>100%</option>
 		  </select>
-			
-		  <input type="submit">
+			<button id="submit_button">Get Info!</button>
 		</form>
+		
 	</div>
 	
 	<script type = "text/javascript">
 		var rooms = document.getElementById("rooms");
-		options = "<option value='any'>Any</option>"
+		options = ""
 		{% for room in rooms %}
 		options +="<option value="+"'"+'{{ room.building }}'+","+'{{ room.room_num }}'+"'"+ ">"+'{{ room.building }}'+" - "+'{{ room.room_num }}'+"</option>";
 		{% endfor %}
 		rooms.innerHTML = options;
 		 
 		var weeks = document.getElementById("weeks");
-		options = "<option value='any'>Any</option>"
+		options = ""
 		{% for week in weeks %}
-		options +="<option value="+"'"+'{{ week }}'+"'"+ ">"+"Week of "+'{{ week }}'+"</option>";
+		options +="<option value="+"'"+'{{ week }}'+"'"+ ">"+'{{ week }}'+"</option>";
 		{% endfor %}
 		weeks.innerHTML = options;
 	</script>
-	
-<div id="calendar">
-  <header id= "calendar_header">
-    <p>week</p>
-  </header>
-<table>
-  <tr id="weekdays">
-	<td>Hour</td>
-    <td>Mon</td>
-    <td>Tue</td>
-    <td>Wed</td>
-    <td>Thur</td>
-    <td>Fri</td>
-  </tr>
-	
-  <tr>
-    <td id = "hour">8am</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-  </tr>
-  <tr>
-    <td id = "hour">9am</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-  </tr>
-	<tr>
-    <td id = "hour">10am</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-  </tr>
-	<tr>
-    <td id = "hour">11am</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-  </tr>
-	<tr>
-    <td id = "hour">12pm</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-  </tr>
-	<tr>
-    <td id = "hour">1pm</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-  </tr>
-	<tr>
-    <td id = "hour">2pm</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-  </tr>
-	<tr>
-    <td id = "hour">3pm</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-  </tr>
-	<tr>
-    <td id = "hour">4pm</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-  </tr>
-	<tr>
-    <td id = "hour">5pm</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-    <td>Test_test</td>
-  </tr>
-	
-</table>
+		
+	<h1 id = "content_area">Room Occupancy Calendar</h1>
+		
+	<div id="calendar">
+	</div>
 </div>
-</div>
-</div>
+	
+	
+<script>
+
+	function getJsonResult(get_url,week, occupancy){
+		try {
+			$.getJSON(get_url, function(jd){
+
+				data_entry = '<header id= "calendar_header"><p id = "week">Week of '+week+'</p></header><table><tr id="weekdays"><td>Hour</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thur</td><td>Fri</td></tr>';
+
+				if(occupancy != "all"){
+					var occupancy_level = (parseFloat(occupancy)*100);
+				}
+				
+				for (i=0; i<8; i++){
+					if (i<4){
+						hour = i+9;
+					}
+					else{
+						hour = i-3;
+					}
+					if (hour == 12 || hour<9){
+						timeap = "pm";
+					}
+					else{
+						timeap = "am";
+					}
+					data_entry += '<tr><td id = "hour">'+hour+timeap+'</td>';
+					for (k = 0; k < 5; k++) {
+						var entry = ((jd[k][i]["occupancy_category_5"])*100);
+						if (isNaN(entry)){
+							entry = "No Data";
+						}
+						if (entry != "No Data"){
+							if (entry != occupancy_level && occupancy != "all"){
+								entry = "";
+							}
+						}
+						var color = "";
+						switch(entry){
+							case 0:
+								color = "empty";
+								break;
+							case 25:
+								color = "quarter";
+								break;
+							case 50:
+								color = "half";
+								break;
+							case 75:
+								color = "almost_full"
+								break;
+							case 100:
+								color = "full"
+								break;
+						}
+								
+						data_entry += '<td id = "'+color+'">'+entry+'</td>';
+							
+					}
+					data_entry += "</tr>";
+					}
+				data_entry+= "</table>";
+				console.log(data_entry);
+				document.getElementById("calendar").innerHTML= data_entry;
+				return data_entry;
+			});
+			}
+		
+		catch(err) {
+			alert(err.message);
+			}
+	}
+	
+	$(document).ready(function(){
+    	$("form").click(function(event){
+			event.preventDefault();
+			var loc = $('select[name="location"]').val().split(',');
+			var room_num = loc[1].toString();
+			var week = $('select[name="week"]').val();
+			var occupancy = $('select[name="occupancy"]').val();
+
+			get_url = "/dashboard/general/"+room_num+"/"+week;
+			getJsonResult(get_url,week,occupancy);
+			
+    });
+});
+	</script>
+
 </body>
 </html>

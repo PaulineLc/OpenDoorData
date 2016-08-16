@@ -306,7 +306,7 @@ def getWeeks():
     query1 = wifi_log.select().order_by(wifi_log.event_time.desc()).get()
     begin = query.event_time
     one_day = 86400
-    end = query1.event_time- (one_day*4)
+    end = query1.event_time - (one_day*4)
     week_list = []
     
     while begin <=end:
@@ -315,4 +315,45 @@ def getWeeks():
         begin += (one_day*7)
         
     return week_list
+
+def week_room_json(rid,time_stamp):
+    
+    string = time_stamp.split("-")
+    
+    query = wifi_log.select().order_by(wifi_log.event_time).get()
+    query1 = wifi_log.select().order_by(wifi_log.event_time.desc()).get()
+    date_entered = (datetime.datetime(int(string[2]),int(string[1]),int(string[0]))- datetime.datetime(1970,1,1)).total_seconds()
+    one_day = 86400
+    week_later = date_entered + (one_day*5)
+    
+    begin = max(date_entered,query.event_time)
+    end = min(week_later,query1.event_time)
+    
+    json_list = []
+    data_list = []
+    date = datetime.datetime.fromtimestamp(begin)
+    if int(date.strftime("%H"))>16:
+        for i in range(8):
+            data = {i:"No Data"}
+            data_list.append(data)
+        json_list.append(data_list)
+            
+        begin += one_day
+    
+    while begin<=end:
+
+        date = datetime.datetime.fromtimestamp(begin)
+        try:
+            cur_data = getHistoricalData(rid, date.day, date.month, date.year)
+        except:
+            break
+        json_list.append(cur_data)
+        if date.strftime("%a") != "Fri":
+            begin += one_day
+        else:
+            begin += (one_day*3)
+
+    
+    return json_list
+    
     
