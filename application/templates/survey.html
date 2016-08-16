@@ -7,32 +7,56 @@
 	<title>OpenDoorData</title>
 </head>
 <body>
-	<header>
-		<div class="wrapper">
-			<img id="header_image" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-			<h3 id="header_title">Open Door Data</h3>
-		</div>
-	</header>
-	<nav>
-	
+			<div id="full_screen_header">
+		<div id="wrapper">
+			<!--NAVBAR STUFF GOES HERE-->
 
-		<ul>
-			<div class="wrapper">
-				<li><a href="/">Home</a></li>
-				<li><a>Dashboard</a>
-					<ul>
-						<li><a href="/dashboard/general">General Information</a></li>
-						<li><a href="/dashboard/building">Building Information</a></li>
-						<li><a href="/dashboard/room">Room Information</a></li>
-						<li><a href="/dashboard/module">Module Information</a></li>
-					</ul>
-				</li>
-				<li><a href="/api">API</a>
-				</li>
-				<li><a href="/survey">Survey</a></li>
+			<header id="large_screen_header">
+				<div class="wrapper">
+					<img id="header_image" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+					<h3 id="header_title">Open Door Data</h3>
+				</div>
+			</header>
+			<nav>
+
+				<ul>
+					<div class="wrapper">
+						<li><a href="/">Home</a></li>
+						<li><a>Dashboard</a>
+							<ul>
+								<li><a href="/dashboard/general">General Information</a></li>
+								<li><a href="/building">Building Information</a></li>
+								<li><a href="/room">Room Information</a></li>
+								<li><a href="/module">Module Information</a></li>
+							</ul>
+						</li>
+						<li><a href="/api">API</a>
+						</li>
+						<li><a href="/survey">Survey</a></li>
+					</div>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!-- MOBILE NAVBAR -->
+	<div id="navbar">
+		<div id="navContent">
+			<div id="navbar_title">
+				<img src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+				<h4 id="product_name">UCD Occupancy Checker</h4>
 			</div>
-		</ul>
-	</nav>
+
+			<ul id="navList">
+				<li><a href="/">Home</a></li>
+				<li><a href="/dashboard/general">General Information</a></li>
+				<li><a href="/building">Building Information</a></li>
+				<li><a href="/room">Room Information</a></li>
+				<li><a href="/module">Module Information</a></li>
+				<li><a href="/api">API</a></li>
+				<li><a href="/survey">Survey</a></li>
+			</ul>
+		</div>
+	</div>
 	<div id = "main_page">
     <h2 style='text-align:center'>Occupancy Survey Submission</h2>
 	<p>Please select the three options below to submit occupancy information for your classroom</p>
