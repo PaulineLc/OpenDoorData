@@ -1,5 +1,6 @@
-#configuration
-    
+# configuration file with three config subclasses
+
+# create config class with local environment variables
 class Config(object):
     DATABASE = {
         'name': 'wifi_db',
@@ -12,12 +13,15 @@ class Config(object):
     SECRET_KEY = 'shhhh'
 
 
+# create production subclass to toggle DEBUG off
 class ProductionConfig(Config):
     DEBUG = False
 
+# create development subclass
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
 
+# create testing subclass to toggle TESTING on
 class TestingConfig(Config):
     TESTING = True
 
