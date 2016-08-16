@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='survey.css') }}">
+	<link rel=stylesheet type=text/css media="(min-width: 640px)" href="{{ url_for('static', filename='survey.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel=stylesheet type=text/css media="(max-width: 640px)" href="{{ url_for('static', filename='survey_640.css') }}">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<link rel="icon" href="{{ url_for('static', filename='images/thumbnail.png') }}">
 	<title>OpenDoorData</title>
 </head>
 <body>
-			<div id="full_screen_header">
+<div id="full_screen_header">
 		<div id="wrapper">
 			<!--NAVBAR STUFF GOES HERE-->
 
@@ -57,6 +60,12 @@
 				<li><a href="/survey">Survey</a></li>
 			</ul>
 		</div>
+	</div>
+
+
+	<div id="mobile_header">
+		<div onclick="showNavBar()" id="navbar_symbol"><h1>≡</h1></div>
+		<h4 id="page_name">Home</h4>
 	</div>
 	<div id = "main_page">
     <h2 style='text-align:center'>Occupancy Survey Submission</h2>
