@@ -8,6 +8,7 @@ from models import room,module
 import json
 from occupancy_prediction import getHistoricalData,getOccupancyRating, getGeneralData 
 from occupancy_prediction import getWeeks,getModuleData,full_room_json,total_full_json
+from occupancy_prediction import week_room_json
 
 
 @app.route('/')
@@ -114,5 +115,11 @@ def getModuleInfo(mid):
 @app.route('/dashboard/general/<rid>/')
 def returnRoom_Data(rid):
     data = full_room_json(rid)
+    jsonData = json.dumps(data)
+    return jsonData
+
+@app.route('/dashboard/general/<rid>/<time_stamp>')
+def returnWeek_Data(rid,time_stamp):
+    data = week_room_json(rid, time_stamp)
     jsonData = json.dumps(data)
     return jsonData
