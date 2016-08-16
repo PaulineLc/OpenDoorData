@@ -1,9 +1,9 @@
 # file that contains db models to be exposed via a REST API
 
-from models import room, survey, wifi_log, timetable, module
+from models import room, survey, wifi_log, timetable, module # import db models
 from app import app # import Flask app
 from auth import auth # import Auth app to provide user authentificaiton
-from flask import request
+from flask import request # import request object to parse json request data
 
 from flask_peewee.rest import RestAPI,UserAuthentication, RestrictOwnerResource, AdminAuthentication
 
@@ -12,15 +12,18 @@ class SurveyResource(RestrictOwnerResource):
     owner_field = 'reporter'
     
     def check_post(self):
+
         '''fucntion that checks users are associated with the module they are submitting a POST request to '''
-        obj = request.get_json()
+
+        obj = request.get_json() # parse and return incoming json request data
         user = obj["reporter"]
         mod= obj["module_code"]
-        
-        modules = module.select().where(module.module_code == mod)
-        authorized = False
+
+        modules = module.select().where(module.module_code == mod) # select module data from module table in db using module_code posted by user 
+        authorized = False # initialise authorized variable as False
+
         for item in modules:
-            instructor = str(item.instructor)
+            instructor = str(item.instructor) # select instructor associated with item
             if instructor == user:
                 authorized = True
         print(authorized)
