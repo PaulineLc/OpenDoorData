@@ -1,5 +1,4 @@
 #entry point to site
-
 from app import app
 from auth import *
 from admin import admin
