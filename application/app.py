@@ -1,9 +1,11 @@
-from flask import Flask
+# file that contains flask app setup code
+
+from flask import Flask # import Flask class
 from config import DevelopmentConfig
 import peewee
 
-app = Flask(__name__)
-app.config.from_object(DevelopmentConfig)
+app = Flask(__name__) # instantiate the Flask class
+app.config.from_object(DevelopmentConfig) # initialise app with development config
 configdb = app.config['DATABASE']
 
 
