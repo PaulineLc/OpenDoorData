@@ -109,7 +109,7 @@ class module(BaseModel):
         indexes = ((('module_code','instructor'), True),)
          
     def __str__(self):
-        return str(self.id_field)
+        return str(self.module_code)
 
 class timetable(BaseModel):
     id_field = peewee.PrimaryKeyField()
