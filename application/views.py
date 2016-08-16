@@ -15,7 +15,7 @@ from occupancy_prediction import week_room_json
 def renderHome_Page():
     return render_template("index.html")
 
-@app.route('/api')
+@app.route('/api/')
 def renderApi():
     return render_template("api.html")
 
@@ -34,7 +34,7 @@ def renderModules():
     print(module_list)
     return render_template('module.html', modules=module_list)
 
-@app.route('/dashboard/general')
+@app.route('/dashboard/general/')
 def renderGeneral():
     rooms= room.select()
     weeks = getWeeks()

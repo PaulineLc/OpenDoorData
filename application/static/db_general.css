@@ -150,9 +150,12 @@ select{
 	width: 80%;
 	margin: auto;
 	border-bottom-width: 1px;
+	font-size: 2.2vw;
 }
+
 #calendar{
 	width: 80%;
+	height: 100%;
 	border: 1px solid black;
 	margin: auto;
 	margin-top: 1%;
@@ -163,26 +166,38 @@ select{
 #calendar_header{
 	background-color: #0099cc;
 	text-align: center;
+	font-size: 2vw;
 }
 #calendar table{
 	padding: 2%;
-	border: 3px solid blue;
 	width: 96%;
+	height: 100%;
 	margin: auto;
+	margin-bottom: 2%;
+	margin-top: 2%;
+	border-collapse: separate;
 }
-#calendar tr{
+th{
+	border-bottom: 1px solid black;
+	font-size: 1.4vw;
+}
+tr{
 	margin: auto;
 	width: 100%;
-	border: 1px solid black;
 }
-#calendar td{
-	width: 18%;
+td{
+	width: 19%;
 	margin:auto;
-	height:5%;
+	border-radius: 5px;
+	text-align: center;
+	padding: 1%;
+	font-size: 1.4vw;
 }
 #hour{
-	width:5% !important;
-	border: 1px solid yellow;
+	width:5%;
+	background-color: gray;
+	border-radius: 5px;
+	font-size: 1.4vw;
 }
 #calendar p{
 	text-align: center;
