@@ -1,114 +1,145 @@
-
 *{
-	padding: 0;
 	margin: 0;
-	font-family: "Open Sans";
+	padding: 0;
+	font-family: Helvetica;
 }
 
-
-
-html, body{
-	background-color: #f2f2f2;
-	height: 100%;
-	width: 100%;
-}
-
-
-
-/*Used to make sure that screen elements don't extent out past the max width*/
-#wrapper{
-	width: 100%;
-	height: 100%;
-	background-color: #f2f2f2;
+#mobile_header{
+	display: none;
 }
 
 header{
-	display: none;
+	height: 80px;
+	background-color: #222222;
 	width: 100%;
-	height: 50px;
-	margin-bottom: 5px;
 }
 
-/*All CSS classes related to the header go here*/
-#navbar_title{
-	background-color: black;
-	height: 50px;
+#header_image{
+	height: 60px;
+	margin-top: 10px;
+	margin-left: 10px;
+	display: inline;
+	vertical-align: middle;
+}
+
+#header_title{
+	font-weight: 300;
+	position: relative;
+	top: 5px;
+	left: 10px;
+	color: white;
+	display: inline;
+	font-family: helvetica;
+}
+
+#navbar{
+	display: none;
+}
+
+/*This was done with the help of tutorial http://line25.com/tutorials/how-to-create-a-pure-css-dropdown-menu*/
+nav{
 	width: 100%;
+}
+nav ul ul {
+	display: none;
 	z-index: 10;
 }
 
-#navbar_symbol{
-	margin-left: 10px;
+nav ul li:hover > ul {
+	display: block;
 }
 
-#navbar_title img{
-	height: 30px;
-	margin-top:10px;
-	display: inline-block;
-	vertical-align: middle;
+nav ul {
+	width: 100%;
+	background: #0099cc; 
+	list-style: none;
 	position: relative;
-	left: 5px;
-	margin-right: 10px;
+	display: inline-table;
 }
 
-#navbar_title h4{
-	font-size: 13px;
-	margin-top:10px;
-	color: white;
-	vertical-align: middle;
-	display: inline-block;
-	font-family: Arial;
+nav ul li {
+	float: left;
 }
 
-/*All CSS relating to the navigation bar*/
+nav ul li:hover {
+	background: #4b545f;
 
-#navbar{
-	position: fixed;
-    top: 0px;
-    left: 0px;
-	background-color: #2F4050;
-	height: 100%;
+}
+		
+nav ul li:hover a {
+	color: #fff;
+}
+	
+nav ul li a {
 	display: block;
-	width: 220px;
-}
-
-.navbar_section_title{
-	font-weight: normal;
-	font-size: 15px;
-}
-
-#navbar_title_main{
-	display: block;
-	width: 180px;
-	margin: auto;
-	border-bottom: 1px solid white;
-}
-
-#navContent{
-	color: white;
-}
-
-#navList{
-	font-size: 14px;
-	font-weight: 600;
-	list-style-type: none;
-}
-
-#navList li{
 	padding: 10px;
+	color: white;
+	text-decoration: none;
 }
 
-#navList li:hover{
-	background-color: #293846;
-	box-shadow: 5px 0 0 #00b3b3 inset;
-} 
+nav ul ul {
+	background: #5f6975;
+	border-radius: 0px; 
+	padding: 0;
+	position: absolute; 
+	top: 100%;
+	width: auto;
+}
 
-#navList a{
-	text-decoration: none;
-	color: white;
-	display: block;
+nav ul ul li {
+	float: none; 
 	position: relative;
-	left: 20px;
+	}
+
+nav ul ul li a {
+	padding: 10px;
+	color: #fff;
+	}
+
+nav ul ul li a:hover {
+	background: #4b545f;
+}
+
+#left_content_section{
+	width: 100%;
+	background-color: white;
+	height: auto;
+}
+
+#hero_image_section{
+	padding: 10px;
+	text-align: center;
+}
+
+#hero_image_section img{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+.text_content{
+	padding: 10px;	
+}
+
+.wrapper{
+	max-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  color: #999999;
+  background-color: #222222;
+}
+
+.footer h4{
+	font-weight: 300;
+	font-size: 13px;
 }
 
 
@@ -130,28 +161,7 @@ header{
 	margin-left: 220px;
     background-color: white;
 }
-.textContent{
-	background-color: white;
-	text-align: center;
-	min-height: 100%;
-}
 
-.textContent img{
-	padding-top: 10px;
-}
-
-.textContent p{
-	font-size: 28px;
-}
-
-.textContent h1{
-	font-size: 60px;
-	color: #66ff99;
-}
-.textContent h1, p{
-	font-family: Arial;
-	padding: 10px;
-}
 
 .home_display{
 	background-color: white;
@@ -166,7 +176,6 @@ header{
 	background-color: white;
 	border-radius: 3px;
 	height: 60px;
-	margin-bottom: 5px;
 	text-align: center;
 }
 
@@ -177,6 +186,7 @@ header{
 	margin-right: 10px;
 	vertical-align: middle;
 }
+
 
 #room_selector{
 	position: relative;
@@ -228,26 +238,23 @@ header{
 }
 /*Chart Styling for room.html*/
 .chartArea{
+	padding-top: 10px;
 	background-color: white;
-	width: 50%;
-	height: 300px;
+	width: 100%;
+	height: 150px;
 	display: inline-block;
 	vertical-align: top;
 	margin-right: -5px;
 }
 
 .percentage_display{
-	width: 50%;
-	display: inline-block;
-	font-size: 40px;
+	display: block;
 	text-align: center;
 }
 
 
 .percentage_display h1{
 /*	/*width: 40%;*/
-	position:relative;
-	top: 80px;
 }
 
 
@@ -274,13 +281,18 @@ header{
 }
 
 .chart_title{
-	background-color: #00ccff;
-	height: 20px;
+	background-color: #0099CC;
+	
 	text-align: center;
 	color: white;
 	margin-bottom: 2px;
+	font-weight: 200;
 }
 
+.chart_title h4{
+	font-weight: 200;
+	padding: 5px;
+}
 #date_selector{
 }
 
@@ -292,9 +304,11 @@ header{
 
 #googleMap{
 	height: 500px;
+
 }
 
 .map_section{
+	z-index: 8;
 	margin-bottom: 5px;
 	padding: 10px;
 	background-color: white;
@@ -346,6 +360,9 @@ header{
 	padding: 0.5%;
 }
 
+.three_column_left, .three_column_right, .three_column_middle{
+	height: 250px;
+}
 .three_column_left{
 	background-color: white;
 	width: 33%;
