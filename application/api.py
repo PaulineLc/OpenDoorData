@@ -1,17 +1,18 @@
-##api.py - Where you register models to be exposed via a REST API
+# file that contains db models to be exposed via a REST API
 
 from models import room, survey, wifi_log, timetable, module
-from app import app # our project's Flask app
-from auth import auth # import the Auth object used by our project
+from app import app # import Flask app
+from auth import auth # import Auth app to provide user authentificaiton
 from flask import request
 
 from flask_peewee.rest import RestAPI,UserAuthentication, RestrictOwnerResource, AdminAuthentication
 
+# create RestrictOwnerResource subclass which prevents users modifying another user's content
 class SurveyResource(RestrictOwnerResource):
     owner_field = 'reporter'
     
-#add check to ensure that user's are associated with module they are submitting a post request to  
     def check_post(self):
+        '''fucntion that checks users are associated with the module they are submitting a POST request to '''
         obj = request.get_json()
         user = obj["reporter"]
         mod= obj["module_code"]
@@ -27,15 +28,16 @@ class SurveyResource(RestrictOwnerResource):
         return authorized
 
     
-# create an instance of UserAuthentication
+# instantiate UserAuthentication
 user_auth = UserAuthentication(auth)
+
 # instantiate admin-only auth
 admin_auth = AdminAuthentication(auth)
 
 # instantiate our api wrapper, specifying user_auth as the default
 api = RestAPI(app, default_auth=user_auth)
-# register our models so they are exposed via /api/<model>/
 
+# register models so they are exposed via /api/<model>/
 api.register(room, auth=admin_auth, allowed_methods=['GET'])
 api.register(survey,SurveyResource,allowed_methods=['GET','POST'])
 api.register(wifi_log, auth=admin_auth,allowed_methods=['GET'])
