@@ -26,7 +26,6 @@ class SurveyResource(RestrictOwnerResource):
             instructor = str(item.instructor) # select instructor associated with item
             if instructor == user:
                 authorized = True
-        print(authorized)
 
         return authorized
 
