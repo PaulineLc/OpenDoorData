@@ -319,11 +319,11 @@ threeCategoryChart = new Chart(ctx, {
         labels: timeList_short,
         datasets: [{
             fill: true,
-            label: 'Actual Occupancy',
+            label: 'Predited Occupancy',
             data: predicted_data_3_cat,
             backgroundColor:
-            'rgba(255, 99, 132, 0.2)',
-            borderColor:'rgba(255,99,132,1)',
+                'rgba(100, 230, 184, 0.2)',
+                borderColor:"rgba(100, 230, 184, 0.2)",
             borderWidth: 1}]
         },
 
