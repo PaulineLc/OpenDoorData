@@ -8,32 +8,37 @@
 	<link rel="icon" href="{{ url_for('static', filename='images/thumbnail.png') }}">
 </head>
 <body>
-	<header>
-		<div class="wrapper">
-			<img id="header_image" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
-			<h3 id="header_title">Open Door Data</h3>
+				<div id="full_screen_header">
+		<div id="wrapper">
+			<!--NAVBAR STUFF GOES HERE-->
+
+			<header id="large_screen_header">
+				<div class="wrapper">
+					<img id="header_image" src="{{ url_for('static', filename='images/ucd-logo.png') }}">
+					<h3 id="header_title">Open Door Data</h3>
+				</div>
+			</header>
+			<nav>
+
+				<ul>
+					<div class="wrapper">
+						<li><a href="/">Home</a></li>
+						<li><a>Dashboard</a>
+							<ul>
+								<li><a href="/dashboard/general">General Information</a></li>
+								<li><a href="/building">Building Information</a></li>
+								<li><a href="/room">Room Information</a></li>
+								<li><a href="/module">Module Information</a></li>
+							</ul>
+						</li>
+						<li><a href="/api">API</a>
+						</li>
+						<li><a href="/survey">Survey</a></li>
+					</div>
+				</ul>
+			</nav>
 		</div>
-	</header>
-	<nav>
-
-
-		<ul>
-			<div class="wrapper">
-				<li><a href="/">Home</a></li>
-				<li><a>Dashboard</a>
-					<ul>
-						<li><a href="/dashboard/general">General Information</a></li>
-						<li><a href="/dashboard/building">Building Information</a></li>
-						<li><a href="/dashboard/room">Room Information</a></li>
-						<li><a href="/dashboard/module">Module Information</a></li>
-					</ul>
-				</li>
-				<li><a href="/api">API</a>
-				</li>
-				<li><a href="/survey">Survey</a></li>
-			</div>
-		</ul>
-		</nav>
+	</div>
     
     <div id = "main_page">
     

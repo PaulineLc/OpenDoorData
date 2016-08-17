@@ -245,11 +245,11 @@ html, body{
 }
 
 .chart_title{
-	background-color: #00ccff;
-	height: 20px;
+	background-color: #0099CC;
 	text-align: center;
 	color: white;
 	margin-bottom: 2px;
+	font-weight: 200;
 }
 
 #date_selector{
