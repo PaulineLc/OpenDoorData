@@ -11,8 +11,7 @@ import new_data_entry
 
 admin.setup()
 api.setup()
-#new_data_cleaning.main()
-#new_data_entry.main()
+
 
 if __name__ == '__main__':
     app.run()
