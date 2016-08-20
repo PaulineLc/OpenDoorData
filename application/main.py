@@ -5,8 +5,7 @@ from admin import admin
 from api import api
 from models import *
 from views import *
-import new_data_cleaning
-import new_data_entry
+
 
 
 admin.setup()

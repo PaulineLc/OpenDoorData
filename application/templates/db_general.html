@@ -150,7 +150,6 @@
 					data_entry += "</tr>";
 					}
 				data_entry+= "</table>";
-				console.log(data_entry);
 				document.getElementById("calendar").innerHTML= data_entry;
 				return data_entry;
 			});
@@ -162,7 +161,14 @@
 	}
 	
 	$(document).ready(function(){
+/*
+		by using "form" the data reloads whenever any selection changes
+*/
     	$("form").click(function(event){
+			console.log("test");
+			console.log(event);
+			
+			
 			event.preventDefault();
 			var loc = $('select[name="location"]').val().split(',');
 			var room_num = loc[1].toString();
