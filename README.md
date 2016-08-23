@@ -17,7 +17,7 @@ A LAMP stack
 &nbsp;
 
 <img style="width:40%;" src="application/static/readme_images/lamp.PNG" alt = "stack" />
-![alt tag](application/static/readme_images/lamp.PNG)
+![alt tag](https://git.ucd.ie/coolhanddon/summerproject/blob/master/application/static/readme_images/lamp.PNG)
 &nbsp;
 
 Our full application architecture was based on the Flask-Peewee framework, designed using the Django methodology, and is encapsulated in the following image:
