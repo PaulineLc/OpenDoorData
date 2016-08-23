@@ -11,7 +11,6 @@ An MVC architecture pattern
 <img style="width:50%;" src="application/static/readme_images/mvc.png" alt = "MVC Pattern" />
 &nbsp;
 
-![alt tag](application/static/readme_images/mvc.png)
 
 A LAMP stack
 &nbsp;
