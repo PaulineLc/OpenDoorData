@@ -27,12 +27,21 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-To install Open Door Data either pip or easy_install the full Git address of this application. All modules required for this application will be installed as well.
+To install Open Door Data either pip or easy_install the full Git address of this application. All modules required for this application will be installed as well. You will also need to have MySql running on your machine. 
 
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+To run a live version of this application on your own machine after installing, you will need to do the following:
+
+1. Open the application directory
+2. Run app.py to instantiate your app
+3. Run models.py to create your mysql database
+4. Run original_datacleaning.py to clean the original data
+5. Run original_data_entry.py to enter the cleaned data into the database
+6. Run main.py to launch the site on your local machine
+
+After this if you would like to continue adding wifi log data you can send the zipped log files to the new_data folder and start new_data_cleaning.py and new_data_entry.py which will continue to check that folder every 5 minutes. 
 
 ## Versioning
 
